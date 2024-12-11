@@ -28,6 +28,8 @@ class m240925_011459_create_app_tables extends Migration
             'company_id' => $this->string()->defaultValue(null),
             'username' => $this->string()->unique(),
             'phone_no' => $this->string()->unique(),
+            'first_name' => $this->string()->notNull(),
+            'last_name' => $this->string()->notNull(),
             'verification_token' => $this->string()->defaultValue(null),
             'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
