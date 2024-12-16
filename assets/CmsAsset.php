@@ -30,16 +30,22 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/css/vendors/feather-icon.css",
         "/web/cms/assets/css/vendors/scrollbar.css",
         "/web/cms/assets/css/vendors/animate.css",
-        "/web/cms/assets/css/vendors/bootstrap.css",
+        // "/web/cms/assets/css/vendors/bootstrap.css",
         "/web/cms/assets/css/vector-map.css",
         "/web/cms/assets/css/vendors/slick.css",
         "/web/cms/assets/css/style.css",
 
 
+        "/web/cms/assets/css/vendors/dropzone.css",
+        // "/web/cms/assets/css/select2.min.css",
+        "/web/cms/assets/css/vendors/chartist.css",
+        "/web/cms/assets/css/vendors/date-picker.css",
+        "/web/cms/assets/css/vendors/bootstrap-tagsinput.css",
+
     ];
     public $js = [
-        "/web/cms/assets/js/jquery-3.6.0.min.js",
-        "/web/cms/assets/js/bootstrap/bootstrap.bundle.min.js",
+        // "/web/cms/assets/js/jquery-3.6.0.min.js",
+        // "/web/cms/assets/js/bootstrap/bootstrap.bundle.min.js",
         "/web/cms/assets/js/icons/feather-icon/feather.min.js",
         "/web/cms/assets/js/icons/feather-icon/feather-icon.js",
         "/web/cms/assets/js/scrollbar/simplebar.js",
@@ -47,8 +53,8 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/js/config.js",
         "/web/cms/assets/js/tooltip-init.js",
         "/web/cms/assets/js/sidebar-menu.js",
-        "/web/cms/assets/js/notify/bootstrap-notify.min.js",
-        "/web/cms/assets/js/notify/index.js",
+        // "/web/cms/assets/js/notify/bootstrap-notify.min.js",
+        // "/web/cms/assets/js/notify/index.js",
         "/web/cms/assets/js/chart/apex-chart/apex-chart1.js",
         "/web/cms/assets/js/chart/apex-chart/moment.min.js",
         "/web/cms/assets/js/chart/apex-chart/apex-chart.js",
@@ -60,6 +66,16 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/js/ratio.js",
         "/web/cms/assets/js/sidebareffect.js",
         "/web/cms/assets/js/script.js",
+
+
+
+        "/web/cms/assets/js/bootstrap-tagsinput.min.js",
+        "/web/cms/assets/js/dropzone/dropzone.js",
+        "/web/cms/assets/js/dropzone/dropzone-script.js",
+        "/web/cms/assets/js/ckeditor.js",
+        "/web/cms/assets/js/ckeditor-custom.js",
+        // "/web/cms/assets/js/select2.min.js",
+        // "/web/cms/assets/js/select2-custom.js",
     ];
     public $depends = [
         'yii\web\YiiAsset',

@@ -23,6 +23,7 @@ use Yii;
  */
 class Brand extends \yii\db\ActiveRecord
 {
+    public $file;
     /**
      * {@inheritdoc}
      */
@@ -42,6 +43,8 @@ class Brand extends \yii\db\ActiveRecord
             [['id', 'company_id', 'name', 'logo', 'description', 'status', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['file'], 'file', 'skipOnEmpty' => true],
+
         ];
     }
 

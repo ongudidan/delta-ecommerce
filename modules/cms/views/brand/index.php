@@ -1,18 +1,19 @@
 <?php
 
-use app\models\ProductCategory;
+use app\models\Brand;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\modules\cms\models\ProductCategorySearch $searchModel */
+/** @var app\modules\cms\models\BrandSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Product Categories';
+$this->title = 'Brands';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
 
 <!-- Container-fluid starts-->
 <div class="page-body">
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card card-table">
                     <div class="card-body">
                         <div class="title-header option-title d-sm-flex d-block">
-                            <h5>Product-Category List</h5>
+                            <h5>Brands List</h5>
                             <div class="right-options">
                                 <ul>
                                     <li>
@@ -32,17 +33,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <a href="javascript:void(0)">Export</a>
                                     </li>
                                     <li>
-                                        <a class="btn btn-solid" href="<?= Url::to(['/cms/product-category/create']) ?>">Add Product-Category</a>
+                                        <a class="btn btn-solid" href="<?= Url::to(['/cms/brand/create']) ?>">Add brand</a>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                         <div>
                             <div class="table-responsive">
-                                <table class="table all-package theme-table table-product-category" id="table_id">
+                                <table class="table all-package theme-table table-brand" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Thumbnail</th>
+                                            <th>Logo</th>
                                             <th>Name</th>
                                             <th>Status</th>
                                             <th>Option</th>
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <tr>
                                                     <td>
                                                         <div class="table-image">
-                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
+                                                            <img src="/web/uploads/<?= $row->logo ?>" class="img-fluid"
                                                                 alt="">
                                                         </div>
                                                     </td>
@@ -70,19 +71,19 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     <td>
                                                         <ul>
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product-category/view', 'id' => $row->id]) ?>">
+                                                                <a href="<?= Url::to(['/cms/brand/view', 'id' => $row->id]) ?>">
                                                                     <i class="ri-eye-line"></i>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product-category/update', 'id' => $row->id]) ?>">
+                                                                <a href="<?= Url::to(['/cms/brand/update', 'id' => $row->id]) ?>">
                                                                     <i class="ri-pencil-line"></i>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product-category/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
+                                                                <a href="<?= Url::to(['/cms/brand/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalToggle">
                                                                     <i class="ri-delete-bin-line"></i>
                                                                 </a>

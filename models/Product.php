@@ -60,7 +60,7 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id','product_sub_category_id', 'product_category_id', 'name',  'compare_price', 'selling_price'], 'required'],
+            [['id','product_sub_category_id', 'product_category_id', 'brand_id', 'unit_id', 'name',  'compare_price', 'selling_price'], 'required'],
             [['selling_price'], 'number'],
             [['created_at', 'updated_at'], 'integer'],
             [['id', 'product_sub_category_id', 'product_category_id', 'company_id', 'brand_id', 'unit_id', 'name', 'product_number', 'description', 'specifications', 'thumbnail', 'created_by', 'updated_by'], 'string', 'max' => 255],
@@ -83,6 +83,9 @@ class Product extends \yii\db\ActiveRecord
             'product_sub_category_id' => 'Product Sub Category',
             'product_category_id' => 'Product Category',
             'company_id' => 'Company',
+            'unit_id' => 'Unit',
+            'brand_id' => 'Brand',
+
             'name' => 'Name',
             'selling_price' => 'Selling Price',
             'product_number' => 'Product Number',

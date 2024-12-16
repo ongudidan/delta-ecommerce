@@ -28,6 +28,24 @@ $sidebarItems = [
             ['title' => 'Add New Category', 'url' => ['/cms/product-category/create']],
         ],
     ],
+    [
+        'title' => 'Brands',
+        'icon' => 'ri-list-check-2',
+        'url' => 'javascript:void(0)',
+        'children' => [
+            ['title' => 'brand List', 'url' => ['/cms/brand/index']],
+            ['title' => 'Add New brand', 'url' => ['/cms/brand/create']],
+        ],
+    ],
+    [
+        'title' => 'Units',
+        'icon' => 'ri-list-check-2',
+        'url' => 'javascript:void(0)',
+        'children' => [
+            ['title' => 'unit List', 'url' => ['/cms/unit/index']],
+            ['title' => 'Add New unit', 'url' => ['/cms/unit/create']],
+        ],
+    ],
 ];
 ?>
 

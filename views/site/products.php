@@ -90,7 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         </a>
                                         <p class="text-content mt-1 mb-2 product-content"><?= $row->description ?></p>
 
-                                        <h5 class="price"><span class="theme-color">Ksh. <?= number_format($row->selling_price) ?></span> <del>$15.15</del>
+                                        <h5 class="price"><span class="theme-color">Ksh. <?= number_format($row->selling_price) ?></span> <del>Ksh. <?= number_format($row->compare_price) ?></del>
                                         </h5>
                                     </div>
                                 </div>
@@ -103,28 +103,21 @@ $this->params['breadcrumbs'][] = $this->title;
                 </div>
 
                 <nav class="custome-pagination">
-                    <ul class="pagination justify-content-center">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="javascript:void(0)" tabindex="-1" aria-disabled="true">
-                                <i class="fa-solid fa-angles-left"></i>
-                            </a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="javascript:void(0)">1</a>
-                        </li>
-                        <li class="page-item" aria-current="page">
-                            <a class="page-link" href="javascript:void(0)">2</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:void(0)">3</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="javascript:void(0)">
-                                <i class="fa-solid fa-angles-right"></i>
-                            </a>
-                        </li>
-                    </ul>
+                    <?= \yii\bootstrap5\LinkPager::widget([
+                        'pagination' => $dataProvider->pagination,
+                        'options' => ['class' => 'pagination justify-content-center'], // Apply your custom class
+                        'linkOptions' => ['class' => 'page-link'], // Style individual page links
+                        'activePageCssClass' => 'active', // Class for the active page
+                        'disabledPageCssClass' => 'disabled', // Class for disabled links
+                        'prevPageLabel' => '<i class="fa-solid fa-angles-left"></i>', // Previous page icon
+                        'nextPageLabel' => '<i class="fa-solid fa-angles-right"></i>', // Next page icon
+                        'prevPageCssClass' => 'page-item', // Class for the previous page container
+                        'nextPageCssClass' => 'page-item', // Class for the next page container
+                        'pageCssClass' => 'page-item', // Class for each page container
+                        'maxButtonCount' => 3, // Number of visible page buttons
+                    ]); ?>
                 </nav>
+
             </div>
         </div>
     </div>

@@ -28,7 +28,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
     <?php $this->head() ?>
 </head>
 
-<body class="bg-effect">
+<body>
     <?php $this->beginBody() ?>
 
     <!-- page-wrapper Start-->

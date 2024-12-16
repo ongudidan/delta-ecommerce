@@ -33,7 +33,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <a href="javascript:void(0)">Export</a>
                                     </li>
                                     <li>
-                                        <a class="btn btn-solid" href="add-new-product.html">Add Product</a>
+                                        <a class="btn btn-solid" href="<?= Url::to(['/cms/product/create']) ?>">Add Product</a>
                                     </li>
                                 </ul>
                             </div>
@@ -54,51 +54,58 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </thead>
 
                                     <tbody>
-                                        <?php foreach ($dataProvider->getModels() as $index => $row): ?>
+                                        <?php if ($dataProvider->getCount() > 0): ?>
+
+                                            <?php foreach ($dataProvider->getModels() as $index => $row): ?>
+                                                <tr>
+                                                    <td>
+                                                        <div class="table-image">
+                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
+                                                                alt="">
+                                                        </div>
+                                                    </td>
+
+                                                    <td><?= $row->name ?></td>
+
+                                                    <td><?= $row->productSubCategory->productCategory->name ?></td>
+
+                                                    <td>12</td>
+
+                                                    <td class="td-price">Ksh. <?= number_format($row->selling_price) ?></td>
+
+                                                    <td class="status-danger">
+                                                        <span>Pending</span>
+                                                    </td>
+
+                                                    <td>
+                                                        <ul>
+                                                            <li>
+                                                                <a href="<?= Url::to(['/cms/product/view', 'id' => $row->id]) ?>">
+                                                                    <i class="ri-eye-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="<?= Url::to(['/cms/product/update', 'id' => $row->id]) ?>">
+                                                                    <i class="ri-pencil-line"></i>
+                                                                </a>
+                                                            </li>
+
+                                                            <li>
+                                                                <a href="<?= Url::to(['/cms/product/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
+                                                                    data-bs-target="#exampleModalToggle">
+                                                                    <i class="ri-delete-bin-line"></i>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        <?php else: ?>
                                             <tr>
-                                                <td>
-                                                    <div class="table-image">
-                                                        <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
-                                                            alt="">
-                                                    </div>
-                                                </td>
-
-                                                <td><?= $row->name ?></td>
-
-                                                <td><?= $row->productSubCategory->productCategory->name ?></td>
-
-                                                <td>12</td>
-
-                                                <td class="td-price">Ksh. <?= number_format($row->selling_price) ?></td>
-
-                                                <td class="status-danger">
-                                                    <span>Pending</span>
-                                                </td>
-
-                                                <td>
-                                                    <ul>
-                                                        <li>
-                                                            <a href="<?= Url::to(['/cms/product/view', 'id' => $row->id]) ?>">
-                                                                <i class="ri-eye-line"></i>
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="<?= Url::to(['/cms/product/update', 'id' => $row->id]) ?>">
-                                                                <i class="ri-pencil-line"></i>
-                                                            </a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="<?= Url::to(['/cms/product/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
-                                                                data-bs-target="#exampleModalToggle">
-                                                                <i class="ri-delete-bin-line"></i>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </td>
+                                                <td colspan="10" class="text-center">No data found</td>
                                             </tr>
-                                        <?php endforeach; ?>
+                                        <?php endif; ?>
 
                                     </tbody>
                                 </table>

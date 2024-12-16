@@ -48,42 +48,16 @@ $this->title = 'Cart';
                                                     <div class="product-detail">
                                                         <ul>
                                                             <li class="name">
-                                                                <a href="<?= Url::to(['/site/product-view', 'id' => $row->product_id]) ?>">Bell pepper</a>
+                                                                <a href="<?= Url::to(['/site/product-view', 'id' => $row->product_id]) ?>"><?= $row->product->name ?></a>
                                                             </li>
-                                                            <li class="text-content"><span class="text-title">Sold By:</span> Fresho</li>
-                                                            <li class="text-content"><span class="text-title">Quantity</span> - 500 g</li>
-                                                            <li>
-                                                                <h5 class="text-content d-inline-block">Price :</h5>
-                                                                <span>$35.10</span>
-                                                                <span class="text-content">$45.68</span>
-                                                            </li>
-                                                            <li>
-                                                                <h5 class="saving theme-color">Saving : $20.68</h5>
-                                                            </li>
-                                                            <li class="quantity-price-box">
-                                                                <div class="cart_qty">
-                                                                    <div class="input-group">
-                                                                        <button type="button" class="btn qty-left-minus" data-type="minus" data-field="">
-                                                                            <i class="fa fa-minus ms-0" aria-hidden="true"></i>
-                                                                        </button>
-                                                                        <input class="form-control input-number qty-input" type="text" name="quantity" value="0">
-                                                                        <button type="button" class="btn qty-right-plus" data-type="plus" data-field="">
-                                                                            <i class="fa fa-plus ms-0" aria-hidden="true"></i>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </li>
-                                                            <li>
-                                                                <h5>Total: $35.10</h5>
-                                                            </li>
+
                                                         </ul>
                                                     </div>
                                                 </div>
                                             </td>
                                             <td class="price">
                                                 <h4 class="table-title text-content">Price</h4>
-                                                <h5>$35.10 <del class="text-content">$45.68</del></h5>
-                                                <h6 class="theme-color">You Save : $20.68</h6>
+                                                <h5>Ksh. <?= number_format($row->product->selling_price) ?></h5>
                                             </td>
                                             <td class="quantity">
                                                 <h4 class="table-title text-content">Qty</h4>
@@ -103,11 +77,10 @@ $this->title = 'Cart';
                                             </td>
                                             <td class="subtotal">
                                                 <h4 class="table-title text-content">Total</h4>
-                                                <h5>$35.10</h5>
+                                                <h5>Ksh. <?= number_format($row->product->selling_price * $row->quantity) ?></h5>
                                             </td>
                                             <td class="save-remove">
                                                 <h4 class="table-title text-content">Action</h4>
-                                                <a class="save notifi-wishlist" href="javascript:void(0)">Save for later</a>
                                                 <a class="remove close_button" href="javascript:void(0)">Remove</a>
                                             </td>
                                         </tr>
@@ -133,35 +106,19 @@ $this->title = 'Cart';
                     </div>
 
                     <div class="summery-contain">
-                        <div class="coupon-cart">
-                            <h6 class="text-content mb-2">Coupon Apply</h6>
-                            <div class="mb-3 coupon-box input-group">
-                                <input type="email" class="form-control" id="exampleFormControlInput1"
-                                    placeholder="Enter Coupon Code Here...">
-                                <button class="btn-apply">Apply</button>
-                            </div>
-                        </div>
+                      
                         <ul>
                             <li>
                                 <h4>Subtotal</h4>
                                 <h4 class="price">$125.65</h4>
                             </li>
 
-                            <li>
-                                <h4>Coupon Discount</h4>
-                                <h4 class="price">(-) 0.00</h4>
-                            </li>
-
-                            <li class="align-items-start">
-                                <h4>Shipping</h4>
-                                <h4 class="price text-end">$6.90</h4>
-                            </li>
                         </ul>
                     </div>
 
                     <ul class="summery-total">
                         <li class="list-total border-top-0">
-                            <h4>Total (USD)</h4>
+                            <h4>Total (KES)</h4>
                             <h4 class="price theme-color">$132.58</h4>
                         </li>
                     </ul>

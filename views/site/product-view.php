@@ -50,99 +50,15 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="product-main-2 no-arrow">
                                         <div>
                                             <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/1.jpg" id="img-1"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/1.jpg"
+                                                <img src="/web/uploads/<?= $model->thumbnail ?>" id="img-1"
+                                                    data-zoom-image="/web/uploads/<?= $model->thumbnail ?>"
                                                     class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
                                             </div>
                                         </div>
 
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/2.jpg"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/2.jpg"
-                                                    class="img-fluid image_zoom_cls-1 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/3.jpg"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/3.jpg"
-                                                    class="img-fluid image_zoom_cls-2 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/4.jpg"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/4.jpg"
-                                                    class="img-fluid image_zoom_cls-3 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/5.jpg"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/5.jpg"
-                                                    class="img-fluid image_zoom_cls-4 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="slider-image">
-                                                <img src="/web/frontend/assets/images/product/category/6.jpg"
-                                                    data-zoom-image="/web/frontend/assets/images/product/category/6.jpg"
-                                                    class="img-fluid image_zoom_cls-5 blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <div class="col-xxl-2 col-lg-12 col-md-2 order-xxl-1 order-lg-2 order-md-1">
-                                    <div class="left-slider-image-2 left-slider no-arrow slick-top">
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/1.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/2.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/3.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/4.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/5.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="sidebar-image">
-                                                <img src="/web/frontend/assets/images/product/category/6.jpg"
-                                                    class="img-fluid blur-up lazyload" alt="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -152,26 +68,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h2 class="name"><?= $model->name ?></h2>
                             <div class="price-rating">
                                 <h3 class="theme-color price">Ksh. <?= number_format($model->selling_price) ?> <del class="text-content">$58.46</del>
-                                    <!-- <div class="product-rating custom-rate">
-                                        <ul class="rating">
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star" class="fill"></i>
-                                            </li>
-                                            <li>
-                                                <i data-feather="star"></i>
-                                            </li>
-                                        </ul>
-                                        <span class="review">23 Customer Review</span>
-                                    </div> -->
                             </div>
 
                             <div class="procuct-contain">

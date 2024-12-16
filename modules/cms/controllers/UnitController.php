@@ -2,21 +2,22 @@
 
 namespace app\modules\cms\controllers;
 
-use app\models\ProductCategory;
-use app\modules\cms\models\ProductCategorySearch;
+use app\components\IdGenerator;
+use app\models\Unit;
+use app\modules\cms\models\UnitSearch;
+use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProductCategoryController implements the CRUD actions for ProductCategory model.
+ * UnitController implements the CRUD actions for Unit model.
  */
-class ProductCategoryController extends Controller
+class UnitController extends Controller
 {
     public $layout = 'CmsLayout';
 
-    
     /**
      * @inheritDoc
      */
@@ -47,13 +48,13 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Lists all ProductCategory models.
+     * Lists all Unit models.
      *
      * @return string
      */
     public function actionIndex()
     {
-        $searchModel = new ProductCategorySearch();
+        $searchModel = new UnitSearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
         return $this->render('index', [
@@ -63,7 +64,7 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Displays a single ProductCategory model.
+     * Displays a single Unit model.
      * @param string $id ID
      * @return string
      * @throws NotFoundHttpException if the model cannot be found
@@ -76,17 +77,28 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Creates a new ProductCategory model.
+     * Creates a new Unit model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return string|\yii\web\Response
      */
     public function actionCreate()
     {
-        $model = new ProductCategory();
+        $model = new Unit();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                $model->id = IdGenerator::generateUniqueId();
+                $model->company_id = Yii::$app->user->identity->company_id;
+
+                if ($model->save()) {
+                    Yii::$app->session->setFlash('success', 'Unit created successfully.');
+
+                    return $this->redirect(['view', 'id' => $model->id]);
+                } else {
+                    // Capture model errors and set a flash message
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the Unit. Errors: <br>' . $errors);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -98,7 +110,7 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Updates an existing ProductCategory model.
+     * Updates an existing Unit model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param string $id ID
      * @return string|\yii\web\Response
@@ -118,7 +130,7 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Deletes an existing ProductCategory model.
+     * Deletes an existing Unit model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param string $id ID
      * @return \yii\web\Response
@@ -132,15 +144,15 @@ class ProductCategoryController extends Controller
     }
 
     /**
-     * Finds the ProductCategory model based on its primary key value.
+     * Finds the Unit model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param string $id ID
-     * @return ProductCategory the loaded model
+     * @return Unit the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = ProductCategory::findOne(['id' => $id])) !== null) {
+        if (($model = Unit::findOne(['id' => $id])) !== null) {
             return $model;
         }
 
