@@ -3,7 +3,7 @@
         'name' => 'yiisoft/yii2-app-basic',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '4f73289a467d8145b7ba4f726f63ea559f60b118',
+        'reference' => '1147236341caa1e99c071fcc57c4ffb48e812a53',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -226,7 +226,7 @@
         'kartik-v/yii2-date-range' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => '567ab49bb8262da98f45ea5109a854f85a210474',
+            'reference' => 'a6a3f9bc0706fea102d0da291faca0282fcddd19',
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../kartik-v/yii2-date-range',
             'aliases' => array(
@@ -577,9 +577,9 @@
             'dev_requirement' => true,
         ),
         'sebastian/code-unit' => array(
-            'pretty_version' => '3.0.1',
-            'version' => '3.0.1.0',
-            'reference' => '6bb7d09d6623567178cf54126afa9c2310114268',
+            'pretty_version' => '3.0.2',
+            'version' => '3.0.2.0',
+            'reference' => 'ee88b0cdbe74cf8dd3b54940ff17643c0d6543ca',
             'type' => 'library',
             'install_path' => __DIR__ . '/../sebastian/code-unit',
             'aliases' => array(),
@@ -945,7 +945,7 @@
         'yiisoft/yii2-app-basic' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '4f73289a467d8145b7ba4f726f63ea559f60b118',
+            'reference' => '1147236341caa1e99c071fcc57c4ffb48e812a53',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

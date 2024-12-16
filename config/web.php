@@ -18,6 +18,9 @@ $config = [
         'developer' => [
             'class' => 'app\modules\developer\developer',
         ],
+        'cms' => [
+            'class' => 'app\modules\cms\cms',
+        ],
     ],
     'components' => [
         'request' => [
@@ -63,7 +66,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-               '/'=> 'pos/default/index',
+            //    '/'=> 'pos/default/index',
             ],
         ],
         'authManager' => [
@@ -77,7 +80,7 @@ $config = [
                     'bsDependencyEnabled' => false // do not load bootstrap assets for a specific asset bundle
                 ],
                 'yii\web\JqueryAsset' => [
-                    'js' => ["/web/js/jquery-3.6.0.min.js"],  // Disable Yii2's default jQuery
+                    'js' => ["/web/custom/js/jquery-3.6.0.min.js"],  // Disable Yii2's default jQuery
                 ],
             ],
         ],

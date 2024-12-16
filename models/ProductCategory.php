@@ -24,6 +24,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class ProductCategory extends \yii\db\ActiveRecord
 {
+    public $file;
+
+
     public function behaviors()
     {
         return [
@@ -55,6 +58,7 @@ class ProductCategory extends \yii\db\ActiveRecord
             [['id', 'company_id', 'name', 'description', 'thumbnail', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['id'], 'unique'],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['file'], 'file', 'skipOnEmpty' => true],
         ];
     }
 

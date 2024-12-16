@@ -31,6 +31,9 @@ use yii\behaviors\TimestampBehavior;
  */
 class Product extends \yii\db\ActiveRecord
 {
+    public $file;
+
+
     public function behaviors()
     {
         return [
@@ -57,14 +60,16 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id'], 'required'],
+            [['id','product_sub_category_id', 'product_category_id', 'name',  'compare_price', 'selling_price'], 'required'],
             [['selling_price'], 'number'],
             [['created_at', 'updated_at'], 'integer'],
-            [['id', 'product_sub_category_id', 'product_category_id', 'company_id', 'name', 'product_number', 'description', 'thumbnail', 'created_by', 'updated_by'], 'string', 'max' => 255],
+            [['id', 'product_sub_category_id', 'product_category_id', 'company_id', 'brand_id', 'unit_id', 'name', 'product_number', 'description', 'specifications', 'thumbnail', 'created_by', 'updated_by'], 'string', 'max' => 255],
             [['id'], 'unique'],
             [['product_sub_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductSubCategory::class, 'targetAttribute' => ['product_sub_category_id' => 'id']],
             [['product_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['product_category_id' => 'id']],
             [['company_id'], 'exist', 'skipOnError' => true, 'targetClass' => Company::class, 'targetAttribute' => ['company_id' => 'id']],
+            [['file'], 'file', 'skipOnEmpty' => true],
+
         ];
     }
 
@@ -75,9 +80,9 @@ class Product extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'product_sub_category_id' => 'Product Sub Category ID',
-            'product_category_id' => 'Product Category ID',
-            'company_id' => 'Company ID',
+            'product_sub_category_id' => 'Product Sub Category',
+            'product_category_id' => 'Product Category',
+            'company_id' => 'Company',
             'name' => 'Name',
             'selling_price' => 'Selling Price',
             'product_number' => 'Product Number',
@@ -138,5 +143,10 @@ class Product extends \yii\db\ActiveRecord
     public function getSaleProducts()
     {
         return $this->hasMany(SaleProduct::class, ['product_id' => 'id']);
+    }
+
+    public function getProductImage()
+    {
+        return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
 }

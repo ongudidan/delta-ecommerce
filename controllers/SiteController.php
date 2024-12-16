@@ -2,6 +2,9 @@
 
 namespace app\controllers;
 
+use app\components\IdGenerator;
+use app\models\CartProduct;
+use app\models\CartProductSearch;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -9,35 +12,42 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Product;
+use app\models\ProductCategory;
+use app\models\ProductSearch;
+use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
 {
-    public $layout = 'LoginLayout';
+    public $layout = 'FrontLayout';
 
     /**
      * {@inheritdoc}
      */
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => AccessControl::class,
-                'only' => ['logout'],
-                'rules' => [
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
+        return array_merge(
+            parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['logout', 'add', 'cart'],
+                    'rules' => [
+                        [
+                            'actions' => ['logout', 'add', 'cart'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
                     ],
                 ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    // 'logout' => ['post'],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        // 'delete' => ['POST'],
+                    ],
                 ],
-            ],
-        ];
+            ]
+        );
     }
 
     /**
@@ -63,7 +73,61 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $productCategories = ProductCategory::find()->all();
+        return $this->render('index', [
+            'productCategories'=> $productCategories,
+        ]);
+    }
+
+
+    /**
+     * Lists all Product models.
+     *
+     * @return string
+     */
+    public function actionProducts()
+    {
+        $searchModel = new ProductSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('products', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+
+    /**
+     * Lists all cart Products.
+     *
+     * @return string
+     */
+    public function actionCart()
+    {
+        $searchModel = new CartProductSearch();
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
+        return $this->render('cart', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Lists single Product.
+     *
+     * @return string
+     */
+    public function actionProductView($id)
+    {
+
+        if (($model = Product::findOne(['id' => $id])) !== null) {
+            return $this->render('product-view', [
+                'model' => $model->findOne(['id' => $id]),
+            ]);
+        }
+
+        throw new NotFoundHttpException('The requested page does not exist.');
     }
 
     /**
@@ -127,4 +191,89 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+
+    /**
+     * add product to cart.
+     *
+     * @return string
+     */
+    // public function actionAdd()
+    // {
+    //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+    //     $productId = Yii::$app->request->post('product_id');
+    //     $quantity = Yii::$app->request->post('quantity', 1);
+
+    //     if (!$productId || $quantity <= 0) {
+    //         return [
+    //             'success' => false,
+    //             'message' => 'Invalid product or quantity.',
+    //         ];
+    //     }
+
+    //     $cart = new CartProduct(); // Replace with your cart model
+    //     $cart->id = IdGenerator::generateUniqueId();
+
+    //     $cart->product_id = $productId;
+    //     $cart->quantity = $quantity;
+    //     $cart->user_id = Yii::$app->user->id; // Assuming a logged-in user
+
+    //     if ($cart->save()) {
+    //         return [
+    //             'success' => true,
+    //             'message' => 'Product added to cart successfully!',
+    //         ];
+    //     }
+
+    //     return [
+    //         'success' => false,
+    //         'message' => 'Failed to add product to cart. Please try again.',
+    //     ];
+    // }
+
+    public function actionAdd()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $productId = Yii::$app->request->post('product_id');
+        $quantity = Yii::$app->request->post('quantity', 1);
+
+        if (!$productId || $quantity <= 0) {
+            return [
+                'success' => false,
+                'message' => 'Invalid product or quantity.',
+            ];
+        }
+
+        $userId = Yii::$app->user->id;
+
+        // Check if the product already exists in the cart for the logged-in user
+        $cartProduct = CartProduct::findOne(['product_id' => $productId, 'user_id' => $userId]);
+
+        if ($cartProduct) {
+            // Update the existing quantity
+            $cartProduct->quantity = $quantity;
+        } else {
+            // Create a new cart entry if it does not exist
+            $cartProduct = new CartProduct();
+            $cartProduct->id = IdGenerator::generateUniqueId();
+            $cartProduct->product_id = $productId;
+            $cartProduct->quantity = $quantity;
+            $cartProduct->user_id = $userId;
+        }
+
+        if ($cartProduct->save()) {
+            return [
+                'success' => true,
+                'message' => 'Product added to cart successfully!',
+            ];
+        }
+
+        return [
+            'success' => false,
+            'message' => 'Failed to add product to cart. Please try again.',
+        ];
+    }
+
+
 }

@@ -10,6 +10,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
@@ -97,11 +98,35 @@ class ProductCategoryController extends Controller
 
             if ($this->request->isPost) {
                 if ($model->load($this->request->post())) {
+
+                    $model->file = UploadedFile::getInstance($model, 'file');
+                    // Set up the uploads directory
+                    $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+                    if (!is_dir($uploadsDir)) {
+                        if (!mkdir($uploadsDir, 0777, true) && !is_dir($uploadsDir)) {
+                            Yii::$app->session->setFlash('error', 'Failed to create uploads directory.');
+                            return $this->render('create', ['model' => $model]);
+                        }
+                    }
+
+                    // Handle thumbnail file upload
+                    if ($model->file) {
+                        $thumbnailName = uniqid('thumbnail_') . '.' . $model->file->extension;
+                        $thumbnailPath = $uploadsDir . '/' . $thumbnailName;
+
+                        if ($model->file->saveAs($thumbnailPath)) {
+                            $model->thumbnail = $thumbnailName; // Save relative path
+                        } else {
+                            Yii::$app->session->setFlash('error', 'Failed to upload thumbnail file.');
+                            Yii::error('thumbnail file upload failed for path: ' . $thumbnailPath);
+                        }
+                    }
+
                     $model->id = IdGenerator::generateUniqueId();
                     $model->company_id = Yii::$app->user->identity->company_id;
 
                     if ($model->save()) {
-                        Yii::$app->session->setFlash('success', 'Product created successfully.');
+                        Yii::$app->session->setFlash('success', 'Product Category created successfully.');
 
                         return $this->redirect(['view', 'id' => $model->id]);
                     } else {
@@ -132,22 +157,57 @@ class ProductCategoryController extends Controller
      */
     public function actionUpdate($id)
     {
-        if (Yii::$app->user->can('ProductCategory-update')) {
-
-            $model = $this->findModel($id);
-
-            if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
-            }
-
-            return $this->render('update', [
-                'model' => $model,
-            ]);
-        } else {
+        if (!Yii::$app->user->can('ProductCategory-update')) {
             $this->layout = '@app/views/layouts/LoginLayout';
             return $this->render('@app/views/layouts/error-403');
         }
+
+        $model = $this->findModel($id);
+
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->file = UploadedFile::getInstance($model, 'file');
+            $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+
+            // Handle file upload and deletion of old file
+            if ($model->file) {
+                // Delete the old file if it exists
+                if ($model->thumbnail) {
+                    $oldThumbnailPath = $uploadsDir . '/' . $model->thumbnail;
+                    if (file_exists($oldThumbnailPath) && !unlink($oldThumbnailPath)) {
+                        Yii::$app->session->setFlash('error', 'Failed to delete the old file.');
+                        Yii::error('Failed to delete old file: ' . $oldThumbnailPath);
+                    }
+                }
+
+                // Save the new file
+                $newThumbnailName = uniqid('photo_') . '.' . $model->file->extension;
+                $newThumbnailPath = $uploadsDir . '/' . $newThumbnailName;
+
+                if ($model->file->saveAs($newThumbnailPath)) {
+                    $model->thumbnail = $newThumbnailName;
+                } else {
+                    Yii::$app->session->setFlash('error', 'Failed to upload the new file.');
+                    Yii::error('New file upload failed for path: ' . $newThumbnailPath);
+                }
+            }
+
+            // Save the model
+            if ($model->save()) {
+                Yii::$app->session->setFlash('success', 'Product Category updated successfully.');
+                return $this->redirect(['view', 'id' => $model->id]);
+            } else {
+                // Log and show model errors
+                $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                Yii::$app->session->setFlash('error', 'Failed to update the Product Category. Errors: <br>' . $errors);
+                Yii::error('Model save failed: ' . $errors);
+            }
+        }
+
+        return $this->render('update', [
+            'model' => $model,
+        ]);
     }
+
 
     /**
      * Deletes an existing ProductCategory model.

@@ -25,7 +25,7 @@ if ($host === 'localhost') {
     // Default fallback or other environments
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=mariadb;dbname=pos',
+        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',

@@ -23,18 +23,18 @@ class LoginAsset extends AssetBundle
     public $css = [
         'css/site.css',
 
-        "/web/css/bootstrap.min.css",
-        "/web/css/feather.css",
-        "/web/css/flags.css",
-        "/web/css/fontawesome.min.css",
-        "/web/css/all.min.css",
-        "/web/css/style.css",
+        "/web/custom/css/bootstrap.min.css",
+        "/web/custom/css/feather.css",
+        "/web/custom/css/flags.css",
+        "/web/custom/css/fontawesome.min.css",
+        "/web/custom/css/all.min.css",
+        "/web/custom/css/style.css",
     ];
     public $js = [
-        "/web/js/jquery-3.6.0.min.js",
-        "/web/js/bootstrap.bundle.min.js",
-        "/web/js/feather.min.js",
-        "/web/js/script.js",
+        "/web/custom/js/jquery-3.6.0.min.js",
+        "/web/custom/js/bootstrap.bundle.min.js",
+        "/web/custom/js/feather.min.js",
+        "/web/custom/js/script.js",
     ];
     public $depends = [
         'yii\web\YiiAsset',

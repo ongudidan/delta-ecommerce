@@ -6,10 +6,10 @@ use yii\helpers\Url;
 
     <div class="header-left">
         <a href="<?= Url::to('/pos') ?>" class="logo">
-            <img src="/web/img/logo-demo5.svg" alt="Logo">
+            <img src="/web/custom/img/logo-demo5.svg" alt="Logo">
         </a>
         <a href="<?= Url::to('/pos') ?>" class="logo logo-small">
-            <img src="/web/img/logo-small.png" alt="Logo" width="30" height="30">
+            <img src="/web/custom/img/logo-small.png" alt="Logo" width="30" height="30">
         </a>
     </div>
 
@@ -37,7 +37,7 @@ use yii\helpers\Url;
         <li class="nav-item dropdown has-arrow new-user-menus">
             <a href="#" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <span class="user-img">
-                    <img class="rounded-circle" src="/web/img/user.jpg" width="31"
+                    <img class="rounded-circle" src="/web/custom/img/user.jpg" width="31"
                         alt="Soeng Souy">
                     <div class="user-text">
                         <h6><?= Yii::$app->user->identity->username ?? 'Guest' ?></h6>
@@ -48,7 +48,7 @@ use yii\helpers\Url;
             <div class="dropdown-menu">
                 <div class="user-header">
                     <div class="avatar avatar-sm">
-                        <img src="/web/img/user.jpg" alt="User Image"
+                        <img src="/web/custom/img/user.jpg" alt="User Image"
                             class="avatar-img rounded-circle">
                     </div>
                     <div class="user-text">

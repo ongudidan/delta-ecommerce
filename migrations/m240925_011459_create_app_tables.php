@@ -28,8 +28,8 @@ class m240925_011459_create_app_tables extends Migration
             'company_id' => $this->string()->defaultValue(null),
             'username' => $this->string()->unique(),
             'phone_no' => $this->string()->unique(),
-            'first_name' => $this->string()->notNull(),
-            'last_name' => $this->string()->notNull(),
+            'first_name' => $this->string()->defaultValue(null),
+            'last_name' => $this->string()->defaultValue(null),
             'verification_token' => $this->string()->defaultValue(null),
             'auth_key' => $this->string()->notNull(),
             'password_hash' => $this->string()->notNull(),
@@ -100,6 +100,70 @@ class m240925_011459_create_app_tables extends Migration
 
         ]);
 
+        // Create brand table first
+        $this->createTable('{{%brand}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'logo' => $this->string()->defaultValue(null),
+            'description' => $this->string()->defaultValue(null),
+            'status' => $this->string()->defaultValue(null),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+        // Create units table first
+        $this->createTable('{{%unit}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'abbreviation' => $this->string()->notNull(),
+            'status' => $this->string()->defaultValue(null),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+        // Create variations table first
+        $this->createTable('{{%variation}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'status' => $this->string()->defaultValue(null),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+        // Create variation_items table first
+        $this->createTable('{{%variation_item}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'variation_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[variation_id]]) REFERENCES {{%variation}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+        ]);
+
         // Create product_category table
         $this->createTable('{{%product_category}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID
@@ -139,11 +203,17 @@ class m240925_011459_create_app_tables extends Migration
             'id' => $this->string()->notNull()->unique(), // Custom string ID
             'product_sub_category_id' => $this->string()->defaultValue(null),
             'product_category_id' => $this->string()->defaultValue(null),
+            'brand_id' => $this->string()->defaultValue(null),
+            'unit_id' => $this->string()->defaultValue(null),
             'company_id' => $this->string()->defaultValue(null),
             'name' => $this->string()->defaultValue(null),
             'selling_price' => $this->decimal()->defaultValue(null),
+            'compare_price' => $this->decimal()->defaultValue(null),
+
             'product_number' => $this->string()->defaultValue(null),
             'description' => $this->string()->defaultValue(null),
+            'specifications' => $this->string()->defaultValue(null),
+            'status' => $this->string()->defaultValue(null),
             'thumbnail' => $this->string()->defaultValue(null),
             'created_at' => $this->integer()->defaultValue(null),
             'updated_at' => $this->integer()->defaultValue(null),
@@ -155,6 +225,10 @@ class m240925_011459_create_app_tables extends Migration
                 $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
             'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
                 $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[brand_id]]) REFERENCES {{%brand}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[unit_id]]) REFERENCES {{%unit}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
         ]);
 
         // Create expense_category table
