@@ -683,8 +683,20 @@ $this->params['breadcrumbs'][] = $this->title;
             .then(response => response.json()) // Expecting JSON response
             .then(data => {
                 if (data.success) {
+                    toastr.clear(); // Clear any existing toastr messages
+                    toastr.options = {
+                        "closeButton": true, // Enable close button
+                        "progressBar": true, // Enable progress bar
+                        "timeOut": 5000 // Duration for which the message is displayed
+                    };
                     toastr.success(data.message || 'Product added to cart successfully!');
                 } else {
+                    toastr.clear(); // Clear any existing toastr messages
+                    toastr.options = {
+                        "closeButton": true, // Enable close button
+                        "progressBar": true, // Enable progress bar
+                        "timeOut": 5000 // Duration for which the message is displayed
+                    };
                     toastr.error(data.message || 'Failed to add product to cart.');
                 }
             })

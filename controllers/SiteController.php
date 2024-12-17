@@ -114,6 +114,16 @@ class SiteController extends Controller
     }
 
     /**
+     * Displays Checkout page.
+     *
+     * @return string
+     */
+    public function actionCheckout()
+    {
+        return $this->render('checkout');
+    }
+
+    /**
      * Lists single Product.
      *
      * @return string

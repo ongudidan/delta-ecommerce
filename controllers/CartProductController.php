@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\CartProduct;
 use app\models\CartProductSearch;
+use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -131,4 +132,55 @@ class CartProductController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+
+    public function actionUpdateQuantity()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+        $cartId = Yii::$app->request->post('cart_id');
+        $quantity = Yii::$app->request->post('quantity');
+
+        if ($cartId && $quantity) {
+            $cartItem = CartProduct::findOne($cartId);
+            if ($cartItem) {
+                $cartItem->quantity = $quantity;
+                if ($cartItem->save()) {
+                    return ['success' => true, 'message' => 'Quantity updated successfully'];
+                }
+            }
+        }
+
+        return ['success' => false, 'message' => 'Failed to update quantity'];
+    }
+
+
+    public function actionRemoveProduct()
+    {
+        $cartId = Yii::$app->request->post('cart_id');
+
+
+        $cartProduct = CartProduct::findOne($cartId);
+        if ($cartProduct) {
+            if ($cartProduct->delete()) {
+                return json_encode([
+                    'success' => true,
+                    'message' => 'Product removed successfully!',
+                    'redirect' => true
+                ]);
+            } else {
+                return json_encode([
+                    'success' => false,
+                    'message' => 'Failed to remove product.',
+                ]);
+            }
+        } else {
+            return json_encode([
+                'success' => false,
+                'message' => 'Product not found.',
+            ]);
+        }
+    }
+
+
 }
