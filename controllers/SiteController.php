@@ -15,6 +15,7 @@ use app\models\ContactForm;
 use app\models\Product;
 use app\models\ProductCategory;
 use app\models\ProductSearch;
+use app\models\SignupForm;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -283,6 +284,24 @@ class SiteController extends Controller
             'success' => false,
             'message' => 'Failed to add product to cart. Please try again.',
         ];
+    }
+
+    /**
+     * Signs user up.
+     *
+     * @return mixed
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        if ($model->load(Yii::$app->request->post()) && $model->signup()) {
+            Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+            return $this->goHome();
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
 

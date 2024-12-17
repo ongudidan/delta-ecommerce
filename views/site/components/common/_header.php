@@ -180,7 +180,7 @@ $totalQuantity = CartProduct::find()
                                         </div>
                                     </a>
                                 </li>
-        
+
                                 <li class="right-side">
                                     <div class="onhover-dropdown header-badge">
                                         <a href="<?= Url::to(['/site/cart']) ?>" class="btn p-0 position-relative header-wishlist">
@@ -201,27 +201,42 @@ $totalQuantity = CartProduct::find()
                                             <i data-feather="user"></i>
                                         </div>
                                         <div class="delivery-detail">
-                                            <h6>Hello,</h6>
-                                            <h5>My Account</h5>
+                                            <?php if (Yii::$app->user->isGuest): ?>
+                                                <h6>Hello,</h6>
+                                                <h5>Guest</h5>
+                                            <?php else: ?>
+                                                <h6>Hello,</h6>
+                                                <h5><?= Yii::$app->user->identity->username ?></h5>
+                                            <?php endif; ?>
+
                                         </div>
                                     </div>
 
                                     <div class="onhover-div onhover-div-login">
                                         <ul class="user-box-name">
-                                            <li class="product-box-contain">
-                                                <i></i>
-                                                <a href="login.html">Log In</a>
-                                            </li>
-
-                                            <li class="product-box-contain">
-                                                <a href="sign-up.html">Register</a>
-                                            </li>
-
-                                            <li class="product-box-contain">
-                                                <a href="forgot.html">Forgot Password</a>
-                                            </li>
+                                            <?php if (Yii::$app->user->isGuest): ?>
+                                                <li class="product-box-contain">
+                                                    <i></i>
+                                                    <a href="<?= Url::to(['/site/login']) ?>">Log In</a>
+                                                </li>
+                                                <li class="product-box-contain">
+                                                    <a href="<?= Url::to(['/site/signup']) ?>">Register</a>
+                                                </li>
+                                          
+                                            <?php else: ?>
+                                                <li class="product-box-contain">
+                                                    <a href="<?= Url::to(['/profile/index']) ?>">Profile</a>
+                                                </li>
+                                                <li class="product-box-contain">
+                                                    <a href="<?= Url::to(['/order/index']) ?>">Orders</a>
+                                                </li>
+                                                <li class="product-box-contain">
+                                                    <a href="<?= Url::to(['/site/logout']) ?>" data-method="post">Log Out</a>
+                                                </li>
+                                            <?php endif; ?>
                                         </ul>
                                     </div>
+
                                 </li>
                             </ul>
                         </div>
