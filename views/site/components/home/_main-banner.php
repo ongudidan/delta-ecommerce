@@ -9,13 +9,13 @@
                         muted
                         loop
                         playsinline
-                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; object-fit: cover; pointer-events: none;">
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;  object-fit: cover; pointer-events: none;">
                         <source src="/web/uploads/videos/videoplayback.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
 
                     <!-- Content over video -->
-                    <div class="home-detail p-center-left w-75" style="position: relative; z-index: 2;">
+                    <div class="home-detail p-center-left w-75" style="position: relative; ">
                         <div>
                             <h6>Exclusive offer <span>30% Off</span></h6>
                             <h1 class="text-uppercase">
