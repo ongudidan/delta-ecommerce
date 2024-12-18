@@ -3,7 +3,7 @@
         <div class="banner-slider">
             <div>
                 <div class="banner-contain hover-effect">
-                    <img src="/web/frontend/assets/images/vegetable/banner/4.jpg" class="bg-img blur-up lazyload" alt="" />
+                    <img src="/web/uploads/3.jpg" class="bg-img blur-up lazyload" alt="" />
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger">5% OFF</h6>
@@ -18,7 +18,7 @@
 
             <div>
                 <div class="banner-contain hover-effect">
-                    <img src="/web/frontend/assets/images/vegetable/banner/5.jpg" class="bg-img blur-up lazyload" alt="" />
+                    <img src="/web/uploads/2.jpg" class="bg-img blur-up lazyload" alt="" />
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger">5% OFF</h6>
@@ -33,7 +33,7 @@
 
             <div>
                 <div class="banner-contain hover-effect">
-                    <img src="/web/frontend/assets/images/vegetable/banner/6.jpg" class="bg-img blur-up lazyload" alt="" />
+                    <img src="/web/uploads/2.jpg" class="bg-img blur-up lazyload" alt="" />
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger">5% OFF</h6>
@@ -48,7 +48,7 @@
 
             <div>
                 <div class="banner-contain hover-effect">
-                    <img src="/web/frontend/assets/images/vegetable/banner/7.jpg" class="bg-img blur-up lazyload" alt="" />
+                    <img src="/web/uploads/3.jpg" class="bg-img blur-up lazyload" alt="" />
                     <div class="banner-details">
                         <div class="banner-box">
                             <h6 class="text-danger">5% OFF</h6>

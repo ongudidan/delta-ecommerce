@@ -100,6 +100,86 @@ class m240925_011459_create_app_tables extends Migration
 
         ]);
 
+        // Create county table first
+        $this->createTable('{{%county}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+        // Create sub_county table first
+        $this->createTable('{{%sub_county}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'county_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[county_id]]) REFERENCES {{%county}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+        // Create area table first
+        $this->createTable('{{%area}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'sub_county_id' => $this->string()->defaultValue(null),
+            'name' => $this->string()->notNull(),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[sub_county_id]]) REFERENCES {{%sub_county}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+
+        ]);
+
+
+        // Create user_address table first
+        $this->createTable('{{%user_address}}', [
+            'id' => $this->string()->notNull()->unique(), // Custom string ID
+            'company_id' => $this->string()->defaultValue(null),
+            'county_id' => $this->string()->defaultValue(null),
+            'user_id' => $this->string()->defaultValue(null),
+            'sub_county_id' => $this->string()->defaultValue(null),
+            'area_id' => $this->string()->defaultValue(null),
+            'first_name' => $this->string()->defaultValue(null),
+            'last_name' => $this->string()->defaultValue(null),
+            'phone_no' => $this->string()->defaultValue(null),
+            'address' => $this->string()->defaultValue(null),
+            'default' => $this->string()->defaultValue(null),
+            'created_at' => $this->integer()->defaultValue(null),
+            'updated_at' => $this->integer()->defaultValue(null),
+            'created_by' => $this->string()->defaultValue(null),
+            'updated_by' => $this->string()->defaultValue(null),
+            'FOREIGN KEY ([[company_id]]) REFERENCES {{%company}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[county_id]]) REFERENCES {{%county}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[sub_county_id]]) REFERENCES {{%sub_county}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[area_id]]) REFERENCES {{%area}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            'FOREIGN KEY ([[user_id]]) REFERENCES {{%user}} ([[id]]) ' .
+            $this->buildFkClause('ON DELETE CASCADE', 'ON UPDATE CASCADE'),
+            
+
+        ]);
+
         // Create brand table first
         $this->createTable('{{%brand}}', [
             'id' => $this->string()->notNull()->unique(), // Custom string ID

@@ -28,7 +28,7 @@ class FrontAsset extends AssetBundle
         "https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;600;700;800;900&display=swap",
         "https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
 
-        "/web/frontend/assets/css/vendors/bootstrap.css",
+        // "/web/frontend/assets/css/vendors/bootstrap.css",
         "/web/frontend/assets/css/animate.min.css",
         "/web/frontend/assets/css/vendors/font-awesome.css",
         "/web/frontend/assets/css/vendors/feather-icon.css",
@@ -55,11 +55,12 @@ class FrontAsset extends AssetBundle
         "/web/frontend/assets/js/slick/custom_slick.js",
         "/web/frontend/assets/js/bootstrap/bootstrap-notify.min.js",
         "/web/frontend/assets/js/auto-height.js",
-        "/web/frontend/assets/js/timer1.js",
+        // "/web/frontend/assets/js/timer1.js",
         "/web/frontend/assets/js/fly-cart.js",
         "/web/frontend/assets/js/quantity-2.js",
         "/web/frontend/assets/js/wow.min.js",
         "/web/frontend/assets/js/custom-wow.js",
+        "/web/frontend/assets/js/nav-tab.js",
         "/web/frontend/assets/js/script.js",
 
 

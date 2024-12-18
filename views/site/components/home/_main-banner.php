@@ -40,7 +40,7 @@
                 <div class="row g-4">
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="/web/frontend/assets/images/vegetable/banner/2.jpg" class="bg-img blur-up lazyload" alt="" />
+                            <img src="/web/uploads/banner/2.jpg" class="bg-img blur-up lazyload" alt="" />
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
                                     <h2 class="mt-0 text-danger">
@@ -57,7 +57,7 @@
 
                     <div class="col-xl-12 col-md-6">
                         <div class="home-contain">
-                            <img src="/web/frontend/assets/images/vegetable/banner/3.jpg" class="bg-img blur-up lazyload" alt="" />
+                            <img src="/web/uploads/banner/3.jpg" class="bg-img blur-up lazyload" alt="" />
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
                                     <h3 class="mt-0 theme-color fw-bold">Healthy Food</h3>
