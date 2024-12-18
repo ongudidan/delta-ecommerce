@@ -17,7 +17,7 @@ $totalQuantity = CartProduct::find()
     }
 ?>
 <header class="pb-md-4 pb-0">
-    <!-- <div class="header-top">
+    <div class="header-top">
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-xxl-3 d-xxl-block d-none">
@@ -52,7 +52,7 @@ $totalQuantity = CartProduct::find()
                     </div>
                 </div>
 
-                <div class="col-lg-3">
+                <!-- <div class="col-lg-3">
                     <ul class="about-list right-nav-about">
                         <li class="right-nav-list">
                             <div class="dropdown theme-form-select">
@@ -104,10 +104,10 @@ $totalQuantity = CartProduct::find()
                             </div>
                         </li>
                     </ul>
-                </div>
+                </div> -->
             </div>
         </div>
-    </div> -->
+    </div>
 
     <div class="top-nav top-header sticky-header">
         <div class="container-fluid-lg">
