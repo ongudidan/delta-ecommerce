@@ -196,10 +196,22 @@ class BrandController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        // Check if a logo exists and delete it
+        if ($model->logo) {
+            $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+            $filePath = $uploadsDir . '/' . $model->logo;
+            if (file_exists($filePath)) {
+                unlink($filePath); // Delete the file
+            }
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Brand model based on its primary key value.

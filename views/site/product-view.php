@@ -666,7 +666,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- Bg overlay End -->
 
 
-<script>
+<?php
+
+$script = <<<JS
     function submitAddToCartForm(event) {
         event.preventDefault(); // Prevent the default form submission
 
@@ -683,19 +685,18 @@ $this->params['breadcrumbs'][] = $this->title;
             .then(response => response.json()) // Expecting JSON response
             .then(data => {
                 if (data.success) {
-                    toastr.clear(); // Clear any existing toastr messages
-                    toastr.options = {
-                        "closeButton": true, // Enable close button
-                        "progressBar": true, // Enable progress bar
-                        "timeOut": 5000 // Duration for which the message is displayed
-                    };
-                    toastr.success(data.message || 'Product added to cart successfully!');
+                    // Save success message to sessionStorage
+                    sessionStorage.setItem('toastrMessage', data.message || 'Product added to cart successfully!');
+                    sessionStorage.setItem('toastrType', 'success');
+                    
+                    // Reload the page
+                    location.reload();
                 } else {
-                    toastr.clear(); // Clear any existing toastr messages
+                    toastr.clear();
                     toastr.options = {
-                        "closeButton": true, // Enable close button
-                        "progressBar": true, // Enable progress bar
-                        "timeOut": 5000 // Duration for which the message is displayed
+                        "closeButton": true,
+                        "progressBar": true,
+                        "timeOut": 5000
                     };
                     toastr.error(data.message || 'Failed to add product to cart.');
                 }
@@ -705,4 +706,34 @@ $this->params['breadcrumbs'][] = $this->title;
                 toastr.warning('Please login and try again.');
             });
     }
-</script>
+
+    // Check sessionStorage for Toastr message after page reload
+    window.addEventListener('load', function () {
+        const toastrMessage = sessionStorage.getItem('toastrMessage');
+        const toastrType = sessionStorage.getItem('toastrType');
+        
+        if (toastrMessage && toastrType) {
+            toastr.clear();
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+                "timeOut": 500
+            };
+            
+            if (toastrType === 'success') {
+                toastr.success(toastrMessage);
+            } else if (toastrType === 'error') {
+                toastr.error(toastrMessage);
+            } else if (toastrType === 'warning') {
+                toastr.warning(toastrMessage);
+            }
+
+            // Clear the message from sessionStorage
+            sessionStorage.removeItem('toastrMessage');
+            sessionStorage.removeItem('toastrType');
+        }
+    });
+JS;
+
+$this->registerJs($script, \yii\web\View::POS_END);
+?>

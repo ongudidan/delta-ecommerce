@@ -12,6 +12,9 @@ $userId = Yii::$app->user->id; // Get the logged-in user's ID
 $totalQuantity = CartProduct::find()
     ->where(['user_id' => $userId])
     ->sum('quantity');
+    if($totalQuantity <= 0){
+        $totalQuantity = 0;
+    }
 ?>
 <header class="pb-md-4 pb-0">
     <!-- <div class="header-top">
@@ -228,7 +231,10 @@ $totalQuantity = CartProduct::find()
                                                     <a href="<?= Url::to(['/user-dashboard/index']) ?>">Dashboard</a>
                                                 </li>
                                                 <li class="product-box-contain">
-                                                    <a href="<?= Url::to(['/order/index']) ?>">Orders</a>
+                                                    <a href="<?= Url::to(['/user-dashboard/address']) ?>">Address Box</a>
+                                                </li>
+                                                <li class="product-box-contain">
+                                                    <a href="<?= Url::to(['/user-dashboard/orders']) ?>">Orders</a>
                                                 </li>
                                                 <li class="product-box-contain">
                                                     <a href="<?= Url::to(['/site/logout']) ?>" data-method="post">Log Out</a>

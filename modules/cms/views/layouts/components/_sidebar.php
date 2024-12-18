@@ -29,6 +29,15 @@ $sidebarItems = [
         ],
     ],
     [
+        'title' => 'sub-category',
+        'icon' => 'ri-list-check-2',
+        'url' => 'javascript:void(0)',
+        'children' => [
+            ['title' => 'sub-category List', 'url' => ['/cms/product-sub-category/index']],
+            ['title' => 'Add New sub-category', 'url' => ['/cms/product-sub-category/create']],
+        ],
+    ],
+    [
         'title' => 'Brands',
         'icon' => 'ri-list-check-2',
         'url' => 'javascript:void(0)',

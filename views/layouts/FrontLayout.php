@@ -37,6 +37,27 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/w
         </div>
     </main>
 
+    <?php
+    $flashes = Yii::$app->session->getAllFlashes();
+    if (!empty($flashes)) {
+        $js = <<<JS
+        toastr.options = {
+            "closeButton": true, // Enable close button
+            "progressBar": true, // Enable progress bar
+            "timeOut": 500 // Duration for which the message is displayed
+        };
+    JS;
+
+        foreach ($flashes as $type => $message) {
+            // Map Yii flash types to Toastr types
+            $toastrType = $type === 'error' ? 'error' : ($type === 'success' ? 'success' : 'info');
+            $escapedMessage = addslashes($message);
+            $js .= "\ntoastr.{$toastrType}('{$escapedMessage}');";
+        }
+        $this->registerJs($js);
+    }
+    ?>
+
 
     <?php $this->endBody() ?>
 </body>

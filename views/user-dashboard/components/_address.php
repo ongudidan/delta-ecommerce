@@ -1,5 +1,7 @@
 <?php
 
+use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->params['breadcrumbs'][] = ['label' => 'Brands', 'url' => ['index']];
 
@@ -70,9 +72,13 @@ $this->params['breadcrumbs'][] = ['label' => 'Brands', 'url' => ['index']];
                             <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
                                 data-bs-target="#add-address"><i data-feather="edit"></i>
                                 Edit</button>
-                            <button class="btn btn-sm add-button w-100" data-bs-toggle="modal"
-                                data-bs-target="#removeProfile"><i data-feather="trash-2"></i>
-                                Remove</button>
+                            <form method="post" action="<?= Url::to(['delete-address', 'id' => $address->id]) ?>" class="w-100">
+                                <?= Html::hiddenInput(Yii::$app->request->csrfParam, Yii::$app->request->csrfToken) ?>
+                                <button type="submit" class="btn btn-sm add-button w-100">
+                                    <i data-feather="trash-2"></i> Remove
+                                </button>
+                            </form>
+
                         </div>
                     </div>
                 </div>
@@ -81,3 +87,5 @@ $this->params['breadcrumbs'][] = ['label' => 'Brands', 'url' => ['index']];
         </div>
     </div>
 </div>
+
+

@@ -75,4 +75,15 @@ class UserDashboardController extends \yii\web\Controller
         ]);
     }
 
+    public function actionDeleteAddress($id)
+    {
+        // $this->findModel($id)->delete();
+        
+        UserAddress::findOne($id)->delete();
+        Yii::$app->session->setFlash('success', 'Address deleted successfully.');
+
+
+        return $this->redirect(['address']);
+    }
+
 }

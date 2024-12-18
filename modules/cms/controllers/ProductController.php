@@ -200,10 +200,22 @@ class ProductController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+
+        // Check if a thumbnail exists and delete it
+        if ($model->thumbnail) {
+            $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+            $filePath = $uploadsDir . '/' . $model->thumbnail;
+            if (file_exists($filePath)) {
+                unlink($filePath); // Delete the file
+            }
+        }
+
+        $model->delete();
 
         return $this->redirect(['index']);
     }
+
 
     /**
      * Finds the Product model based on its primary key value.

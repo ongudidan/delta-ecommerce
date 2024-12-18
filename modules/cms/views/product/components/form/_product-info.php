@@ -3,8 +3,8 @@
     use app\models\Brand;
     use app\models\ProductCategory;
     use app\models\ProductSubCategory;
-use app\models\Unit;
-use kartik\select2\Select2;
+    use app\models\Unit;
+    use kartik\select2\Select2;
     use yii\helpers\ArrayHelper;
 
     // Fetch the current subcategory for the model
@@ -107,7 +107,7 @@ use kartik\select2\Select2;
                         ]) ?>
                  </div>
              </div>
-           
+
          </form>
      </div>
  </div>

@@ -45,18 +45,7 @@ $formAction = Yii::$app->controller->action->id === 'update'
                     <div class="form-floating mb-4 theme-form-floating">
                         <?= $form->field($model, 'phone_no')->textInput(['maxlength' => true]) ?>
                     </div>
-               
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <?= $form->field($model, 'county_id')->textInput(['maxlength' => true]) ?>
-                    </div>
-               
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <?= $form->field($model, 'sub_county_id')->textInput(['maxlength' => true]) ?>
-                    </div>
-               
-                    <div class="form-floating mb-4 theme-form-floating">
-                        <?= $form->field($model, 'area_id')->textInput(['maxlength' => true]) ?>
-                    </div>               
+             
                     <div class="form-floating mb-4 theme-form-floating">
                         <?= $form->field($model, 'address')->textarea(['maxlength' => true]) ?>
                     </div>

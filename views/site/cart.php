@@ -150,7 +150,11 @@ $this->title = 'Cart';
                         <ul>
                             <li>
                                 <button onclick="location.href = '<?= Url::to(['/site/checkout']) ?>';"
-                                    class="btn btn-animation proceed-btn fw-bold">Process To Checkout</button>
+                                    class="btn btn-animation proceed-btn fw-bold"
+                                    <?= empty($dataProvider->getModels()) ? 'disabled title="Your cart is empty!"' : '' ?>>
+                                    Process To Checkout
+                                </button>
+
                             </li>
                             <li>
                                 <button onclick="location.href = '<?= Url::to(['/site/products']) ?>';"
@@ -228,6 +232,12 @@ $js = <<<JS
         submitQuantity(input, cartId, newValue);
     };
 
+    toastr.options = {
+            "closeButton": true, // Enable close button
+            "progressBar": true, // Enable progress bar
+            "timeOut": 500        // Duration for which the message is displayed
+        };
+
     function submitQuantity(input, cartId, quantity) {
         const csrfToken = "{$csrfToken}";
         $.ajax({
@@ -267,6 +277,21 @@ $js = <<<JS
         // Refresh the total cart summary
         refreshCartTotal();
     }
+
+    function toggleCheckoutButton() {
+    const hasItems = $('.cart-section table tbody tr').length > 0;
+    const checkoutButton = $('.proceed-btn');
+
+    if (hasItems) {
+        checkoutButton.removeAttr('disabled').removeAttr('title');
+    } else {
+        checkoutButton.attr('disabled', 'disabled').attr('title', 'Your cart is empty!');
+    }
+}
+
+// Call this function after cart updates
+$(document).on('cartUpdated', toggleCheckoutButton);
+
 
     function refreshCartTotal() {
         let cartSubtotal = 0;
@@ -316,7 +341,7 @@ $(window).on('load', function() {
         toastr.options = {
             "closeButton": true, // Enable close button
             "progressBar": true, // Enable progress bar
-            "timeOut": 5000        // Duration for which the message is displayed
+            "timeOut": 500        // Duration for which the message is displayed
         };
         toastr.success(removeResponse.message || 'Product removed successfully!');
         // Clear the local storage after displaying the message

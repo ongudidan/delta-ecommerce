@@ -12,10 +12,13 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\Order;
+use app\models\OrderItem;
 use app\models\Product;
 use app\models\ProductCategory;
 use app\models\ProductSearch;
 use app\models\SignupForm;
+use app\models\UserAddress;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -76,7 +79,7 @@ class SiteController extends Controller
     {
         $productCategories = ProductCategory::find()->all();
         return $this->render('index', [
-            'productCategories'=> $productCategories,
+            'productCategories' => $productCategories,
         ]);
     }
 
@@ -121,7 +124,16 @@ class SiteController extends Controller
      */
     public function actionCheckout()
     {
-        return $this->render('checkout');
+        $model = new Order();
+        $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
+        $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+
+        return $this->render('checkout', [
+            'addresses' => $addresses,
+            'model' => $model,
+            'cartProducts' => $cartProducts,
+
+        ]);
     }
 
     /**
@@ -305,4 +317,75 @@ class SiteController extends Controller
     }
 
 
+    public function actionCreateOrder()
+    {
+        $model = new Order();
+        $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
+        $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+
+        if ($this->request->isPost) {
+            if ($model->load($this->request->post())) {
+                $model->id = IdGenerator::generateUniqueId();
+                $address = UserAddress::find()->where(['user_id' => Yii::$app->user->id, 'id' => $model->address_id])->one();
+
+                $model->address = $address->address;
+                $model->user_id = Yii::$app->user->id;
+                $model->phone_no = $address->phone_no;
+                $model->first_name = $address->first_name;
+                $model->last_name = $address->last_name;
+                $model->status = 9;
+
+                if ($model->save()) {
+                    $orderItemsSaved = true;
+
+                    foreach ($cartProducts as $cartProduct) {
+                        $product = Product::findOne($cartProduct->product_id);
+                        $orderItem = new OrderItem();
+                        $orderItem->id = IdGenerator::generateUniqueId();
+                        $orderItem->product_id = $cartProduct->product_id;
+                        $orderItem->quantity = $cartProduct->quantity;
+                        $orderItem->selling_price = $product->selling_price;
+                        $orderItem->order_id = $model->id;
+
+                        if (!$orderItem->save()) {
+                            $orderItemsSaved = false;
+                            $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($orderItem->getErrors(), 0));
+                            Yii::$app->session->setFlash('error', 'Failed to save some Order Items. Errors: <br>' . $errors);
+                            break; // Stop further processing on error
+                        }
+                    }
+
+                    if ($orderItemsSaved) {
+                        // Clear the cart for the logged-in user
+                        CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
+
+                        Yii::$app->session->setFlash('success', 'Order created successfully.');
+                        return $this->redirect(['order-success', 'id' => $model->id]);
+                    }
+                } else {
+                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                    Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
+                }
+            }
+        } else {
+            $model->loadDefaultValues();
+        }
+
+        return $this->render('checkout', [
+            'addresses' => $addresses,
+            'model' => $model,
+            'cartProducts' => $cartProducts,
+        ]);
+    }
+
+
+    public function actionOrderSuccess($id)
+    {
+        $model = Order::findOne($id);
+
+        return $this->render('order-success', [
+            'model' => $model,
+
+        ]);
+    }
 }
