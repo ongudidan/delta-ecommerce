@@ -115,5 +115,5 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- Tap to top end -->
 
 <!-- Bg overlay Start -->
-<div class="bg-overlay"></div>
+<!-- <div class="bg-overlay"></div> -->
 <!-- Bg overlay End -->
