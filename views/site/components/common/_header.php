@@ -1,9 +1,13 @@
 <?php
 
 use app\models\CartProduct;
+use app\models\ProductSearch;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
+
+
+$searchModel = new ProductSearch();
 
 // Assuming you're using Yii's ActiveRecord for CartProduct model
 $userId = Yii::$app->user->id; // Get the logged-in user's ID
@@ -12,9 +16,9 @@ $userId = Yii::$app->user->id; // Get the logged-in user's ID
 $totalQuantity = CartProduct::find()
     ->where(['user_id' => $userId])
     ->sum('quantity');
-    if($totalQuantity <= 0){
-        $totalQuantity = 0;
-    }
+if ($totalQuantity <= 0) {
+    $totalQuantity = 0;
+}
 ?>
 <header class="pb-md-4 pb-0">
     <div class="header-top">
@@ -137,17 +141,34 @@ $totalQuantity = CartProduct::find()
                             </div>
                         </div> -->
 
-                        <div class="middle-box flex-grow-1 justify-content-center align-items-center px-4">
-                            <div class="search-box w-100">
-                                <div class="input-group">
-                                    <input type="search" class="form-control" placeholder="I'm searching for..."
-                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
-                                    <button class="btn" type="button" id="button-addon2">
-                                        <i data-feather="search"></i>
-                                    </button>
-                                </div>
-                            </div>
+                        <?php
+
+                        use yii\widgets\ActiveForm;
+
+                        $form = ActiveForm::begin([
+                            'method' => 'get',
+                            'action' => ['site/products'], // Action URL
+                            'options' => ['class' => 'middle-box flex-grow-1 justify-content-center align-items-center px-4'],
+                        ]);
+                        ?>
+
+                        <div class="search-box w-100">
+                            <?= $form->field($searchModel, 'name', [
+                                'template' => '
+            <div class="input-group">
+                {input}
+                <button class="btn" type="submit">
+                    <i data-feather="search"></i>
+                </button>
+            </div>',
+                            ])->textInput([
+                                'class' => 'form-control',
+                                'placeholder' => "I'm searching for...",
+                            ]) ?>
                         </div>
+
+                        <?php ActiveForm::end(); ?>
+
 
 
                         <div class="rightside-box">

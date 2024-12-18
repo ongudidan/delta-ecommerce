@@ -59,27 +59,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <img src="/web/uploads/<?= $row->thumbnail ?>"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
-
-                                        <!-- <ul class="product-option">
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
-                                                <a href="javascript:void(0)" data-bs-toggle="modal"
-                                                    data-bs-target="#view">
-                                                    <i data-feather="eye"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
-                                                <a href="compare.html">
-                                                    <i data-feather="refresh-cw"></i>
-                                                </a>
-                                            </li>
-
-                                            <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
-                                                <a href="wishlist.html" class="notifi-wishlist">
-                                                    <i data-feather="heart"></i>
-                                                </a>
-                                            </li>
-                                        </ul> -->
                                     </div>
                                 </div>
                                 <div class="product-footer">
@@ -97,7 +76,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                         </div>
                     <?php endforeach; ?>
-
                     <!-- products end  -->
 
                 </div>

@@ -89,16 +89,35 @@ class SiteController extends Controller
      *
      * @return string
      */
-    public function actionProducts()
+    // public function actionProducts($id)
+    // {
+    //     $searchModel = new ProductSearch();
+    //     $dataProvider = $searchModel->search($this->request->queryParams);
+
+    //     return $this->render('products', [
+    //         'searchModel' => $searchModel,
+    //         'dataProvider' => $dataProvider,
+    //     ]);
+    // }
+    public function actionProducts($category_id = null)
     {
         $searchModel = new ProductSearch();
-        $dataProvider = $searchModel->search($this->request->queryParams);
+        $queryParams = $this->request->queryParams;
+
+        // If category_id is set, filter by it
+        if ($category_id !== null) {
+            $queryParams['ProductSearch']['category_id'] = $category_id;
+        }
+
+        $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('products', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
 
 
     /**
