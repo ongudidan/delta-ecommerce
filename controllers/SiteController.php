@@ -112,7 +112,7 @@ class SiteController extends Controller
     //         'dataProvider' => $dataProvider,
     //     ]);
     // }
-    public function actionProducts($category_id = null)
+    public function actionProducts($category_id = null, $sub_category_id = null)
     {
         $searchModel = new ProductSearch();
         $queryParams = $this->request->queryParams;
@@ -122,6 +122,11 @@ class SiteController extends Controller
             $queryParams['ProductSearch']['category_id'] = $category_id;
         }
 
+        // If sub_category_id is set, filter by it
+        if ($sub_category_id !== null) {
+            $queryParams['ProductSearch']['product_sub_category_id'] = $sub_category_id;
+        }
+
         $dataProvider = $searchModel->search($queryParams);
 
         return $this->render('products', [
@@ -129,6 +134,7 @@ class SiteController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
 
 
 

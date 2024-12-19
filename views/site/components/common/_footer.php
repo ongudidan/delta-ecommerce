@@ -1,3 +1,37 @@
+<?php
+
+use yii\helpers\Url;
+
+?>
+
+<?php
+$links = [
+    ['url' => 'site/index', 'label' => 'Home'],
+    ['url' => 'site/about', 'label' => 'About Us'],
+    ['url' => 'site/contact', 'label' => 'Contact Us']
+];
+
+$helpLinks = [
+    ['url' => 'user-dashboard/orders', 'label' => 'Your Order'],
+    ['url' => 'user-dashboard/index', 'label' => 'Your Account'],
+    ['url' => 'site/products', 'label' => 'Search'],
+];
+
+$contacts = [
+    ['icon' => 'phone', 'title' => 'Hotline 24/7 :', 'detail' => '+91 888 104 2340'],
+    ['icon' => 'mail', 'title' => 'Email Address :', 'detail' => 'fastkart@hotmail.com']
+];
+
+$socialLinks = [
+    ['url' => 'https://www.facebook.com/', 'icon' => 'fa-facebook-f'],
+    ['url' => 'https://twitter.com/', 'icon' => 'fa-twitter'],
+    ['url' => 'https://www.instagram.com/', 'icon' => 'fa-instagram'],
+    ['url' => 'https://in.pinterest.com/', 'icon' => 'fa-pinterest-p']
+];
+
+?>
+
+
 <footer class="section-t-space">
     <div class="container-fluid-lg">
 
@@ -31,86 +65,30 @@
                     </div>
                 </div>
 
-                <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6">
-                    <div class="footer-title">
-                        <h4>Categories</h4>
-                    </div>
-
-                    <div class="footer-contain">
-                        <ul>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Vegetables & Fruit</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Beverages</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Meats & Seafood</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Frozen Foods</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Biscuits & Snacks</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Grocery & Staples</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="col-xl col-lg-2 col-sm-3">
+                <div class="col-xl-3 col-lg-2 col-sm-3">
                     <div class="footer-title">
                         <h4>Useful Links</h4>
                     </div>
 
                     <div class="footer-contain">
                         <ul>
-                            <li>
-                                <a href="index.html" class="text-content">Home</a>
-                            </li>
-                            <li>
-                                <a href="shop-left-sidebar.html" class="text-content">Shop</a>
-                            </li>
-                            <li>
-                                <a href="about-us.html" class="text-content">About Us</a>
-                            </li>
-                            <li>
-                                <a href="blog-list.html" class="text-content">Blog</a>
-                            </li>
-                            <li>
-                                <a href="contact-us.html" class="text-content">Contact Us</a>
-                            </li>
+                            <?php foreach ($links as $link) {
+                                echo '<li><a href="' . Url::to([$link['url']]) . '" class="text-content">' . $link['label'] . '</a></li>';
+                            } ?>
                         </ul>
                     </div>
                 </div>
 
-                <div class="col-xl-2 col-sm-3">
+                <div class="col-xl-3 col-lg-2 col-sm-3">
                     <div class="footer-title">
                         <h4>Help Center</h4>
                     </div>
 
                     <div class="footer-contain">
                         <ul>
-                            <li>
-                                <a href="order-success.html" class="text-content">Your Order</a>
-                            </li>
-                            <li>
-                                <a href="user-dashboard.html" class="text-content">Your Account</a>
-                            </li>
-                            <li>
-                                <a href="order-tracking.html" class="text-content">Track Order</a>
-                            </li>
-                            <li>
-                                <a href="wishlist.html" class="text-content">Your Wishlist</a>
-                            </li>
-                            <li>
-                                <a href="search.html" class="text-content">Search</a>
-                            </li>
-                            <li>
-                                <a href="faq.html" class="text-content">FAQ</a>
-                            </li>
+                            <?php foreach ($helpLinks as $link) {
+                                echo '<li><a href="' .  Url::to([$link['url']]) . '" class="text-content">' . $link['label'] . '</a></li>';
+                            } ?>
                         </ul>
                     </div>
                 </div>
@@ -122,45 +100,22 @@
 
                     <div class="footer-contact">
                         <ul>
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="phone"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Hotline 24/7 :</h6>
-                                        <h5>+91 888 104 2340</h5>
+                            <?php foreach ($contacts as $contact) { ?>
+                                <li>
+                                    <div class="footer-number">
+                                        <i data-feather="<?= $contact['icon'] ?>"></i>
+                                        <div class="contact-number">
+                                            <h6 class="text-content"><?= $contact['title'] ?> :</h6>
+                                            <h5><?= $contact['detail'] ?></h5>
+                                        </div>
                                     </div>
-                                </div>
-                            </li>
-
-                            <li>
-                                <div class="footer-number">
-                                    <i data-feather="mail"></i>
-                                    <div class="contact-number">
-                                        <h6 class="text-content">Email Address :</h6>
-                                        <h5>fastkart@hotmail.com</h5>
-                                    </div>
-                                </div>
-                            </li>
-
-                            <li class="social-app mb-0">
-                                <h5 class="mb-2 text-content">Download App :</h5>
-                                <ul>
-                                    <li class="mb-0">
-                                        <a href="https://play.google.com/store/apps" target="_blank">
-                                            <img src="/web/frontend/assets/images/playstore.svg" class="blur-up lazyload" alt="" />
-                                        </a>
-                                    </li>
-                                    <li class="mb-0">
-                                        <a href="https://www.apple.com/in/app-store/" target="_blank">
-                                            <img src="/web/frontend/assets/images/appstore.svg" class="blur-up lazyload" alt="" />
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
+                                </li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
             </div>
+
         </div>
 
         <div class="sub-footer section-small-space">
@@ -175,26 +130,13 @@
             <div class="social-link">
                 <h6 class="text-content">Stay connected :</h6>
                 <ul>
-                    <li>
-                        <a href="https://www.facebook.com/" target="_blank">
-                            <i class="fa-brands fa-facebook-f"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/" target="_blank">
-                            <i class="fa-brands fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.instagram.com/" target="_blank">
-                            <i class="fa-brands fa-instagram"></i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://in.pinterest.com/" target="_blank">
-                            <i class="fa-brands fa-pinterest-p"></i>
-                        </a>
-                    </li>
+                    <?php foreach ($socialLinks as $link) { ?>
+                        <li>
+                            <a href="<?= Url::to([$link['url']]) ?>" target="_blank">
+                                <i class="fa-brands <?= $link['icon'] ?>"></i>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
