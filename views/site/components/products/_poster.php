@@ -1,6 +1,6 @@
-<section>
+<!-- <section>
     <div class="container-fluid-lg">
-        <div class="row">
+        <div class="row d-none d-md-block">
             <div class="col-12">
                 <div class="slider-1 slider-animate product-wrapper no-arrow">
                     <div>
@@ -45,4 +45,4 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
