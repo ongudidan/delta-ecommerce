@@ -38,9 +38,13 @@ class FrontAsset extends AssetBundle
         "/web/frontend/assets/css/style.css",
         "/web/frontend/assets/css/dan.css",
 
+        "/web/frontend/assets/css/font-awesome.css",
+
 
         "/web/custom/css/toastr.min.css",
         "/web/custom/css/toatr.css",
+
+        // "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 
 
     ];

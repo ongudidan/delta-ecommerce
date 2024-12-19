@@ -4,6 +4,11 @@ use app\models\CartProduct;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
+// Get the current module, controller, and action
+$module = Yii::$app->controller->module->id;
+$controller = Yii::$app->controller->id;
+$action = Yii::$app->controller->action->id;
+
 // Assuming you're using Yii's ActiveRecord for CartProduct model
 $userId = Yii::$app->user->id; // Get the logged-in user's ID
 
@@ -16,16 +21,56 @@ if ($totalQuantity <= 0) {
 }
 
 ?>
+
+<?php
+
+$menuItems = [
+    [
+        'label' => 'Home',
+        'url' => Url::to(['/site/index']),
+        'icon' => 'fas fa-home',
+        'active' => $controller === 'site' && $action === 'index',
+    ],
+    [
+        'label' => 'Products',
+        'icon' => 'fas fa-box-open',
+        'active' => $controller === 'site' && $action === 'products',
+        'url' => Url::to(['/site/products'])
+    ],
+    [
+        'label' => 'Cart',
+        'url' => Url::to(['/site/cart']),
+        'icon' => 'fas fa-shopping-cart',
+        'active' => $controller === 'site' && $action === 'cart',
+    ],
+    [
+        'label' => 'Orders',
+        'icon' => 'fas fa-clipboard-list',
+        'active' => $controller === 'user-dashboard' && $action === 'orders',
+        'url' => Url::to(['/user-dashboard/orders'])
+    ],
+    [
+        'label' => 'Account',
+        'icon' => 'fas fa-user-circle',
+        'active' => $controller === 'user-dashboard' && $action === 'profile',
+        'url' => Url::to(['/user-dashboard/profile'])  // Assuming the profile is the main link, no submenu
+    ],
+];
+?>
+
+
 <div class="mobile-menu d-md-none d-block mobile-cart">
     <ul>
-        <li class="active">
-            <a href="<?= Url::to(['/site/index']) ?>">
-                <i class="iconly-Home icli"></i>
-                <span>Home</span>
-            </a>
-        </li>
+        <?php foreach ($menuItems as $menuItem) { ?>
+            <li class="<?= $menuItem['active'] ? 'active' : '' ?>">
+                <a href="<?= $menuItem['url'] ?>">
+                    <i class="<?= $menuItem['icon'] ?> icli"></i>
+                    <span><?= $menuItem['label'] ?></span>
+                </a>
+            </li>
+        <?php } ?>
 
-        <li class="mobile-category">
+        <!-- <li class="mobile-category">
             <a href="javascript:void(0)">
                 <i class="iconly-Category icli js-link"></i>
                 <span>Category</span>
@@ -50,9 +95,9 @@ if ($totalQuantity <= 0) {
             <a href="<?= Url::to(['/site/cart']) ?>">
                 <i class="iconly-Bag-2 icli fly-cate"></i>
                 <span>Cart</span>
-              
+
             </a>
-        </li>
+        </li> -->
 
     </ul>
 </div>
