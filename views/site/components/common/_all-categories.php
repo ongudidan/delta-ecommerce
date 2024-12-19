@@ -37,7 +37,7 @@ use yii\helpers\Url;
                                             <div class="list-1">
                                                 <ul>
                                                     <?php
-                                                    $subCategories = ProductSubCategory::find($row->id)->all();
+                                                    $subCategories = ProductSubCategory::find()->where(['product_category_id'=> $row->id])->all();
                                                     $half = ceil(count($subCategories) / 2); // Split into two halves
                                                     $count = 0;
 
@@ -54,7 +54,7 @@ use yii\helpers\Url;
                                             <div class="list-2">
                                                 <ul>
                                                     <?php
-                                                    $subCategories = ProductSubCategory::find($row->id)->all();
+                                                    $subCategories = ProductSubCategory::find()->where(['product_category_id'=> $row->id])->all();
                                                     $half = ceil(count($subCategories) / 2); // Split into two halves
                                                     $count = 0;
 
