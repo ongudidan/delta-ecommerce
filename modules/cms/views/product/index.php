@@ -107,6 +107,25 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </tr>
                                         <?php endif; ?>
 
+                                        <nav class="custome-pagination small-pagination">
+                                            <?= \yii\bootstrap5\LinkPager::widget([
+                                                'pagination' => $dataProvider->pagination,
+                                                'options' => ['class' => 'pagination justify-content-center small-pagination'], // Add custom class
+                                                'linkOptions' => ['class' => 'page-link'], // Style individual page links
+                                                'activePageCssClass' => 'active', // Class for the active page
+                                                'disabledPageCssClass' => 'disabled', // Class for disabled links
+                                                'firstPageLabel' => 'Start', // Label for the start button
+                                                'lastPageLabel' => 'End', // Label for the end button
+                                                'prevPageLabel' => '<i class="fa-solid fa-angles-left"></i>', // Previous page icon
+                                                'nextPageLabel' => '<i class="fa-solid fa-angles-right"></i>', // Next page icon
+                                                'firstPageCssClass' => 'page-item', // Class for the start page container
+                                                'lastPageCssClass' => 'page-item', // Class for the end page container
+                                                'prevPageCssClass' => 'page-item', // Class for the previous page container
+                                                'nextPageCssClass' => 'page-item', // Class for the next page container
+                                                'pageCssClass' => 'page-item', // Class for each page container
+                                                'maxButtonCount' => 5, // Number of visible page buttons
+                                            ]); ?>
+                                        </nav>
                                     </tbody>
                                 </table>
                             </div>

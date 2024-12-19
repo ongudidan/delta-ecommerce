@@ -13,7 +13,7 @@ use dosamigos\ckeditor\CKEditor;
             <div class="col-sm-12">
                 <?= $form->field($model, 'description', ['template' => '{input}{error}',])->widget(CKEditor::className(), [
                     'options' => ['rows' => 6],
-                    'preset' => 'basic'
+                    'preset' => 'basic',
                 ]) ?>
             </div>
         </div>

@@ -34,13 +34,16 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/css/vector-map.css",
         "/web/cms/assets/css/vendors/slick.css",
         "/web/cms/assets/css/style.css",
-
-
         "/web/cms/assets/css/vendors/dropzone.css",
         // "/web/cms/assets/css/select2.min.css",
         "/web/cms/assets/css/vendors/chartist.css",
         "/web/cms/assets/css/vendors/date-picker.css",
         "/web/cms/assets/css/vendors/bootstrap-tagsinput.css",
+
+
+        "/web/custom/css/toastr.min.css",
+        "/web/custom/css/toatr.css",
+
 
     ];
     public $js = [
@@ -66,9 +69,6 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/js/ratio.js",
         "/web/cms/assets/js/sidebareffect.js",
         "/web/cms/assets/js/script.js",
-
-
-
         "/web/cms/assets/js/bootstrap-tagsinput.min.js",
         "/web/cms/assets/js/dropzone/dropzone.js",
         "/web/cms/assets/js/dropzone/dropzone-script.js",
@@ -76,6 +76,9 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/js/ckeditor-custom.js",
         // "/web/cms/assets/js/select2.min.js",
         // "/web/cms/assets/js/select2-custom.js",
+        "/web/custom/js/toastr.min.js",
+        "/web/custom/js/toastr.js",
+        
     ];
     public $depends = [
         'yii\web\YiiAsset',

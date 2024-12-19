@@ -4,7 +4,6 @@
                 <h5>Product variations</h5>
             </div>
 
-            <form class="theme-form theme-form-2 mega-form">
                 <div class="mb-4 row align-items-center">
                     <label class="form-label-title col-sm-3 mb-0">Option
                         Name</label>
@@ -29,7 +28,6 @@
                         </div>
                     </div>
                 </div>
-            </form>
 
             <a href="#" class="add-option"><i class="ri-add-line me-2"></i> Add Another
                 Option</a>

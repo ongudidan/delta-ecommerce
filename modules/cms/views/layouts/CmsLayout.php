@@ -4,11 +4,9 @@
 /** @var string $content */
 
 use app\assets\CmsAsset;
-use app\widgets\Alert;
-use yii\bootstrap5\Breadcrumbs;
+
 use yii\bootstrap5\Html;
-use yii\bootstrap5\Nav;
-use yii\bootstrap5\NavBar;
+
 
 CmsAsset::register($this);
 
@@ -49,6 +47,26 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/w
             <main>
                 <div>
                     <?= $content ?>
+                    <?php
+                    $flashes = Yii::$app->session->getAllFlashes();
+                    if (!empty($flashes)) {
+                        $js = <<<JS
+        toastr.options = {
+            "closeButton": true, // Enable close button
+            "progressBar": true, // Enable progress bar
+            "timeOut": 500 // Duration for which the message is displayed
+        };
+    JS;
+
+                        foreach ($flashes as $type => $message) {
+                            // Map Yii flash types to Toastr types
+                            $toastrType = $type === 'error' ? 'error' : ($type === 'success' ? 'success' : 'info');
+                            $escapedMessage = addslashes($message);
+                            $js .= "\ntoastr.{$toastrType}('{$escapedMessage}');";
+                        }
+                        $this->registerJs($js);
+                    }
+                    ?>
                 </div>
             </main>
             <!-- index body end -->
