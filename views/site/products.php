@@ -45,7 +45,8 @@ $form = ActiveForm::begin([
 ]);
 
 ?>
-
+<!-- (d-block d-sm-none) classes prevent the section from appearing in desktop view -->
+ 
 <section class="search-section d-block d-sm-none">
     <div class="container-fluid-lg">
         <div class="row">
@@ -101,9 +102,7 @@ $form = ActiveForm::begin([
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
-                                            <img src="<?= file_exists(Yii::getAlias('@webroot/uploads/' . $row->thumbnail))
-                                                            ? '/web/uploads/' . $row->thumbnail
-                                                            : '/web/images/1-1.jpg' ?>"
+                                            <img src="/web/uploads/<?= $row->thumbnail ?>"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
 

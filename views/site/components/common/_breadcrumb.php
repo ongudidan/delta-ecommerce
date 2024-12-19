@@ -3,7 +3,9 @@
 use yii\widgets\Breadcrumbs;
 ?>
 
-<section class="breadscrumb-section pt-0">
+<!-- (d-none d-md-block) prevent display on mobile view -->
+
+<section class="breadscrumb-section pt-0 d-none d-md-block">
     <div class="container-fluid-lg">
         <div class="row">
             <div class="col-12">

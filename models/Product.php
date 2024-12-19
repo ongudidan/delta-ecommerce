@@ -119,6 +119,16 @@ class Product extends \yii\db\ActiveRecord
         return $this->hasOne(ProductCategory::class, ['id' => 'product_category_id']);
     }
 
+    public function getBrand()
+    {
+        return $this->hasOne(Brand::class, ['id' => 'brand_id']);
+    }
+
+    public function getUnit()
+    {
+        return $this->hasOne(Unit::class, ['id' => 'unit_id']);
+    }
+
     /**
      * Gets query for [[ProductSubCategory]].
      *
