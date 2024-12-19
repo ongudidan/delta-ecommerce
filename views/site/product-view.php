@@ -69,12 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <div class="right-box-contain">
                             <h2 class="name"><?= $model->name ?></h2>
                             <div class="price-rating">
-                                <h3 class="theme-color price">Ksh. <?= number_format($model->selling_price) ?> <del class="text-content">$58.46</del>
-                            </div>
-
-                            <div class="procuct-contain">
-                                <p><?= $model->description ?>
-                                </p>
+                                <h3 class="theme-color price">Ksh. <?= number_format($model->selling_price) ?> <del class="text-content">Ksh. <?= number_format($model->compare_price) ?> </del>
                             </div>
 
                             <div class="note-box product-packege">
@@ -124,16 +119,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         </div>
                     </div>
 
-                    <!-- <div class="col-12">
-                            <div class="product-section-box">
-                                <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist">
-                                    <li class="nav-item" role="presentation">
-                                        <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                                            data-bs-target="#description" type="button" role="tab"
-                                            aria-controls="description" aria-selected="true">Description</button>
-                                    </li>
+                    <div class="col-12">
+                        <div class="product-section-box">
+                            <ul class="nav nav-tabs custom-nav" id="myTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
+                                        data-bs-target="#description" type="button" role="tab"
+                                        aria-controls="description" aria-selected="true">Description</button>
+                                </li>
 
-                                    <li class="nav-item" role="presentation">
+                                <!-- <li class="nav-item" role="presentation">
                                         <button class="nav-link" id="info-tab" data-bs-toggle="tab"
                                             data-bs-target="#info" type="button" role="tab" aria-controls="info"
                                             aria-selected="false">Additional info</button>
@@ -149,24 +144,17 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <button class="nav-link" id="review-tab" data-bs-toggle="tab"
                                             data-bs-target="#review" type="button" role="tab" aria-controls="review"
                                             aria-selected="false">Review</button>
-                                    </li>
-                                </ul>
+                                    </li> -->
+                            </ul>
 
-                                <div class="tab-content custom-tab" id="myTabContent">
-                                    <div class="tab-pane fade show active" id="description" role="tabpanel"
-                                        aria-labelledby="description-tab">
-                                        <div class="product-description">
-                                            <div class="nav-desh">
-                                                <p>Jelly beans carrot cake icing biscuit oat cake gummi bears tart.
-                                                    Lemon drops carrot cake pudding sweet gummi bears. Chocolate cake
-                                                    tart cupcake donut topping liquorice sugar plum chocolate bar. Jelly
-                                                    beans tiramisu caramels jujubes biscuit liquorice chocolate. Pudding
-                                                    toffee jujubes oat cake sweet roll. Lemon drops dessert croissant
-                                                    danish cake cupcake. Sweet roll candy chocolate toffee jelly sweet
-                                                    roll halvah brownie topping. Marshmallow powder candy sesame snaps
-                                                    jelly beans candy canes marshmallow gingerbread pie.</p>
-                                            </div>
-
+                            <div class="tab-content custom-tab" id="myTabContent">
+                                <div class="tab-pane fade show active" id="description" role="tabpanel"
+                                    aria-labelledby="description-tab">
+                                    <div class="product-description">
+                                        <div class="nav-desh">
+                                            <p><?= $model->description ?></p>
+                                        </div>
+                                        <!-- 
                                             <div class="nav-desh">
                                                 <div class="desh-title">
                                                     <h5>Organic:</h5>
@@ -218,11 +206,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     chocolate. Ice cream cookie dragée cake sweet roll sweet roll.Lemon
                                                     drops cookie muffin carrot cake chocolate marzipan gingerbread
                                                     topping chocolate bar. Soufflé tiramisu pastry sweet dessert.</p>
-                                            </div>
-                                        </div>
+                                            </div> -->
                                     </div>
+                                </div>
 
-                                    <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
+                                <!-- <div class="tab-pane fade" id="info" role="tabpanel" aria-labelledby="info-tab">
                                         <div class="table-responsive">
                                             <table class="table info-table">
                                                 <tbody>
@@ -616,10 +604,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    </div> -->
                             </div>
-                        </div> -->
+                        </div>
+                    </div>
                 </div>
             </div>
 
