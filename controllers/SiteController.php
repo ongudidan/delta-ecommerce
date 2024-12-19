@@ -77,11 +77,24 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        $searchModel = new ProductSearch();
+        $queryParams = $this->request->queryParams;
+
+        $dataProvider = $searchModel->search($queryParams);
+
+        // Set pagination limit to 50
+        $dataProvider->pagination = [
+            'pageSize' => 50,
+        ];
+
         $productCategories = ProductCategory::find()->all();
         return $this->render('index', [
             'productCategories' => $productCategories,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
+
 
 
     /**
