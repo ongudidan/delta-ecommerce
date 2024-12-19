@@ -175,7 +175,7 @@ class ProductCategoryController extends Controller
             // Save the model
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Brand updated successfully.');
-                return $this->redirect(['view', 'id' => $model->id]);
+                return $this->redirect(['index', 'id' => $model->id]);
             } else {
                 // Log and show model errors
                 $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));

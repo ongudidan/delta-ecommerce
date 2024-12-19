@@ -5,6 +5,8 @@ use app\models\ProductSearch;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
+use yii\widgets\ActiveForm;
+
 
 
 $searchModel = new ProductSearch();
@@ -143,8 +145,6 @@ if ($totalQuantity <= 0) {
 
                         <?php
 
-                        use yii\widgets\ActiveForm;
-
                         $form = ActiveForm::begin([
                             'method' => 'get',
                             'action' => ['site/products'], // Action URL
@@ -155,13 +155,13 @@ if ($totalQuantity <= 0) {
                         <div class="search-box w-100">
                             <?= $form->field($searchModel, 'name', [
                                 'template' => '
-            <div class="input-group">
-                {input}
-                <button class="btn" type="submit">
-                    <i data-feather="search"></i>
-                </button>
-            </div>',
-                            ])->textInput([
+                                    <div class="input-group">
+                                        {input}
+                                        <button class="btn" type="submit">
+                                            <i data-feather="search"></i>
+                                        </button>
+                                    </div>',
+                                                    ])->textInput([
                                 'class' => 'form-control',
                                 'placeholder' => "I'm searching for...",
                             ]) ?>
