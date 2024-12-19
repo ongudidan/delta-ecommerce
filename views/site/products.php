@@ -29,7 +29,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <!-- mobile fix menu end -->
 
 <!-- Breadcrumb Section Start -->
-<?= $this->render('components/common/_breadcrumb') ?>
+<div class="d-none d-lg-block">
+    <?= $this->render('components/common/_breadcrumb') ?>
+</div>
 
 <!-- Breadcrumb Section End -->
 
