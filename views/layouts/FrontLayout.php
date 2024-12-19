@@ -28,7 +28,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/w
     <?php $this->head() ?>
 </head>
 
-<body class="theme-color-1">
+<body class="bg-effect">
     <?php $this->beginBody() ?>
 
     <main>
