@@ -38,7 +38,7 @@
 
             <div class="col-xl-4 ratio_65">
                 <div class="row g-4">
-                    <div class="col-xl-12 col-md-6">
+                    <div class="col-xl-12 col-md-6 d-none d-md-block"> <!-- Hidden on mobile, shown from medium screens upwards -->
                         <div class="home-contain">
                             <img src="/web/uploads/banner/2.jpg" class="bg-img blur-up lazyload" alt="" />
                             <div class="home-detail p-center-left home-p-sm w-75">
@@ -55,7 +55,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-12 col-md-6">
+                    <div class="col-xl-12 col-md-6 d-none d-md-block"> <!-- Hidden on mobile, shown from medium screens upwards -->
                         <div class="home-contain">
                             <img src="/web/uploads/banner/3.jpg" class="bg-img blur-up lazyload" alt="" />
                             <div class="home-detail p-center-left home-p-sm w-75">
@@ -73,6 +73,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
