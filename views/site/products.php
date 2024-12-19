@@ -86,11 +86,12 @@ $form = ActiveForm::begin([
     <div class="container-fluid-lg">
         <div class="row">
             <!-- shop side left bar start -->
-            <?= $this->render('components/products/_shop-left-sidebar') ?>
+            <?php //echo $this->render('components/products/_shop-left-sidebar') 
+            ?>
             <!-- shop side left bar end -->
 
 
-            <div class="col-custome-9">
+            <div class="col-custome-12">
 
                 <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
                     <!-- products start -->
@@ -100,9 +101,12 @@ $form = ActiveForm::begin([
                                 <div class="product-header">
                                     <div class="product-image">
                                         <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
-                                            <img src="/web/uploads/<?= $row->thumbnail ?>"
+                                            <img src="<?= file_exists(Yii::getAlias('@webroot/uploads/' . $row->thumbnail))
+                                                            ? '/web/uploads/' . $row->thumbnail
+                                                            : '/web/images/1-1.jpg' ?>"
                                                 class="img-fluid blur-up lazyload" alt="">
                                         </a>
+
                                     </div>
                                 </div>
                                 <div class="product-footer">
@@ -124,21 +128,26 @@ $form = ActiveForm::begin([
 
                 </div>
 
-                <nav class="custome-pagination">
+                <nav class="custome-pagination small-pagination">
                     <?= \yii\bootstrap5\LinkPager::widget([
                         'pagination' => $dataProvider->pagination,
-                        'options' => ['class' => 'pagination justify-content-center'], // Apply your custom class
+                        'options' => ['class' => 'pagination justify-content-center small-pagination'], // Add custom class
                         'linkOptions' => ['class' => 'page-link'], // Style individual page links
                         'activePageCssClass' => 'active', // Class for the active page
                         'disabledPageCssClass' => 'disabled', // Class for disabled links
+                        'firstPageLabel' => 'Start', // Label for the start button
+                        'lastPageLabel' => 'End', // Label for the end button
                         'prevPageLabel' => '<i class="fa-solid fa-angles-left"></i>', // Previous page icon
                         'nextPageLabel' => '<i class="fa-solid fa-angles-right"></i>', // Next page icon
+                        'firstPageCssClass' => 'page-item', // Class for the start page container
+                        'lastPageCssClass' => 'page-item', // Class for the end page container
                         'prevPageCssClass' => 'page-item', // Class for the previous page container
                         'nextPageCssClass' => 'page-item', // Class for the next page container
                         'pageCssClass' => 'page-item', // Class for each page container
-                        'maxButtonCount' => 3, // Number of visible page buttons
+                        'maxButtonCount' => 5, // Number of visible page buttons
                     ]); ?>
                 </nav>
+
 
             </div>
         </div>

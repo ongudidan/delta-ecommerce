@@ -43,7 +43,7 @@ $this->title = 'Home';
                 <div class="category-slider-2 product-wrapper no-arrow">
                     <?php foreach ($productCategories as $row) { ?>
                         <div>
-                            <a href="<?= Url::to(['/site/products', 'category_id'=> $row->id]) ?>" class="category-box category-dark">
+                            <a href="<?= Url::to(['/site/products', 'category_id' => $row->id]) ?>" class="category-box category-dark">
                                 <div>
                                     <img src="/web/uploads/<?= $row->thumbnail ?>" class="blur-up lazyload" alt="" />
                                     <h5><?= $row->name ?></h5>
@@ -52,7 +52,7 @@ $this->title = 'Home';
                         </div>
                     <?php } ?>
                 </div>
-<!-- 
+                <!-- 
                 <div class="title title-flex">
                     <div>
                         <h2>Top Save Today</h2>
@@ -1177,57 +1177,59 @@ $this->title = 'Home';
                     <!-- <p>A virtual assistant collects the products from your list</p> -->
                 </div>
 
-               <div class="col-custome-12">
+                <div class="col-custome-12">
 
-                <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
-                    <!-- products start -->
-                    <?php foreach ($dataProvider->getModels() as $index => $row): ?>
-                        <div>
-                            <div class="product-box-3 h-100 wow fadeInUp">
-                                <div class="product-header">
-                                    <div class="product-image">
-                                        <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
-                                            <img src="/web/uploads/<?= $row->thumbnail ?>"
-                                                class="img-fluid blur-up lazyload" alt="">
-                                        </a>
+                    <div class="row g-sm-4 g-3 row-cols-xxl-4 row-cols-xl-3 row-cols-lg-2 row-cols-md-3 row-cols-2 product-list-section">
+                        <!-- products start -->
+                        <?php foreach ($dataProvider->getModels() as $index => $row): ?>
+                            <div>
+                                <div class="product-box-3 h-100 wow fadeInUp">
+                                    <div class="product-header">
+                                        <div class="product-image">
+                                            <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
+                                                <img src="<?= file_exists(Yii::getAlias('@webroot/uploads/' . $row->thumbnail))
+                                                                ? '/web/uploads/' . $row->thumbnail
+                                                                : '/web/images/1-1.jpg' ?>"
+                                                    class="img-fluid blur-up lazyload" alt="">
+                                            </a>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="product-footer">
-                                    <div class="product-detail">
-                                        <span class="span-name"><?= $row->productSubCategory->name ?></span>
-                                        <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
-                                            <h5 class="name"><?= $row->name ?></h5>
-                                        </a>
-                                        <p class="text-content mt-1 mb-2 product-content"><?= $row->description ?></p>
+                                    <div class="product-footer">
+                                        <div class="product-detail">
+                                            <span class="span-name"><?= $row->productSubCategory->name ?></span>
+                                            <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
+                                                <h5 class="name"><?= $row->name ?></h5>
+                                            </a>
+                                            <p class="text-content mt-1 mb-2 product-content"><?= $row->description ?></p>
 
-                                        <h5 class="price"><span class="theme-color">Ksh. <?= number_format($row->selling_price) ?></span> <del>Ksh. <?= number_format($row->compare_price) ?></del>
-                                        </h5>
+                                            <h5 class="price"><span class="theme-color">Ksh. <?= number_format($row->selling_price) ?></span> <del>Ksh. <?= number_format($row->compare_price) ?></del>
+                                            </h5>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <!-- products end  -->
+                        <?php endforeach; ?>
+                        <!-- products end  -->
+
+                    </div>
+
+                    <nav class="custome-pagination">
+                        <?= \yii\bootstrap5\LinkPager::widget([
+                            'pagination' => $dataProvider->pagination,
+                            'options' => ['class' => 'pagination justify-content-center'], // Apply your custom class
+                            'linkOptions' => ['class' => 'page-link'], // Style individual page links
+                            'activePageCssClass' => 'active', // Class for the active page
+                            'disabledPageCssClass' => 'disabled', // Class for disabled links
+                            'prevPageLabel' => '<i class="fa-solid fa-angles-left"></i>', // Previous page icon
+                            'nextPageLabel' => '<i class="fa-solid fa-angles-right"></i>', // Next page icon
+                            'prevPageCssClass' => 'page-item', // Class for the previous page container
+                            'nextPageCssClass' => 'page-item', // Class for the next page container
+                            'pageCssClass' => 'page-item', // Class for each page container
+                            'maxButtonCount' => 3, // Number of visible page buttons
+                        ]); ?>
+                    </nav>
 
                 </div>
-
-                <nav class="custome-pagination">
-                    <?= \yii\bootstrap5\LinkPager::widget([
-                        'pagination' => $dataProvider->pagination,
-                        'options' => ['class' => 'pagination justify-content-center'], // Apply your custom class
-                        'linkOptions' => ['class' => 'page-link'], // Style individual page links
-                        'activePageCssClass' => 'active', // Class for the active page
-                        'disabledPageCssClass' => 'disabled', // Class for disabled links
-                        'prevPageLabel' => '<i class="fa-solid fa-angles-left"></i>', // Previous page icon
-                        'nextPageLabel' => '<i class="fa-solid fa-angles-right"></i>', // Next page icon
-                        'prevPageCssClass' => 'page-item', // Class for the previous page container
-                        'nextPageCssClass' => 'page-item', // Class for the next page container
-                        'pageCssClass' => 'page-item', // Class for each page container
-                        'maxButtonCount' => 3, // Number of visible page buttons
-                    ]); ?>
-                </nav>
-
-            </div>
 
             </div>
         </div>
