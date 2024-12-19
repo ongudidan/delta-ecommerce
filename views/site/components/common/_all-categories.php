@@ -60,7 +60,7 @@ use yii\helpers\Url;
 
                                                     foreach ($subCategories as $subCategory) {
                                                         if ($count >= $half) {
-                                                            echo '<li><a href="' . Url::to(['/site/products', 'category_id' => $row->id]) . '">' . $subCategory->name . '</a></li>';
+                                                            echo '<li><a href="' . Url::to(['/site/products', 'sub_category_id' => $subCategory->id]) . '">' . $subCategory->name . '</a></li>';
                                                         }
                                                         $count++;
                                                     }
