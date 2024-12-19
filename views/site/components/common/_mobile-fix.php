@@ -33,7 +33,7 @@ if ($totalQuantity <= 0) {
         </li>
 
         <li>
-            <a href="<?= Url::to(['/site/index']) ?>" class="search-box">
+            <a href="<?= Url::to(['/site/products']) ?>" class="search-box">
                 <i class="iconly-Search icli"></i>
                 <span>Search</span>
             </a>

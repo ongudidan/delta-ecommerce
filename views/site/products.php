@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap5\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\DetailView;
@@ -31,6 +32,47 @@ $this->params['breadcrumbs'][] = $this->title;
 <?= $this->render('components/common/_breadcrumb') ?>
 
 <!-- Breadcrumb Section End -->
+
+<!-- Search Bar Section Start -->
+<?php
+
+$form = ActiveForm::begin([
+    'method' => 'get',
+    'action' => ['site/products'], // Action URL
+    'options' => ['class' => 'middle-box flex-grow-1 justify-content-center align-items-center px-4'],
+]);
+
+?>
+
+<section class="search-section d-block d-sm-none">
+    <div class="container-fluid-lg">
+        <div class="row">
+            <div class="col-xxl-6 col-xl-8 mx-auto">
+
+                <div class="search-box">
+                    <?= $form->field($searchModel, 'name', [
+                        'template' => '
+                            <div class="input-group">
+                                {input}
+                                <button class="btn theme-bg-color text-white m-0" type="submit" id="button-addon1">
+                                    Search
+                                </button>
+                            </div>',
+                    ])->textInput([
+                        'class' => 'form-control',
+                        'placeholder' => "I'm searching for...",
+                    ]) ?>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<?php ActiveForm::end(); ?>
+
+<!-- Search Bar Section End -->
 
 <!-- Poster Section Start -->
 <?= $this->render('components/products/_poster') ?>
