@@ -45,6 +45,10 @@ class ComposerStaticInit72ac0b8252822528c034bbf39a2eb746
             'kartik\\date\\' => 12,
             'kartik\\base\\' => 12,
         ),
+        'd' => 
+        array (
+            'dosamigos\\ckeditor\\' => 19,
+        ),
         'c' => 
         array (
             'cebe\\markdown\\' => 14,
@@ -181,6 +185,10 @@ class ComposerStaticInit72ac0b8252822528c034bbf39a2eb746
         'kartik\\base\\' => 
         array (
             0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
+        ),
+        'dosamigos\\ckeditor\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/2amigos/yii2-ckeditor-widget/src',
         ),
         'cebe\\markdown\\' => 
         array (

@@ -291,8 +291,8 @@ class m240925_011459_create_app_tables extends Migration
             'compare_price' => $this->decimal()->defaultValue(null),
 
             'product_number' => $this->string()->defaultValue(null),
-            'description' => $this->string()->defaultValue(null),
-            'specifications' => $this->string()->defaultValue(null),
+            'description' => $this->text()->defaultValue(null), // Changed to text to accommodate more content
+            'specifications' => $this->text()->defaultValue(null),
             'status' => $this->string()->defaultValue(null),
             'thumbnail' => $this->string()->defaultValue(null),
             'created_at' => $this->integer()->defaultValue(null),

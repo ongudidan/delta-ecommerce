@@ -31,7 +31,8 @@
     "kartik-v/yii2-widget-datepicker": "dev-master",
     "kartik-v/yii2-widget-datetimepicker": "dev-master",
     "ramsey/uuid": "^4.7",
-    "yii2-extensions/dynamicform": "^1.0.0"
+    "yii2-extensions/dynamicform": "^1.0.0",
+    "2amigos/yii2-ckeditor-widget": "^2.1"
   },
   "require-dev": {
     "yiisoft/yii2-debug": "~2.1.0",

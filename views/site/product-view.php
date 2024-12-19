@@ -50,10 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <div class="product-main-2 no-arrow">
                                         <div>
                                             <div class="slider-image">
-                                                <img src="<?= file_exists(Yii::getAlias('@webroot/uploads/' . $model->thumbnail))
-                                                                ? '/web/uploads/' . $model->thumbnail
-                                                                : '/web/images/1-1.jpg' ?>"
-                                                    data-zoom-image="/web/uploads/<?= $model->thumbnail ?>"
+                                                <img src="/web/uploads/<?= $model->thumbnail ?>"
                                                     class="img-fluid image_zoom_cls-0 blur-up lazyload" alt="">
                                             </div>
                                         </div>

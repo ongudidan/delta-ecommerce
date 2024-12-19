@@ -18,6 +18,7 @@ return array(
     'kartik\\daterange\\' => array($vendorDir . '/kartik-v/yii2-date-range/src'),
     'kartik\\date\\' => array($vendorDir . '/kartik-v/yii2-widget-datepicker/src'),
     'kartik\\base\\' => array($vendorDir . '/kartik-v/yii2-krajee-base/src'),
+    'dosamigos\\ckeditor\\' => array($vendorDir . '/2amigos/yii2-ckeditor-widget/src'),
     'cebe\\markdown\\' => array($vendorDir . '/cebe/markdown'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
     'Yii2\\Extensions\\DynamicForm\\' => array($vendorDir . '/yii2-extensions/dynamicform/src'),

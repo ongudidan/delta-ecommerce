@@ -130,45 +130,47 @@ if ($totalQuantity <= 0) {
                             <img src="/web/frontend/assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="" />
                         </a>
 
-                        <!-- <div class="middle-box">
+                        <div class="middle-box">
+                            <div class="location-box">
+                                <button class="btn location-button" data-bs-toggle="modal" data-bs-target="#locationModal">
+                                    <span class="location-arrow">
+                                        <i data-feather="map-pin"></i>
+                                    </span>
+                                    <span class="locat-name">Your Location</span>
+                                    <i class="fa-solid fa-angle-down"></i>
+                                </button>
+                            </div>
 
-                            <div class="search-box">
+                            <?php
+
+                            $form = ActiveForm::begin([
+                                'method' => 'get',
+                                'action' => ['site/products'], // Action URL
+                                'options' => ['class' => 'middle-box flex-grow-1 justify-content-center align-items-center px-4'],
+                            ]);
+                            ?>
+
+                                <?= $form->field($searchModel, 'name', [
+                                    'template' => '
+                                      <div class="search-box">
                                 <div class="input-group">
-                                    <input type="search" class="form-control" placeholder="I'm searching for..."
-                                        aria-label="Recipient's username" aria-describedby="button-addon2" />
+                                     {input}
                                     <button class="btn" type="button" id="button-addon2">
                                         <i data-feather="search"></i>
                                     </button>
                                 </div>
-                            </div>
-                        </div> -->
+                            </div>',
+                                ])->textInput([
+                                    'class' => 'form-control',
+                                    'placeholder' => "I'm searching for...",
+                                ]) ?>
 
-                        <?php
+                            <?php ActiveForm::end(); ?>
 
-                        $form = ActiveForm::begin([
-                            'method' => 'get',
-                            'action' => ['site/products'], // Action URL
-                            'options' => ['class' => 'middle-box flex-grow-1 justify-content-center align-items-center px-4'],
-                        ]);
-                        ?>
 
-                        <div class="search-box w-100">
-                            <?= $form->field($searchModel, 'name', [
-                                'template' => '
-                                    <div class="input-group">
-                                        {input}
-                                        <button class="btn" type="submit">
-                                            <i data-feather="search"></i>
-                                        </button>
-                                    </div>',
-                                                    ])->textInput([
-                                'class' => 'form-control',
-                                'placeholder' => "I'm searching for...",
-                            ]) ?>
+                            <!-- //////////////// -->
+
                         </div>
-
-                        <?php ActiveForm::end(); ?>
-
 
 
                         <div class="rightside-box">
@@ -272,6 +274,6 @@ if ($totalQuantity <= 0) {
             </div>
         </div>
     </div>
- <?= $this->render('_all-categories')?>
+    <?= $this->render('_all-categories') ?>
 
 </header>
