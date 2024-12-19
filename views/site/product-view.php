@@ -90,9 +90,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                 <div class="row align-items-center">
                                     <!-- Quantity Section -->
-                                    <div class="col-md-6 col-sm-12">
+                                    <div class="col-md-6 col-sm-12 d-flex justify-content-center align-items-center">
                                         <div class="cart_qty qty-box product-qty">
-                                            <div class="input-group">
+                                            <div class="input-group w-100">
                                                 <button type="button" class="qty-left-minus" data-type="minus" data-field="">
                                                     <i class="fa fa-minus" aria-hidden="true"></i>
                                                 </button>

@@ -36,6 +36,8 @@ class FrontAsset extends AssetBundle
         "/web/frontend/assets/css/vendors/slick/slick-theme.css",
         "/web/frontend/assets/css/bulk-style.css",
         "/web/frontend/assets/css/style.css",
+        "/web/frontend/assets/css/dan.css",
+
 
         "/web/custom/css/toastr.min.css",
         "/web/custom/css/toatr.css",
