@@ -105,7 +105,7 @@ $this->title = 'Cart';
 
                                             <td class="save-remove">
                                                 <h4 class="table-title text-content">Action</h4>
-                                                <button class="remove" data-cart-id="<?= $row->id ?>">Remove</button>
+                                                <button class="border-0 bg-transparent remove ps-0" data-cart-id="<?= $row->id ?>">Remove</button>
                                             </td>
 
                                         </tr>

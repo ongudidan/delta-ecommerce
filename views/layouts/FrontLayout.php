@@ -44,7 +44,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '/w
         toastr.options = {
             "closeButton": true, // Enable close button
             "progressBar": true, // Enable progress bar
-            "timeOut": 500 // Duration for which the message is displayed
+            "timeOut": 10000 // Duration for which the message is displayed
         };
     JS;
 

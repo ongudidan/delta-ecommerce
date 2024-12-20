@@ -114,7 +114,6 @@ $form = ActiveForm::begin([
                                         <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
                                             <h5 class="name"><?= $row->name ?></h5>
                                         </a>
-                                        <p class="text-content mt-1 mb-2 product-content"><?= $row->description ?></p>
 
                                         <h5 class="price"><span class="theme-color">Ksh. <?= number_format($row->selling_price) ?></span> <del>Ksh. <?= number_format($row->compare_price) ?></del>
                                         </h5>

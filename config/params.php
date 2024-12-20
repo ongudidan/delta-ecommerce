@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
+    'adminEmail' => 'danny@doubledeals.co.ke',
+    'senderEmail' => 'danny@doubledeals.co.ke',
     'senderName' => 'Example.com mailer',
     'bsVersion' => '5.x',
     'bsDependencyEnabled' => false,

@@ -300,10 +300,11 @@ class SiteController extends Controller
         $quantity = Yii::$app->request->post('quantity', 1);
 
         if (!$productId || $quantity <= 0) {
-            return [
-                'success' => false,
-                'message' => 'Invalid product or quantity.',
-            ];
+
+            Yii::$app->session->setFlash('error', 'Invalid product or quantity.');
+
+            return $this->redirect(['products']);
+
         }
 
         $userId = Yii::$app->user->id;
@@ -324,16 +325,15 @@ class SiteController extends Controller
         }
 
         if ($cartProduct->save()) {
-            return [
-                'success' => true,
-                'message' => 'Product added to cart successfully!',
-            ];
+
+            Yii::$app->session->setFlash('success', 'Product added to cart successfully.');
+
+            return $this->redirect(['products']);
+
         }
 
-        return [
-            'success' => false,
-            'message' => 'Failed to add product to cart. Please try again.',
-        ];
+        return $this->redirect(['product-view', 'id' => $productId]);
+
     }
 
     /**
@@ -366,44 +366,57 @@ class SiteController extends Controller
                 $model->id = IdGenerator::generateUniqueId();
                 $address = UserAddress::find()->where(['user_id' => Yii::$app->user->id, 'id' => $model->address_id])->one();
 
-                $model->address = $address->address;
-                $model->user_id = Yii::$app->user->id;
-                $model->phone_no = $address->phone_no;
-                $model->first_name = $address->first_name;
-                $model->last_name = $address->last_name;
-                $model->status = 9;
+                if(isset($address)){
+                    $model->address = $address->address;
+                    $model->order_no = $model->generateOrderNo();
+                    $model->user_id = Yii::$app->user->id;
+                    $model->phone_no = $address->phone_no;
+                    $model->first_name = $address->first_name;
+                    $model->last_name = $address->last_name;
+                    $model->status = 9;
 
-                if ($model->save()) {
-                    $orderItemsSaved = true;
+                    if ($model->save()) {
+                        $orderItemsSaved = true;
 
-                    foreach ($cartProducts as $cartProduct) {
-                        $product = Product::findOne($cartProduct->product_id);
-                        $orderItem = new OrderItem();
-                        $orderItem->id = IdGenerator::generateUniqueId();
-                        $orderItem->product_id = $cartProduct->product_id;
-                        $orderItem->quantity = $cartProduct->quantity;
-                        $orderItem->selling_price = $product->selling_price;
-                        $orderItem->order_id = $model->id;
+                        foreach ($cartProducts as $cartProduct) {
+                            $product = Product::findOne($cartProduct->product_id);
+                            $orderItem = new OrderItem();
+                            $orderItem->id = IdGenerator::generateUniqueId();
+                            $orderItem->product_id = $cartProduct->product_id;
+                            $orderItem->quantity = $cartProduct->quantity;
+                            $orderItem->selling_price = $product->selling_price;
+                            $orderItem->order_id = $model->id;
 
-                        if (!$orderItem->save()) {
-                            $orderItemsSaved = false;
-                            $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($orderItem->getErrors(), 0));
-                            Yii::$app->session->setFlash('error', 'Failed to save some Order Items. Errors: <br>' . $errors);
-                            break; // Stop further processing on error
+                            if (!$orderItem->save()) {
+                                $orderItemsSaved = false;
+                                $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($orderItem->getErrors(), 0));
+                                Yii::$app->session->setFlash('error', 'Failed to save some Order Items. Errors: <br>' . $errors);
+                                break; // Stop further processing on error
+                            }
                         }
-                    }
 
-                    if ($orderItemsSaved) {
-                        // Clear the cart for the logged-in user
-                        CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
+                        if ($orderItemsSaved) {
+                            // Clear the cart for the logged-in user
+                            CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
 
-                        Yii::$app->session->setFlash('success', 'Order created successfully.');
-                        return $this->redirect(['order-success', 'id' => $model->id]);
+                            Yii::$app->session->setFlash('success', 'Order created successfully.');
+                            return $this->redirect(['order-success', 'id' => $model->id]);
+                        }
+                    } else {
+                        $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                        Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
                     }
-                } else {
+                } else{
                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-                    Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
+                    Yii::$app->session->setFlash('error', 'Address or Payment method not selected');
+                  
+                    return $this->render('checkout', [
+                        'addresses' => $addresses,
+                        'model' => $model,
+                        'cartProducts' => $cartProducts,
+                    ]);
                 }
+            
             }
         } else {
             $model->loadDefaultValues();
