@@ -35,7 +35,7 @@ class OrderPayment extends \yii\db\ActiveRecord
         return [
             [['amount', 'phone_number'], 'required'],
             [['amount'], 'number'],
-            [['status', 'created_at', 'updated_at'], 'integer'],
+            [['created_at', 'updated_at'], 'integer'],
             [['transaction_id', 'phone_number', 'reference', 'description'], 'string', 'max' => 255],
             [['transaction_id'], 'unique'],
         ];
