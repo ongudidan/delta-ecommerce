@@ -121,6 +121,13 @@ class OrderPaymentController extends \yii\web\Controller
                     if (!$model->save()) {
                         Yii::error('Failed to update order payment: ' . json_encode($model->errors), 'payment-callback');
                     }
+
+                    // Save callback data to a .txt file
+                    $filePath = Yii::getAlias('@runtime/' . $checkoutRequestId . '.txt');
+                    if (!file_exists(dirname($filePath))) {
+                        mkdir(dirname($filePath), 0755, true);
+                    }
+                    file_put_contents($filePath, json_encode($callbackData));
                 } else {
                     Yii::error('Transaction not found for ID: ' . $checkoutRequestId, 'payment-callback');
                 }
@@ -131,6 +138,7 @@ class OrderPaymentController extends \yii\web\Controller
             Yii::error('Invalid callback data: ' . json_encode($postData), 'payment-callback');
         }
     }
+
 
 
     private function getAccessToken($consumerKey, $consumerSecret)
