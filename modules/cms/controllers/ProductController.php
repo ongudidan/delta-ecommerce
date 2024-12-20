@@ -119,7 +119,7 @@ class ProductController extends Controller
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', 'Product created successfully.');
 
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'id' => $model->id]);
                 } else {
                     // Capture model errors and set a flash message
                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
@@ -177,7 +177,7 @@ class ProductController extends Controller
                 // Save the model
                 if ($model->save()) {
                     Yii::$app->session->setFlash('success', 'Product updated successfully.');
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'id' => $model->id]);
                 } else {
                     // Log and show model errors
                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
