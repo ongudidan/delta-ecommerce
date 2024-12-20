@@ -95,13 +95,23 @@ class OrderPaymentController extends \yii\web\Controller
             $resultCode = $callbackData['ResultCode'] ?? null;
             $resultDesc = $callbackData['ResultDesc'] ?? null;
 
-            $model = OrderPayment::findOne(['transaction_id' => $checkoutRequestId]);
-            if ($model) {
-                $model->status = ($resultCode == '0') ? 'Success' : 'Failed';
-                $model->response_description = $resultDesc;
-                $model->updated_at = time();
-                $model->save();
+            if ($checkoutRequestId) {
+                $model = OrderPayment::findOne(['transaction_id' => $checkoutRequestId]);
+                if ($model) {
+                    $model->status = ($resultCode == '0') ? 'Success' : 'Failed';
+                    $model->response_description = $resultDesc;
+                    $model->updated_at = time();
+                    if (!$model->save()) {
+                        Yii::error('Failed to update payment: ' . json_encode($model->errors), 'payment-callback');
+                    }
+                } else {
+                    Yii::error('Transaction not found for ID: ' . $checkoutRequestId, 'payment-callback');
+                }
+            } else {
+                Yii::error('Missing CheckoutRequestID in callback data', 'payment-callback');
             }
+        } else {
+            Yii::error('Invalid callback data: ' . json_encode($postData), 'payment-callback');
         }
     }
 
