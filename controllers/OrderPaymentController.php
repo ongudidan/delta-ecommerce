@@ -87,7 +87,7 @@ class OrderPaymentController extends \yii\web\Controller
     public function actionCallback()
     {
         $postData = Yii::$app->request->post();
-        Yii::info(json_encode($postData), 'payment-callback'); // Log the raw callback data
+        Yii::info(json_encode($postData), 'payment-callback'); // Log callback for debugging
 
         if (!empty($postData['Body']['stkCallback'])) {
             $callbackData = $postData['Body']['stkCallback'];
@@ -98,20 +98,28 @@ class OrderPaymentController extends \yii\web\Controller
             if ($checkoutRequestId) {
                 $model = OrderPayment::findOne(['transaction_id' => $checkoutRequestId]);
                 if ($model) {
-                    // Map the result code to a status
-                    if ($resultCode == '0') {
-                        $model->status = 'Success';
-                    } elseif ($resultCode == '1032') {
-                        $model->status = 'Canceled'; // User canceled the transaction
-                    } else {
-                        $model->status = 'Failed'; // General failure or other errors
+                    // Extract metadata from the callback
+                    $metadata = $callbackData['CallbackMetadata']['Item'] ?? [];
+                    $reference = null;
+                    $amount = null;
+
+                    foreach ($metadata as $item) {
+                        if ($item['Name'] === 'MpesaReceiptNumber') {
+                            $reference = $item['Value'];
+                        }
+                        if ($item['Name'] === 'Amount') {
+                            $amount = $item['Value'];
+                        }
                     }
 
-                    $model->response_description = $resultDesc;
+                    // Update model fields
+                    $model->status = ($resultCode == '0') ? 'Success' : 'Failed';
+                    $model->description = $resultDesc; // Save transaction description
+                    $model->reference = $reference;   // Save reference number
                     $model->updated_at = time();
 
                     if (!$model->save()) {
-                        Yii::error('Failed to update payment: ' . json_encode($model->errors), 'payment-callback');
+                        Yii::error('Failed to update order payment: ' . json_encode($model->errors), 'payment-callback');
                     }
                 } else {
                     Yii::error('Transaction not found for ID: ' . $checkoutRequestId, 'payment-callback');
