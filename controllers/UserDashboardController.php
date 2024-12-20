@@ -5,9 +5,36 @@ namespace app\controllers;
 use app\components\IdGenerator;
 use app\models\UserAddress;
 use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 
 class UserDashboardController extends \yii\web\Controller
 {
+    public function behaviors()
+    {
+        return array_merge(
+            parent::behaviors(),
+            [
+                'access' => [
+                    'class' => AccessControl::class,
+                    'only' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address'],
+                    'rules' => [
+                        [
+                            'actions' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address'],
+                            'allow' => true,
+                            'roles' => ['@'],
+                        ],
+                    ],
+                ],
+                'verbs' => [
+                    'class' => VerbFilter::className(),
+                    'actions' => [
+                        // 'delete' => ['POST'],
+                    ],
+                ],
+            ]
+        );
+    }
 
     public $layout = 'FrontLayout';
 

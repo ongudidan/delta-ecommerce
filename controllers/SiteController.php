@@ -19,6 +19,9 @@ use app\models\ProductCategory;
 use app\models\ProductSearch;
 use app\models\SignupForm;
 use app\models\UserAddress;
+use app\models\VerifyEmailForm;
+use InvalidArgumentException;
+use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
 class SiteController extends Controller
@@ -354,6 +357,96 @@ class SiteController extends Controller
         ]);
     }
 
+    public function actionVerifyEmail($token)
+    {
+        try {
+            $model = new VerifyEmailForm($token);
+        } catch (InvalidArgumentException $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+        if (($user = $model->verifyEmail()) && Yii::$app->user->login($user)) {
+            Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
+            return $this->goHome();
+        }
+
+        Yii::$app->session->setFlash('error', 'Sorry, we are unable to verify your account with provided token.');
+        return $this->goHome();
+    }
+
+
+    // public function actionCreateOrder()
+    // {
+    //     $model = new Order();
+    //     $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
+    //     $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+
+    //     if ($this->request->isPost) {
+    //         if ($model->load($this->request->post())) {
+    //             $model->id = IdGenerator::generateUniqueId();
+    //             $address = UserAddress::find()->where(['user_id' => Yii::$app->user->id, 'id' => $model->address_id])->one();
+
+    //             if(isset($address)){
+    //                 $model->address = $address->address;
+    //                 $model->order_no = $model->generateOrderNo();
+    //                 $model->user_id = Yii::$app->user->id;
+    //                 $model->phone_no = $address->phone_no;
+    //                 $model->first_name = $address->first_name;
+    //                 $model->last_name = $address->last_name;
+    //                 $model->status = 9;
+
+    //                 if ($model->save()) {
+    //                     $orderItemsSaved = true;
+
+    //                     foreach ($cartProducts as $cartProduct) {
+    //                         $product = Product::findOne($cartProduct->product_id);
+    //                         $orderItem = new OrderItem();
+    //                         $orderItem->id = IdGenerator::generateUniqueId();
+    //                         $orderItem->product_id = $cartProduct->product_id;
+    //                         $orderItem->quantity = $cartProduct->quantity;
+    //                         $orderItem->selling_price = $product->selling_price;
+    //                         $orderItem->order_id = $model->id;
+
+    //                         if (!$orderItem->save()) {
+    //                             $orderItemsSaved = false;
+    //                             $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($orderItem->getErrors(), 0));
+    //                             Yii::$app->session->setFlash('error', 'Failed to save some Order Items. Errors: <br>' . $errors);
+    //                             break; // Stop further processing on error
+    //                         }
+    //                     }
+
+    //                     if ($orderItemsSaved) {
+    //                         // Clear the cart for the logged-in user
+    //                         CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
+
+    //                         Yii::$app->session->setFlash('success', 'Order created successfully.');
+    //                         return $this->redirect(['order-success', 'id' => $model->id]);
+    //                     }
+    //                 } else {
+    //                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+    //                     Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
+    //                 }
+    //             } else{
+    //                 $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+    //                 Yii::$app->session->setFlash('error', 'Address or Payment method not selected');
+
+    //                 return $this->render('checkout', [
+    //                     'addresses' => $addresses,
+    //                     'model' => $model,
+    //                     'cartProducts' => $cartProducts,
+    //                 ]);
+    //             }
+
+    //         }
+    //     } else {
+    //         $model->loadDefaultValues();
+    //     }
+
+    //     return $this->render('checkout', [
+    //         'addresses' => $addresses,
+    //         'model' => $model,
+    //         'cartProducts' => $cartProducts,
+    //     ]);
+    // }
 
     public function actionCreateOrder()
     {
@@ -366,7 +459,7 @@ class SiteController extends Controller
                 $model->id = IdGenerator::generateUniqueId();
                 $address = UserAddress::find()->where(['user_id' => Yii::$app->user->id, 'id' => $model->address_id])->one();
 
-                if(isset($address)){
+                if (isset($address)) {
                     $model->address = $address->address;
                     $model->order_no = $model->generateOrderNo();
                     $model->user_id = Yii::$app->user->id;
@@ -399,6 +492,9 @@ class SiteController extends Controller
                             // Clear the cart for the logged-in user
                             CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
 
+                            // Send notification email
+                            $this->sendOrderNotification($model);
+
                             Yii::$app->session->setFlash('success', 'Order created successfully.');
                             return $this->redirect(['order-success', 'id' => $model->id]);
                         }
@@ -406,17 +502,14 @@ class SiteController extends Controller
                         $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
                         Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
                     }
-                } else{
-                    $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
+                } else {
                     Yii::$app->session->setFlash('error', 'Address or Payment method not selected');
-                  
                     return $this->render('checkout', [
                         'addresses' => $addresses,
                         'model' => $model,
                         'cartProducts' => $cartProducts,
                     ]);
                 }
-            
             }
         } else {
             $model->loadDefaultValues();
@@ -428,6 +521,37 @@ class SiteController extends Controller
             'cartProducts' => $cartProducts,
         ]);
     }
+
+    /**
+     * Sends an email notification to the owner.
+     *
+     * @param Order $order The created order.
+     */
+    protected function sendOrderNotification($order)
+    {
+        try {
+            $body = "A new order has been placed.<br><br>"
+            . "<strong>Order No:</strong> {$order->order_no}<br>"
+            . "<strong>Customer Name:</strong> {$order->first_name} {$order->last_name}<br>"
+            . "<strong>Phone:</strong> {$order->phone_no}<br>"
+            . "<strong>Address:</strong> {$order->address}<br>"
+            . "<strong>Items:</strong><br>";
+
+            foreach ($order->orderItems as $item) {
+                $body .= "- {$item->product->name} (Qty: {$item->quantity}, Price: {$item->selling_price})<br>";
+            }
+
+            Yii::$app->mailer->compose()
+                ->setTo('ongudidan@gmail.com') // Replace with your Gmail address
+                ->setFrom([Yii::$app->params['senderEmail'] => Yii::$app->params['senderName']])
+                ->setSubject("New Order #{$order->order_no}")
+                ->setHtmlBody($body)
+                ->send();
+        } catch (\Exception $e) {
+            Yii::error("Failed to send order notification email: " . $e->getMessage(), __METHOD__);
+        }
+    }
+
 
 
     public function actionOrderSuccess($id)

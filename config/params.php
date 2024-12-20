@@ -2,8 +2,8 @@
 
 return [
     'adminEmail' => 'admin@example.com',
-    'senderEmail' => 'noreply@example.com',
-    'senderName' => 'Example.com mailer',
+    'senderEmail' => 'ongudidan100@gmail.com',
+    'senderName' => 'Doubledeals',
     'bsVersion' => '5.x',
     'bsDependencyEnabled' => false,
 

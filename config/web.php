@@ -46,12 +46,21 @@ $config = [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        // 'mailer' => [
+        //     'class' => \yii\symfonymailer\Mailer::class,
+        //     'viewPath' => '@app/mail',
+        //     // send all mails to a file by default.
+        //     'useFileTransport' => true,
+        // ],
         'mailer' => [
             'class' => \yii\symfonymailer\Mailer::class,
             'viewPath' => '@app/mail',
-            // send all mails to a file by default.
-            'useFileTransport' => true,
+            'useFileTransport' => false, // Set to false to enable sending real emails
+            'transport' => [
+                'dsn' => 'smtp://ongudidan100@gmail.com:mwqznwkzvodkwntl@smtp.gmail.com:587', // Replace with your email and password
+            ],
         ],
+
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
