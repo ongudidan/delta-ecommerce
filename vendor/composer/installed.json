@@ -1456,18 +1456,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-date-range.git",
-                "reference": "a6a3f9bc0706fea102d0da291faca0282fcddd19"
+                "reference": "99f37fa14b8e7c99ca538377191c12502002f5d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-date-range/zipball/a6a3f9bc0706fea102d0da291faca0282fcddd19",
-                "reference": "a6a3f9bc0706fea102d0da291faca0282fcddd19",
+                "url": "https://api.github.com/repos/kartik-v/yii2-date-range/zipball/99f37fa14b8e7c99ca538377191c12502002f5d2",
+                "reference": "99f37fa14b8e7c99ca538377191c12502002f5d2",
                 "shasum": ""
             },
             "require": {
                 "kartik-v/yii2-krajee-base": ">=3.0.0"
             },
-            "time": "2024-12-14T08:00:30+00:00",
+            "time": "2024-12-16T11:55:38+00:00",
             "default-branch": true,
             "type": "yii2-extension",
             "extra": {

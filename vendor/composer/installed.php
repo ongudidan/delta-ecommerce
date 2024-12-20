@@ -3,7 +3,7 @@
         'name' => 'yiisoft/yii2-app-basic',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '898fc09a92cbfbda224a8204d902033dfde29935',
+        'reference' => '6eeab20ef616715cb6e188b2d550ac2709af0dd0',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -244,7 +244,7 @@
         'kartik-v/yii2-date-range' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
-            'reference' => 'a6a3f9bc0706fea102d0da291faca0282fcddd19',
+            'reference' => '99f37fa14b8e7c99ca538377191c12502002f5d2',
             'type' => 'yii2-extension',
             'install_path' => __DIR__ . '/../kartik-v/yii2-date-range',
             'aliases' => array(
@@ -963,7 +963,7 @@
         'yiisoft/yii2-app-basic' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '898fc09a92cbfbda224a8204d902033dfde29935',
+            'reference' => '6eeab20ef616715cb6e188b2d550ac2709af0dd0',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
