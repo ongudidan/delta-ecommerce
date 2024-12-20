@@ -17,13 +17,13 @@ class m241220_163339_create_order_payment_table extends Migration
             'transaction_id' => $this->string()->notNull()->unique(),
             'amount' => $this->decimal(10, 2)->notNull(),
             'phone_number' => $this->string()->notNull(),
-            'status' => $this->string()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(10), // Keep this one
             'reference' => $this->string(),
             'description' => $this->string(),
             'created_at' => $this->integer()->defaultValue(null),
             'updated_at' => $this->integer()->defaultValue(null),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10),
         ]);
+
     }
 
     /**
