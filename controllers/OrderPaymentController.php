@@ -87,7 +87,7 @@ class OrderPaymentController extends \yii\web\Controller
     public function actionCallback()
     {
         $postData = Yii::$app->request->post();
-        Yii::info(json_encode($postData), 'payment-callback');
+        Yii::info(json_encode($postData), 'payment-callback'); // Log the raw callback data
 
         if (!empty($postData['Body']['stkCallback'])) {
             $callbackData = $postData['Body']['stkCallback'];
@@ -98,9 +98,18 @@ class OrderPaymentController extends \yii\web\Controller
             if ($checkoutRequestId) {
                 $model = OrderPayment::findOne(['transaction_id' => $checkoutRequestId]);
                 if ($model) {
-                    $model->status = ($resultCode == '0') ? 'Success' : 'Failed';
+                    // Map the result code to a status
+                    if ($resultCode == '0') {
+                        $model->status = 'Success';
+                    } elseif ($resultCode == '1032') {
+                        $model->status = 'Canceled'; // User canceled the transaction
+                    } else {
+                        $model->status = 'Failed'; // General failure or other errors
+                    }
+
                     $model->response_description = $resultDesc;
                     $model->updated_at = time();
+
                     if (!$model->save()) {
                         Yii::error('Failed to update payment: ' . json_encode($model->errors), 'payment-callback');
                     }
@@ -114,6 +123,7 @@ class OrderPaymentController extends \yii\web\Controller
             Yii::error('Invalid callback data: ' . json_encode($postData), 'payment-callback');
         }
     }
+
 
     private function getAccessToken($consumerKey, $consumerSecret)
     {
