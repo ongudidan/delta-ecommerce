@@ -84,29 +84,53 @@ class OrderPaymentController extends \yii\web\Controller
         return ['status' => 'error', 'message' => 'Validation failed', 'errors' => $model->errors];
     }
 
-    public function actionCallback()
-    {
-        header("Content-Type: application/json");
+    // public function actionCallback()
+    // {
+    //     $postData = Yii::$app->request->post();
+    //     Yii::info(json_encode($postData), 'payment-callback'); // Log callback for debugging
 
-        // Get the raw input data
-        $mpesaResponse = file_get_contents('php://input');
+    //     if (!empty($postData['Body']['stkCallback'])) {
+    //         $callbackData = $postData['Body']['stkCallback'];
+    //         $checkoutRequestId = $callbackData['CheckoutRequestID'] ?? null;
+    //         $resultCode = $callbackData['ResultCode'] ?? null;
+    //         $resultDesc = $callbackData['ResultDesc'] ?? null;
 
-        // Log the raw response data
-        $logFile = __DIR__ . '/M_PESAConfirmationResponse.txt';
-        $log = fopen($logFile, "a");
-        fwrite($log, $mpesaResponse);
-        fclose($log);
+    //         if ($checkoutRequestId) {
+    //             $model = OrderPayment::findOne(['transaction_id' => $checkoutRequestId]);
+    //             if ($model) {
+    //                 // Extract metadata from the callback
+    //                 $metadata = $callbackData['CallbackMetadata']['Item'] ?? [];
+    //                 $reference = null;
+    //                 $amount = null;
 
-        // Sample response
-        $response = json_encode([
-            "ResultCode" => 0,
-            "ResultDesc" => "Confirmation Received Successfully"
-        ]);
+    //                 foreach ($metadata as $item) {
+    //                     if ($item['Name'] === 'MpesaReceiptNumber') {
+    //                         $reference = $item['Value'];
+    //                     }
+    //                     if ($item['Name'] === 'Amount') {
+    //                         $amount = $item['Value'];
+    //                     }
+    //                 }
 
-        echo $response;
-    }
+    //                 // Update model fields
+    //                 $model->status = ($resultCode == '0') ? 'Success' : 'Failed';
+    //                 $model->description = $resultDesc; // Save transaction description
+    //                 $model->reference = $reference;   // Save reference number
+    //                 $model->updated_at = time();
 
-
+    //                 if (!$model->save()) {
+    //                     Yii::error('Failed to update order payment: ' . json_encode($model->errors), 'payment-callback');
+    //                 }
+    //             } else {
+    //                 Yii::error('Transaction not found for ID: ' . $checkoutRequestId, 'payment-callback');
+    //             }
+    //         } else {
+    //             Yii::error('Missing CheckoutRequestID in callback data', 'payment-callback');
+    //         }
+    //     } else {
+    //         Yii::error('Invalid callback data: ' . json_encode($postData), 'payment-callback');
+    //     }
+    // }
 
 
     private function getAccessToken($consumerKey, $consumerSecret)
