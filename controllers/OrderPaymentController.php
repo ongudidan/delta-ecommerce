@@ -33,8 +33,7 @@ class OrderPaymentController extends \yii\web\Controller
 
             $timestamp = date('YmdHis');
             $password = base64_encode($businessShortCode . $passkey . $timestamp);
-            $callbackUrl = 'https://ecommerce254.wuaze.com
-            /order-payment/callback';
+            $callbackUrl = 'https://ecommerce254.wuaze.com/order-payment/callback';
 
             $amount = $model->amount;
             $partyA = $model->phone_number; // Customer's phone number
