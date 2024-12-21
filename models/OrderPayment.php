@@ -8,12 +8,14 @@ use Yii;
  * This is the model class for table "order_payment".
  *
  * @property int $id
- * @property string $transaction_id
- * @property float $amount
- * @property string $phone_number
- * @property int $status
- * @property string|null $reference
- * @property string|null $description
+ * @property string|null $MerchantRequestID
+ * @property string|null $CheckoutRequestID
+ * @property string|null $ResultCode
+ * @property string|null $ResultDesc
+ * @property string|null $Amount
+ * @property string|null $MpesaReceiptNumber
+ * @property string|null $TransactionDate
+ * @property string|null $PhoneNumber
  * @property int|null $created_at
  * @property int|null $updated_at
  */
@@ -33,11 +35,9 @@ class OrderPayment extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['amount', 'phone_number'], 'required'],
-            [['amount'], 'number'],
             [['created_at', 'updated_at'], 'integer'],
-            [['transaction_id', 'phone_number', 'reference', 'description'], 'string', 'max' => 255],
-            [['transaction_id'], 'unique'],
+            [['MerchantRequestID', 'CheckoutRequestID', 'ResultCode', 'ResultDesc', 'Amount', 'MpesaReceiptNumber', 'TransactionDate', 'PhoneNumber'], 'string', 'max' => 255],
+            [['MerchantRequestID'], 'unique'],
         ];
     }
 
@@ -48,12 +48,14 @@ class OrderPayment extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'transaction_id' => 'Transaction ID',
-            'amount' => 'Amount',
-            'phone_number' => 'Phone Number',
-            'status' => 'Status',
-            'reference' => 'Reference',
-            'description' => 'Description',
+            'MerchantRequestID' => 'Merchant Request ID',
+            'CheckoutRequestID' => 'Checkout Request ID',
+            'ResultCode' => 'Result Code',
+            'ResultDesc' => 'Result Desc',
+            'Amount' => 'Amount',
+            'MpesaReceiptNumber' => 'Mpesa Receipt Number',
+            'TransactionDate' => 'Transaction Date',
+            'PhoneNumber' => 'Phone Number',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];

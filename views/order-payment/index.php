@@ -1,42 +1,53 @@
 <?php
 
-    use yii\helpers\Html;
-    use yii\widgets\ActiveForm;
+use app\models\OrderPayment;
+use yii\helpers\Html;
+use yii\helpers\Url;
+use yii\grid\ActionColumn;
+use yii\grid\GridView;
+
 /** @var yii\web\View $this */
+/** @var app\models\OrderPaymentSearch $searchModel */
+/** @var yii\data\ActiveDataProvider $dataProvider */
+
+$this->title = 'Order Payments';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1>order-payment/index</h1>
-
-<p>
-    You may change the content of this page by modifying
-    the file <code><?= __FILE__; ?></code>.
-</p>
-
-
-<div class="payment-form">
+<div class="order-payment-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'payment-form',
-        'action' => ['order-payment/process'], // Controller action for processing the payment
-        'method' => 'post',
+    <p>
+        <?= Html::a('Create Order Payment', ['create'], ['class' => 'btn btn-success']) ?>
+    </p>
+
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+
+            'id',
+            'MerchantRequestID',
+            'CheckoutRequestID',
+            'ResultCode',
+            'ResultDesc',
+            //'Amount',
+            //'MpesaReceiptNumber',
+            //'TransactionDate',
+            //'PhoneNumber',
+            //'created_at',
+            //'updated_at',
+            [
+                'class' => ActionColumn::className(),
+                'urlCreator' => function ($action, OrderPayment $model, $key, $index, $column) {
+                    return Url::toRoute([$action, 'id' => $model->id]);
+                 }
+            ],
+        ],
     ]); ?>
 
-    <?= $form->field($model, 'phone_number')->textInput([
-        'maxlength' => true,
-        'placeholder' => 'Enter phone number (e.g., 2547xxxxxxxx)',
-    ]) ?>
-
-    <?= $form->field($model, 'amount')->textInput([
-        'type' => 'number',
-        'step' => '0.01',
-        'placeholder' => 'Enter amount',
-    ]) ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Pay Now', ['class' => 'btn btn-success']) ?>
-    </div>
-
-    <?php ActiveForm::end(); ?>
 
 </div>

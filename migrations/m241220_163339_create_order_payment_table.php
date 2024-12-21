@@ -14,12 +14,14 @@ class m241220_163339_create_order_payment_table extends Migration
     {
         $this->createTable('{{%order_payment}}', [
             'id' => $this->primaryKey(),
-            'transaction_id' => $this->string()->notNull()->unique(),
-            'amount' => $this->decimal(10, 2)->notNull(),
-            'phone_number' => $this->string()->notNull(),
-            'status' => $this->smallInteger()->notNull()->defaultValue(10), // Keep this one
-            'reference' => $this->string(),
-            'description' => $this->string(),
+            'MerchantRequestID' => $this->string()->unique(),
+            'CheckoutRequestID' => $this->string()->defaultValue(null),
+            'ResultCode' => $this->string()->defaultValue(null),
+            'ResultDesc' => $this->string()->defaultValue(null)->defaultValue(10), // Keep this one
+            'Amount' => $this->string()->defaultValue(null),
+            'MpesaReceiptNumber' => $this->string()->defaultValue(null),
+            'TransactionDate' => $this->string()->defaultValue(null),
+            'PhoneNumber' => $this->string()->defaultValue(null),
             'created_at' => $this->integer()->defaultValue(null),
             'updated_at' => $this->integer()->defaultValue(null),
         ]);
