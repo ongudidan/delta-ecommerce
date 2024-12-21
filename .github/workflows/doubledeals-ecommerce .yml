@@ -1,4 +1,4 @@
-name: 🚀 Deploy to ecommerce-deltakosmetics 
+name: 🚀 Deploy to ecom-doubledeals 
 
 on:
   workflow_dispatch: # Allows manual triggering of the workflow
