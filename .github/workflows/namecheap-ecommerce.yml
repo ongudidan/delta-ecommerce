@@ -18,8 +18,8 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ftp.deltakosmetics.com
-          username: danny@ecommerce.deltakosmetics.com
-          password: 9e1ufwEPBF^7 # Store sensitive data in GitHub Secrets
+          username: ecommerce@ecommerce.deltakosmetics.com
+          password: kS^tLsmlf416 # Store sensitive data in GitHub Secrets
           server-dir: /
           retries: 3                 # Retry the connection up to 3 times in case of timeout
           retryDelay: 10             # Wait 10 seconds before retrying after a failure
