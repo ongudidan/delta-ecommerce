@@ -21,6 +21,15 @@ if ($host === 'localhost') {
         'password' => 'QcIDYuIrKJ',
         'charset' => 'utf8',
     ];
+} elseif ($host === 'ecommerce.doubledeals.co.ke') {
+    // Production environment for wuaze.com
+    return [
+        'class' => 'yii\db\Connection',
+        'dsn' => 'mysql:host=localhost;dbname=dandeal_ecommerce',
+        'username' => 'dandeal_danny',
+        'password' => 'I4QG&5C02mj[',
+        'charset' => 'utf8',
+    ];
 } else {
     // Default fallback or other environments
     return [

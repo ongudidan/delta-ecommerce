@@ -99,6 +99,21 @@ class SiteController extends Controller
     }
 
 
+    public function actionPay()
+    {
+        $model = new Order();
+        $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
+        $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+
+        return $this->render('checkout', [
+            'addresses' => $addresses,
+            'model' => $model,
+            'cartProducts' => $cartProducts,
+
+        ]);
+    }
+
+
 
     /**
      * Lists all Product models.
@@ -307,7 +322,6 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('error', 'Invalid product or quantity.');
 
             return $this->redirect(['products']);
-
         }
 
         $userId = Yii::$app->user->id;
@@ -332,11 +346,9 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'Product added to cart successfully.');
 
             return $this->redirect(['products']);
-
         }
 
         return $this->redirect(['product-view', 'id' => $productId]);
-
     }
 
     /**
@@ -531,11 +543,11 @@ class SiteController extends Controller
     {
         try {
             $body = "A new order has been placed.<br><br>"
-            . "<strong>Order No:</strong> {$order->order_no}<br>"
-            . "<strong>Customer Name:</strong> {$order->first_name} {$order->last_name}<br>"
-            . "<strong>Phone:</strong> {$order->phone_no}<br>"
-            . "<strong>Address:</strong> {$order->address}<br>"
-            . "<strong>Items:</strong><br>";
+                . "<strong>Order No:</strong> {$order->order_no}<br>"
+                . "<strong>Customer Name:</strong> {$order->first_name} {$order->last_name}<br>"
+                . "<strong>Phone:</strong> {$order->phone_no}<br>"
+                . "<strong>Address:</strong> {$order->address}<br>"
+                . "<strong>Items:</strong><br>";
 
             foreach ($order->orderItems as $item) {
                 $body .= "- {$item->product->name} (Qty: {$item->quantity}, Price: {$item->selling_price})<br>";

@@ -119,7 +119,17 @@ class OrderPaymentController extends Controller
 
                 // Callback URL
                 // $CallBackURL = 'https://4f1d-41-90-177-23.ngrok-free.app/order-payment/callback';
-                $CallBackURL = 'https://ecommerce254.wuaze.com/order-payment/callback';
+
+                $host =  $_SERVER['HTTP_HOST']; // Get the current host
+
+                if ($host === 'localhost:97') {
+                    $CallBackURL = 'https://ecommerce254.wuaze.com/order-payment/callback';
+
+                }elseif($host === 'ecommerce.doubledeals.co.ke'){
+                    $CallBackURL = 'https://ecommerce.doubledeals.co.ke/order-payment/callback';
+                }
+
+
 
 
                 // Step 1: Get Access Token
