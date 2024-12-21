@@ -118,7 +118,9 @@ class OrderPaymentController extends Controller
                 $Password = base64_encode($BusinessShortCode . $Passkey . $Timestamp);
 
                 // Callback URL
-                $CallBackURL = 'https://4f1d-41-90-177-23.ngrok-free.app/order-payment/callback';
+                // $CallBackURL = 'https://4f1d-41-90-177-23.ngrok-free.app/order-payment/callback';
+                $CallBackURL = 'https://ecommerce254.wuaze.com/order-payment/callback';
+
 
                 // Step 1: Get Access Token
                 $access_token_url = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials';
@@ -294,7 +296,7 @@ class OrderPaymentController extends Controller
                 Yii::error('Failed to save transaction: ' . json_encode($model->errors), __METHOD__);
                 return [
                     'ResultCode' => 1,
-                    'ResultDesc' => 'Failed to Save Transaction',
+                    'ResultDesc' => 'Failed to Save Transaction' . json_encode($model->errors),
                 ];
             }
 
@@ -308,7 +310,7 @@ class OrderPaymentController extends Controller
             Yii::error('Callback error: ' . $e->getMessage(), __METHOD__);
             return [
                 'ResultCode' => 1,
-                'ResultDesc' => 'Internal Server Error',
+                'ResultDesc' => 'Internal Server Error' . $e->getMessage(),
             ];
         }
     }

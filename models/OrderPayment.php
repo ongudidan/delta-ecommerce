@@ -36,8 +36,9 @@ class OrderPayment extends \yii\db\ActiveRecord
     {
         return [
             [['created_at', 'updated_at'], 'integer'],
-            [['MerchantRequestID', 'CheckoutRequestID', 'ResultCode', 'ResultDesc', 'Amount', 'MpesaReceiptNumber', 'TransactionDate', 'PhoneNumber'], 'string', 'max' => 255],
+            [['MerchantRequestID', 'CheckoutRequestID', 'ResultDesc', 'Amount', 'MpesaReceiptNumber', 'TransactionDate', 'PhoneNumber'], 'string', 'max' => 500],
             [['MerchantRequestID'], 'unique'],
+            [['ResultCode'], 'safe']
         ];
     }
 
