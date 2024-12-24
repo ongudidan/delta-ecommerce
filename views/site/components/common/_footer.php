@@ -120,7 +120,6 @@ $socialLinks = [
 
         <div class="sub-footer section-small-space">
             <div class="reserve">
-                <?= $_SERVER['HTTP_HOST']?>
                 <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
             </div>
 
