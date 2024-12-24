@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\IdGenerator;
+use app\models\Order;
 use app\models\UserAddress;
 use Yii;
 use yii\filters\AccessControl;
@@ -38,11 +39,29 @@ class UserDashboardController extends \yii\web\Controller
 
     public $layout = 'FrontLayout';
 
-    
+
     public function actionIndex()
     {
-        return $this->render('index');
+        $userId = Yii::$app->user->id;
+
+        // Count the total orders for the logged-in user
+        $totalOrdersCount = Order::find()->where(['user_id' => $userId])->count();
+
+        // Count orders for each status
+        $completedCount = Order::find()->where(['user_id' => $userId, 'status' => 'completed'])->count();
+        $pendingCount = Order::find()->where(['user_id' => $userId, 'status' => 'pending'])->count();
+        $cancelledCount = Order::find()->where(['user_id' => $userId, 'status' => 'cancelled'])->count();
+
+        // Render the data to the view
+        return $this->render('index', [
+            'totalOrdersCount' => $totalOrdersCount,
+            'completedCount' => $completedCount,
+            'pendingCount' => $pendingCount,
+            'cancelledCount' => $cancelledCount,
+        ]);
     }
+
+
 
     public function actionOrders()
     {

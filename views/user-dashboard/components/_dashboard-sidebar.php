@@ -35,8 +35,8 @@ $action = Yii::$app->controller->action->id;
                 </div>
 
                 <div class="profile-name">
-                    <h3>Vicki E. Pope</h3>
-                    <h6 class="text-content">vicki.pope@gmail.com</h6>
+                    <h3><?= Yii::$app->user->identity->username ?></h3>
+                    <h6 class="text-content"><?= Yii::$app->user->identity->email ?></h6>
                 </div>
             </div>
         </div>

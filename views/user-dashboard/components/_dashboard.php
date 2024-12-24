@@ -11,10 +11,10 @@
          </div>
 
          <div class="dashboard-user-name">
-             <h6 class="text-content">Hello, <b class="text-title">Vicki E. Pope</b></h6>
-             <p class="text-content">From your My Account Dashboard you have the ability to
+             <h6 class="text-content">Hello, <b class="text-title"><?= Yii::$app->user->identity->username ?></b></h6>
+             <!-- <p class="text-content">From your My Account Dashboard you have the ability to
                  view a snapshot of your recent account activity and update your account
-                 information. Select a link below to view or edit information.</p>
+                 information. Select a link below to view or edit information.</p> -->
          </div>
 
          <div class="total-box">
@@ -27,7 +27,7 @@
                              alt="">
                          <div class="totle-detail">
                              <h5>Total Order</h5>
-                             <h3>3658</h3>
+                             <h3><?= $totalOrdersCount ?></h3>
                          </div>
                      </div>
                  </div>
@@ -39,8 +39,8 @@
                          <img src="/web/frontend/assets/images/svg/pending.svg" class="blur-up lazyload"
                              alt="">
                          <div class="totle-detail">
-                             <h5>Total Pending Order</h5>
-                             <h3>254</h3>
+                             <h5>Pending Order</h5>
+                             <h3><?= $pendingCount ?></h3>
                          </div>
                      </div>
                  </div>
@@ -52,8 +52,8 @@
                          <img src="/web/frontend/assets/images/svg/wishlist.svg"
                              class="blur-up lazyload" alt="">
                          <div class="totle-detail">
-                             <h5>Total Wishlist</h5>
-                             <h3>32158</h3>
+                             <h5>Completed Orders</h5>
+                             <h3><?= $completedCount ?></h3>
                          </div>
                      </div>
                  </div>
@@ -73,23 +73,12 @@
                  </div>
                  <div class="dashboard-detail">
                      <h6 class="text-content">MARK JECNO</h6>
-                     <h6 class="text-content">vicki.pope@gmail.com</h6>
+                     <h6 class="text-content"><?= Yii::$app->user->identity->email ?></h6>
                      <a href="javascript:void(0)">Change Password</a>
                  </div>
              </div>
 
-             <div class="col-xxl-6">
-                 <div class="dashboard-contant-title">
-                     <h4>Newsletters <a href="javascript:void(0)" data-bs-toggle="modal"
-                             data-bs-target="#editProfile">Edit</a></h4>
-                 </div>
-                 <div class="dashboard-detail">
-                     <h6 class="text-content">You are currently not subscribed to any
-                         newsletter</h6>
-                 </div>
-             </div>
-
-             <div class="col-12">
+             <!-- <div class="col-12">
                  <div class="dashboard-contant-title">
                      <h4>Address Book <a href="javascript:void(0)" data-bs-toggle="modal"
                              data-bs-target="#editProfile">Edit</a></h4>
@@ -116,7 +105,7 @@
                          </div>
                      </div>
                  </div>
-             </div>
+             </div> -->
          </div>
      </div>
  </div>

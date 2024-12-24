@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\components\IdGenerator;
+use app\components\TokenGenerator;
 use app\models\CartProduct;
 use app\models\CartProductSearch;
 use Yii;
@@ -14,6 +15,7 @@ use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\Order;
 use app\models\OrderItem;
+use app\models\Payment;
 use app\models\Product;
 use app\models\ProductCategory;
 use app\models\ProductSearch;
@@ -99,19 +101,36 @@ class SiteController extends Controller
     }
 
 
-    public function actionPay()
+    public function actionPay($id)
     {
-        $model = new Order();
-        $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
-        $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+        // $order = Order::findOne($id);
+        $orderItems = OrderItem::find()->where(['order_id' => $id])->all();
 
-        return $this->render('checkout', [
-            'addresses' => $addresses,
-            'model' => $model,
-            'cartProducts' => $cartProducts,
+        $totalSellingPrice = OrderItem::find()->where(['order_id' => $id])->sum('selling_price');
+
+        $totalItems = OrderItem::find()->where(['order_id' => $id])->count();
+
+
+        return $this->render('pay', [
+            'totalSellingPrice' => $totalSellingPrice,
+            'totalItems' => $totalItems,
+            'orderId' => $id,
+
 
         ]);
     }
+    // {
+    //     $model = new Order();
+    //     $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
+    //     $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
+
+    //     return $this->render('pay', [
+    //         'addresses' => $addresses,
+    //         'model' => $model,
+    //         'cartProducts' => $cartProducts,
+
+    //     ]);
+    // }
 
 
 
@@ -120,16 +139,7 @@ class SiteController extends Controller
      *
      * @return string
      */
-    // public function actionProducts($id)
-    // {
-    //     $searchModel = new ProductSearch();
-    //     $dataProvider = $searchModel->search($this->request->queryParams);
 
-    //     return $this->render('products', [
-    //         'searchModel' => $searchModel,
-    //         'dataProvider' => $dataProvider,
-    //     ]);
-    // }
     public function actionProducts($category_id = null, $sub_category_id = null)
     {
         $searchModel = new ProductSearch();
@@ -276,39 +286,6 @@ class SiteController extends Controller
      *
      * @return string
      */
-    // public function actionAdd()
-    // {
-    //     Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-
-    //     $productId = Yii::$app->request->post('product_id');
-    //     $quantity = Yii::$app->request->post('quantity', 1);
-
-    //     if (!$productId || $quantity <= 0) {
-    //         return [
-    //             'success' => false,
-    //             'message' => 'Invalid product or quantity.',
-    //         ];
-    //     }
-
-    //     $cart = new CartProduct(); // Replace with your cart model
-    //     $cart->id = IdGenerator::generateUniqueId();
-
-    //     $cart->product_id = $productId;
-    //     $cart->quantity = $quantity;
-    //     $cart->user_id = Yii::$app->user->id; // Assuming a logged-in user
-
-    //     if ($cart->save()) {
-    //         return [
-    //             'success' => true,
-    //             'message' => 'Product added to cart successfully!',
-    //         ];
-    //     }
-
-    //     return [
-    //         'success' => false,
-    //         'message' => 'Failed to add product to cart. Please try again.',
-    //     ];
-    // }
 
     public function actionAdd()
     {
@@ -386,80 +363,6 @@ class SiteController extends Controller
     }
 
 
-    // public function actionCreateOrder()
-    // {
-    //     $model = new Order();
-    //     $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
-    //     $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
-
-    //     if ($this->request->isPost) {
-    //         if ($model->load($this->request->post())) {
-    //             $model->id = IdGenerator::generateUniqueId();
-    //             $address = UserAddress::find()->where(['user_id' => Yii::$app->user->id, 'id' => $model->address_id])->one();
-
-    //             if(isset($address)){
-    //                 $model->address = $address->address;
-    //                 $model->order_no = $model->generateOrderNo();
-    //                 $model->user_id = Yii::$app->user->id;
-    //                 $model->phone_no = $address->phone_no;
-    //                 $model->first_name = $address->first_name;
-    //                 $model->last_name = $address->last_name;
-    //                 $model->status = 9;
-
-    //                 if ($model->save()) {
-    //                     $orderItemsSaved = true;
-
-    //                     foreach ($cartProducts as $cartProduct) {
-    //                         $product = Product::findOne($cartProduct->product_id);
-    //                         $orderItem = new OrderItem();
-    //                         $orderItem->id = IdGenerator::generateUniqueId();
-    //                         $orderItem->product_id = $cartProduct->product_id;
-    //                         $orderItem->quantity = $cartProduct->quantity;
-    //                         $orderItem->selling_price = $product->selling_price;
-    //                         $orderItem->order_id = $model->id;
-
-    //                         if (!$orderItem->save()) {
-    //                             $orderItemsSaved = false;
-    //                             $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($orderItem->getErrors(), 0));
-    //                             Yii::$app->session->setFlash('error', 'Failed to save some Order Items. Errors: <br>' . $errors);
-    //                             break; // Stop further processing on error
-    //                         }
-    //                     }
-
-    //                     if ($orderItemsSaved) {
-    //                         // Clear the cart for the logged-in user
-    //                         CartProduct::deleteAll(['user_id' => Yii::$app->user->id]);
-
-    //                         Yii::$app->session->setFlash('success', 'Order created successfully.');
-    //                         return $this->redirect(['order-success', 'id' => $model->id]);
-    //                     }
-    //                 } else {
-    //                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-    //                     Yii::$app->session->setFlash('error', 'Failed to save the Order. Errors: <br>' . $errors);
-    //                 }
-    //             } else{
-    //                 $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
-    //                 Yii::$app->session->setFlash('error', 'Address or Payment method not selected');
-
-    //                 return $this->render('checkout', [
-    //                     'addresses' => $addresses,
-    //                     'model' => $model,
-    //                     'cartProducts' => $cartProducts,
-    //                 ]);
-    //             }
-
-    //         }
-    //     } else {
-    //         $model->loadDefaultValues();
-    //     }
-
-    //     return $this->render('checkout', [
-    //         'addresses' => $addresses,
-    //         'model' => $model,
-    //         'cartProducts' => $cartProducts,
-    //     ]);
-    // }
-
     public function actionCreateOrder()
     {
         $model = new Order();
@@ -478,7 +381,7 @@ class SiteController extends Controller
                     $model->phone_no = $address->phone_no;
                     $model->first_name = $address->first_name;
                     $model->last_name = $address->last_name;
-                    $model->status = 9;
+                    $model->status = 'pending';
 
                     if ($model->save()) {
                         $orderItemsSaved = true;
@@ -507,8 +410,8 @@ class SiteController extends Controller
                             // Send notification email
                             $this->sendOrderNotification($model);
 
-                            Yii::$app->session->setFlash('success', 'Order created successfully.');
-                            return $this->redirect(['order-success', 'id' => $model->id]);
+                            // Yii::$app->session->setFlash('success', 'Order created successfully.');
+                            return $this->redirect(['pay', 'id' => $model->id]);
                         }
                     } else {
                         $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
@@ -574,5 +477,103 @@ class SiteController extends Controller
             'model' => $model,
 
         ]);
+    }
+
+
+    public $enableCsrfValidation = false;
+
+    public function actionInitiateStkPush()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $request = Yii::$app->request->post();
+        $order_id = $request['order_id'] ?? null;
+        $amount = $request['amount'] ?? null;
+        $phone_number = $request['phone'] ?? null;
+        $callbackUrl = 'https://ee73-41-90-179-221.ngrok-free.app/site/callback'; // Replace with your callback URL
+
+        if (!$amount || !$phone_number) {
+            return ['success' => false, 'message' => 'Amount and phone number are required.'];
+        }
+
+        return Payment::initiateStkPush($amount, $phone_number, $callbackUrl, $order_id);
+    }
+
+    // public function actionCallback()
+    // {
+    //     Yii::$app->response->format = Response::FORMAT_JSON;
+    //     $callbackData = file_get_contents('php://input');
+    //     $callbackData = json_decode($callbackData, true);
+
+    //     if (json_last_error() !== JSON_ERROR_NONE) {
+    //         return ['success' => false, 'message' => 'Invalid JSON format'];
+    //     }
+
+    //     return Payment::handleCallback($callbackData);
+    // }
+
+    public function actionCallback()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $callbackData = file_get_contents('php://input');
+        $callbackData = json_decode($callbackData, true);
+
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            return ['success' => false, 'message' => 'Invalid JSON format'];
+        }
+
+        // Assuming `handleCallback` returns the payment model after processing
+        $payment = Payment::handleCallback($callbackData);
+
+        if (!$payment) {
+            return ['success' => false, 'message' => 'Callback handling failed'];
+        }
+
+        // Check if the payment status is "Success" and update the order status
+        if ($payment['success'] === true) {
+            $order = Order::findOne(['id' => $payment['order_id']]);
+            if ($order) {
+                $order->status = 'Processing'; // Update order status to Processing
+                if ($order->save(false)) {
+                    return [
+                        'success' => true,
+                        'message' => 'Payment and order status updated successfully',
+                    ];
+                } else {
+                    Yii::error("Order update failed: " . json_encode($order->errors));
+                    return [
+                        'success' => false,
+                        'message' => 'Order status update failed' . json_encode($order->errors),
+                    ];
+                }
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'Order not found for the payment reference',
+                ];
+            }
+        }
+
+        return [
+            'success' => true,
+            'message' => 'Callback processed without order status update',
+        ];
+    }
+
+
+    public function actionGetStatus()
+    {
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $external_reference = Yii::$app->request->get('external_reference');
+
+        if (empty($external_reference)) {
+            return ['success' => false, 'message' => 'External reference is required.'];
+        }
+
+        $payment = Payment::getStatus($external_reference);
+        if ($payment) {
+            return ['success' => true, 'payment' => $payment];
+        }
+
+        return ['success' => false, 'message' => 'Payment not found.'];
     }
 }

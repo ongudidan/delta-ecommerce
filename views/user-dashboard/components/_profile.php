@@ -10,7 +10,7 @@
              </span>
          </div>
 
-         <div class="profile-detail dashboard-bg-box">
+         <!-- <div class="profile-detail dashboard-bg-box">
              <div class="dashboard-title">
                  <h3>Profile Name</h3>
              </div>
@@ -72,7 +72,7 @@
                      neighbouring residences and land. Different types of housing tenure can
                      be used for the same physical type.</p>
              </div>
-         </div>
+         </div> -->
 
          <div class="profile-about dashboard-bg-box">
              <div class="row">

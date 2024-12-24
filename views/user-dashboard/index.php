@@ -47,7 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="tab-content" id="pills-tabContent">
 
                         <?php if ($controller == 'user-dashboard' && $action == 'index') { ?>
-                            <?= $this->render('components/_dashboard') ?>
+                            <?= $this->render('components/_dashboard',[
+                                'totalOrdersCount' => $totalOrdersCount,
+                                'completedCount' => $completedCount,
+                                'pendingCount' => $pendingCount,
+                                'cancelledCount' => $cancelledCount,
+                            ]) ?>
                         <?php } ?>
 
                         <?php if ($controller == 'user-dashboard' && $action == 'orders') { ?>

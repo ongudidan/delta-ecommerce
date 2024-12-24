@@ -103,8 +103,14 @@ $formAction = Yii::$app->controller->action->id === 'create-order'
                                             <div class="col-xxl-6 col-lg-12 col-md-6">
                                                 <div>
                                                     <?= $form->field($model, 'payment_option', ['template' => '{input}{error}'])->radioList([
-                                                        'Cash On Delivery' => 'Cash On Delivery',
-                                                        'Online Payment' => 'Online Payment',
+                                                        'M-PESA' => 'M-PESA',
+                                                    ], ['value' => 'M-PESA'])
+                                                    ?>
+
+                                                    <?= $form->field($model, 'phone_number',['template' => '{input}{error}'])->textInput([
+                                                        'type' => 'number',
+                                                        'step' => '0.01',
+                                                        'placeholder' => 'Enter your M-PESA phone number',
                                                     ]) ?>
                                                 </div>
                                             </div>
