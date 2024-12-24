@@ -3,11 +3,11 @@
 //////////////////////////////////////
 $host = $_SERVER['HTTP_HOST']; // Get the current host
 
-if ($host === 'localhost') {
-    // Localhost environment
-    return [
+if ($host === 'localhost:97') {
+    // Localhost:97 environment
+     return [
         'class' => 'yii\db\Connection',
-        'dsn' => "mysql:host=localhost;dbname=pos",
+        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',
@@ -21,7 +21,7 @@ if ($host === 'localhost') {
         'password' => 'QcIDYuIrKJ',
         'charset' => 'utf8',
     ];
-} elseif ($host === 'ecommerce.destakosmetics.com') {
+} elseif ($host == 'ecommerce.destakosmetics.com') {
     // Production environment for ecommerce.destakosmetics.com
     return [
         'class' => 'yii\db\Connection',
@@ -32,20 +32,20 @@ if ($host === 'localhost') {
     ];
 } else {
     // Default fallback or other environments
-    // return [
-    //     'class' => 'yii\db\Connection',
-    //     'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
-    //     'username' => 'root',
-    //     'password' => 'root',
-    //     'charset' => 'utf8',
-    // ];
-
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
-        'username' => 'deltolxj_deltakosmetics',
-        'password' => 'M70()J%O_8Kk',
+        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
+        'username' => 'root',
+        'password' => 'root',
         'charset' => 'utf8',
     ];
+
+    // return [
+    //     'class' => 'yii\db\Connection',
+    //     'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
+    //     'username' => 'deltolxj_deltakosmetics',
+    //     'password' => 'M70()J%O_8Kk',
+    //     'charset' => 'utf8',
+    // ];
 }
 
