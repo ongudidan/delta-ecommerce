@@ -34,7 +34,7 @@
 
 /.git
 
-# /web/frontend
+/web/frontend
 
 /web/cms
 
