@@ -26,7 +26,7 @@ if ($host === 'localhost') {
     return [
         'class' => 'yii\db\Connection',
         'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
-        'username' => 'dandeal_danny',
+        'username' => 'deltolxj_deltakosmetics',
         'password' => 'M70()J%O_8Kk',
         'charset' => 'utf8',
     ];
