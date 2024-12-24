@@ -21,7 +21,7 @@ if ($host === 'localhost') {
         'password' => 'QcIDYuIrKJ',
         'charset' => 'utf8',
     ];
-} elseif ($host === 'ecommerce.destakosmetics.com') {
+} elseif ($host === 'destakosmetics.com') {
     // Production environment for ecommerce.destakosmetics.com
     return [
         'class' => 'yii\db\Connection',
