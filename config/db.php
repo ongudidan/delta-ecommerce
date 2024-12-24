@@ -25,7 +25,7 @@ if ($host === 'localhost') {
     // Production environment for ecommerce.destakosmetics.com
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
+        'dsn' => 'mysql:host=destakosmetics.com;dbname=deltolxj_ecommerce',
         'username' => 'deltolxj_deltakosmetics',
         'password' => 'M70()J%O_8Kk',
         'charset' => 'utf8',
