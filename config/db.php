@@ -21,22 +21,30 @@ if ($host === 'localhost') {
         'password' => 'QcIDYuIrKJ',
         'charset' => 'utf8',
     ];
-} elseif ($host === 'destakosmetics.com') {
+} elseif ($host === 'ecommerce.destakosmetics.com') {
     // Production environment for ecommerce.destakosmetics.com
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=destakosmetics.com;dbname=deltolxj_ecommerce',
+        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
         'username' => 'deltolxj_deltakosmetics',
         'password' => 'M70()J%O_8Kk',
         'charset' => 'utf8',
     ];
 } else {
     // Default fallback or other environments
+    // return [
+    //     'class' => 'yii\db\Connection',
+    //     'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
+    //     'username' => 'root',
+    //     'password' => 'root',
+    //     'charset' => 'utf8',
+    // ];
+
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
-        'username' => 'root',
-        'password' => 'root',
+        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
+        'username' => 'deltolxj_deltakosmetics',
+        'password' => 'M70()J%O_8Kk',
         'charset' => 'utf8',
     ];
 }
