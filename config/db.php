@@ -3,11 +3,11 @@
 //////////////////////////////////////
 $host = $_SERVER['HTTP_HOST']; // Get the current host
 
-if ($host === 'localhost:97') {
-    // Localhost:97 environment
+if ($host === 'localhost') {
+    // Localhost environment
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
+        'dsn' => "mysql:host=localhost;dbname=pos",
         'username' => 'root',
         'password' => 'root',
         'charset' => 'utf8',
@@ -31,12 +31,12 @@ if ($host === 'localhost:97') {
         'charset' => 'utf8',
     ];
 } else {
-    // Production environment for ecommerce.destakosmetics.com
+    // Default fallback or other environments
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
-        'username' => 'deltolxj_deltakosmetics',
-        'password' => 'M70()J%O_8Kk',
+        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
+        'username' => 'root',
+        'password' => 'root',
         'charset' => 'utf8',
     ];
 }
