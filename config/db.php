@@ -21,13 +21,13 @@ if ($host === 'localhost') {
         'password' => 'QcIDYuIrKJ',
         'charset' => 'utf8',
     ];
-} elseif ($host === 'ecommerce.doubledeals.co.ke') {
-    // Production environment for wuaze.com
+} elseif ($host === 'ecommerce.destakosmetics.com') {
+    // Production environment for ecommerce.destakosmetics.com
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=dandeal_ecommerce',
+        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
         'username' => 'dandeal_danny',
-        'password' => 'I4QG&5C02mj[',
+        'password' => 'M70()J%O_8Kk',
         'charset' => 'utf8',
     ];
 } else {
