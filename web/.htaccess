@@ -1,8 +1,0 @@
-RewriteEngine on
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule . index.php [L]
-
-  # Skip bot check for callback endpoint
-    RewriteCond %{REQUEST_URI} ^/order-payment/callback [NC]
-    RewriteRule .* - [L]
