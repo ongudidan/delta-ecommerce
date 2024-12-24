@@ -489,7 +489,9 @@ class SiteController extends Controller
         $order_id = $request['order_id'] ?? null;
         $amount = $request['amount'] ?? null;
         $phone_number = $request['phone'] ?? null;
-        $callbackUrl = 'https://ee73-41-90-179-221.ngrok-free.app/site/callback'; // Replace with your callback URL
+        // $callbackUrl = 'https://ee73-41-90-179-221.ngrok-free.app/site/callback'; // Replace with your callback URL
+        $callbackUrl = 'https://' . $_SERVER['HTTP_HOST'] . '/site/callback';
+
 
         if (!$amount || !$phone_number) {
             return ['success' => false, 'message' => 'Amount and phone number are required.'];
