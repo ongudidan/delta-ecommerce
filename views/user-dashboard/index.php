@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php } ?>
 
                         <?php if ($controller == 'user-dashboard' && $action == 'orders') { ?>
-                            <?= $this->render('components/_orders') ?>
+                            <?= $this->render('components/_orders', ['orderItems'=> $orderItems]) ?>
                         <?php } ?>
 
                         <?php if ($controller == 'user-dashboard' && $action == 'address') { ?>

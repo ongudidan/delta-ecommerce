@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "order_item".
@@ -20,6 +21,24 @@ use Yii;
  */
 class OrderItem extends \yii\db\ActiveRecord
 {
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => TimestampBehavior::class,
+                // 'createdAtAttribute' => 'created_at',
+                // 'updatedAtAttribute' => 'updated_at',
+            ],
+            // [
+            //     'class' => BlameableBehavior::class,
+            //     'createdByAttribute' => 'created_by',
+            //     'updatedByAttribute' => false // disable updated_by,
+
+            // ],
+
+        ];
+    }
     /**
      * {@inheritdoc}
      */

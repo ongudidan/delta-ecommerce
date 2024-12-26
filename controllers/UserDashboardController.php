@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\IdGenerator;
 use app\models\Order;
+use app\models\OrderItem;
 use app\models\UserAddress;
 use Yii;
 use yii\filters\AccessControl;
@@ -65,7 +66,16 @@ class UserDashboardController extends \yii\web\Controller
 
     public function actionOrders()
     {
-        return $this->render('index');
+        $userId = Yii::$app->user->id; // Get the currently logged-in user's ID
+
+        $orderItems = OrderItem::find()
+        ->joinWith('order') // Assuming 'order' is the relation name in the OrderItem model
+        ->where(['order.user_id' => $userId])
+        ->all();
+
+        return $this->render('index', [
+            'orderItems' => $orderItems,
+        ]);
     }
 
     public function actionProfile()

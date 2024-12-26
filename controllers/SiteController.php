@@ -119,20 +119,7 @@ class SiteController extends Controller
 
         ]);
     }
-    // {
-    //     $model = new Order();
-    //     $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
-    //     $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
-
-    //     return $this->render('pay', [
-    //         'addresses' => $addresses,
-    //         'model' => $model,
-    //         'cartProducts' => $cartProducts,
-
-    //     ]);
-    // }
-
-
+ 
 
     /**
      * Lists all Product models.
