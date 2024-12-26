@@ -103,21 +103,31 @@ class SiteController extends Controller
 
     public function actionPay($id)
     {
-        // $order = Order::findOne($id);
-        $orderItems = OrderItem::find()->where(['order_id' => $id])->all();
+        $order = Order::findOne($id);
+        if($order->status == 'pending'){
 
-        $totalSellingPrice = OrderItem::find()->where(['order_id' => $id])->sum('selling_price');
+            $totalSellingPrice = OrderItem::find()->where(['order_id' => $id])->sum('selling_price');
 
-        $totalItems = OrderItem::find()->where(['order_id' => $id])->count();
-
-
-        return $this->render('pay', [
-            'totalSellingPrice' => $totalSellingPrice,
-            'totalItems' => $totalItems,
-            'orderId' => $id,
+            $totalItems = OrderItem::find()->where(['order_id' => $id])->count();
 
 
-        ]);
+            return $this->render('pay', [
+                'totalSellingPrice' => $totalSellingPrice,
+                'totalItems' => $totalItems,
+                'orderId' => $id,
+
+
+            ]);
+        }
+        else{
+            return $this->render('order-success', [
+                'id' => $id,
+                'model' => $order,
+
+               
+            ]);
+        }
+    
     }
  
 

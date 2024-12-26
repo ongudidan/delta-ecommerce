@@ -71,6 +71,7 @@ class UserDashboardController extends \yii\web\Controller
         $orderItems = OrderItem::find()
         ->joinWith('order') // Assuming 'order' is the relation name in the OrderItem model
         ->where(['order.user_id' => $userId])
+        ->orderBy(['created_at' => SORT_DESC]) // Specify the sort direction
         ->all();
 
         return $this->render('index', [

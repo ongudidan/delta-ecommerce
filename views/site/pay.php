@@ -50,9 +50,17 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
             </div>
 
             <!-- Submit button -->
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <button type="button" id="submitPayment" class="btn btn-primary w-100">Initiate Payment</button>
+            </div> -->
+
+            <div class="form-group">
+                <button type="button" id="submitPayment" class="btn btn-primary w-100">
+                    <span id="spinner" class="spinner-border spinner-border-sm me-2 d-none" role="status" aria-hidden="true"></span>
+                    Initiate Payment
+                </button>
             </div>
+
 
             <?php ActiveForm::end(); ?>
 
@@ -69,20 +77,60 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
     const notification = document.getElementById('notification');
     const paymentStatus = document.getElementById('paymentStatus');
 
+    // document.getElementById('submitPayment').addEventListener('click', async function() {
+    //     const amount = document.getElementById('amount').value;
+    //     const phone = document.getElementById('phone').value;
+    //     const order_id = document.getElementById('order_id').value;
+
+
+    //     showNotification('Initiating STK push...', 'info');
+
+    //     try {
+    //         // Await the response from the server
+    //         const response = await $.ajax({
+    //             url: 'initiate-stk-push', // Your backend endpoint
+    //             type: 'POST',
+    //             dataType: 'json', // Ensure the response is treated as JSON
+    //             data: {
+    //                 amount: amount,
+    //                 phone: phone,
+    //                 order_id: order_id
+    //             }
+    //         });
+
+    //         if (response.success) {
+    //             showNotification('STK push initiated successfully!', 'success');
+
+    //             const externalReference = response.data.external_reference;
+
+    //             if (externalReference) {
+    //                 console.log("External Reference:", externalReference); // For debugging
+    //                 pollPaymentStatus(externalReference); // Start polling with the external reference
+    //             } else {
+    //                 showNotification('Error: External reference not received', 'error');
+    //             }
+    //         } else {
+    //             showNotification(response.message || 'Error initiating STK push.', 'error');
+    //         }
+    //     } catch (error) {
+    //         console.error("Error initiating payment:", error);
+    //         showNotification('Error initiating STK push.', 'error');
+    //     }
+
+    // });
+
     document.getElementById('submitPayment').addEventListener('click', async function() {
         const amount = document.getElementById('amount').value;
         const phone = document.getElementById('phone').value;
         const order_id = document.getElementById('order_id').value;
 
-
         showNotification('Initiating STK push...', 'info');
 
         try {
-            // Await the response from the server
             const response = await $.ajax({
-                url: 'initiate-stk-push', // Your backend endpoint
+                url: 'initiate-stk-push',
                 type: 'POST',
-                dataType: 'json', // Ensure the response is treated as JSON
+                dataType: 'json',
                 data: {
                     amount: amount,
                     phone: phone,
@@ -93,11 +141,17 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
             if (response.success) {
                 showNotification('STK push initiated successfully!', 'success');
 
+                // Hide the phone input
+                document.getElementById('phone').style.display = 'none';
+
+                // Disable the payment button
+                document.getElementById('submitPayment').disabled = true;
+
                 const externalReference = response.data.external_reference;
 
                 if (externalReference) {
-                    console.log("External Reference:", externalReference); // For debugging
-                    pollPaymentStatus(externalReference); // Start polling with the external reference
+                    console.log("External Reference:", externalReference);
+                    pollPaymentStatus(externalReference);
                 } else {
                     showNotification('Error: External reference not received', 'error');
                 }
@@ -108,7 +162,6 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
             console.error("Error initiating payment:", error);
             showNotification('Error initiating STK push.', 'error');
         }
-
     });
 
     function pollPaymentStatus(externalReference) {
@@ -136,7 +189,7 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
                         const payment = response.payment;
                         if (payment.status === 'Success') {
                             clearInterval(pollIntervalId); // Stop polling if payment is no longer pending
-                            updatePaymentStatus(payment); // Call a function to update the UI with payment details
+                            updatePaymentStatus(payment, externalReference); // Call a function to update the UI with payment details
                         }
                     }
                 },
@@ -154,11 +207,17 @@ $model = new \app\models\Payment(); // Assuming you have a Payment model
 
 
 
-    function updatePaymentStatus(data) {
+    function updatePaymentStatus(data, externalReference) {
         // Trigger success actions if payment is successful
         if (data.status === 'Success') {
             notification.classList.add('fade-out'); // Hide notification after a delay
             triggerConfetti(); // Trigger a celebration animation (confetti, etc.)
+
+            // Add a delay of 5 seconds before redirecting to the order success page
+            setTimeout(() => {
+                const successUrl = `order-success?id=${encodeURIComponent(externalReference)}`;
+                window.location.href = successUrl; // Redirect with order ID in the URL
+            }, 1000);
         }
 
         // Dynamically construct the status HTML

@@ -24,7 +24,11 @@
                          </div>
 
                          <div class="order-date">
-                             <h6 class="text-content">Order Date: <strong><?= $row->order->created_at ?? '' ?></strong></h6>
+                             <h6 class="text-content">Order Date:
+                                 <strong>
+                                     <?= isset($row->order->created_at) ? date('l, jS F Y, h:i:s A', $row->order->created_at) : '' ?>
+                                 </strong>
+                             </h6>
                          </div>
 
                      </div>
