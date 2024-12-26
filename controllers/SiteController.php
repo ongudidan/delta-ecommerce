@@ -191,12 +191,20 @@ class SiteController extends Controller
         $addresses = UserAddress::find()->where(['user_id' => Yii::$app->user->id])->all();
         $cartProducts = CartProduct::find()->where(['user_id' => Yii::$app->user->id])->all();
 
-        return $this->render('checkout', [
-            'addresses' => $addresses,
-            'model' => $model,
-            'cartProducts' => $cartProducts,
+        if($cartProducts == null){
+            Yii::$app->session->setFlash('error', 'Cart is empty');
+            return $this->redirect(['products']);
+            
+        }else{
+            return $this->render('checkout', [
+                'addresses' => $addresses,
+                'model' => $model,
+                'cartProducts' => $cartProducts,
 
-        ]);
+            ]);
+        }
+
+       
     }
 
     /**
