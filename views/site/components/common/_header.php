@@ -24,7 +24,7 @@ if ($totalQuantity <= 0) {
 }
 ?>
 <header class="pb-md-4 pb-0">
-    <div class="header-top">
+    <!-- <div class="header-top">
         <div class="container-fluid-lg">
             <div class="row">
                 <div class="col-xxl-3 d-xxl-block d-none">
@@ -60,7 +60,7 @@ if ($totalQuantity <= 0) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
     <div class="top-nav top-header sticky-header">
         <div class="container-fluid-lg">
