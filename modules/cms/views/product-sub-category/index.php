@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <tr>
                                             <th>Thumbnail</th>
                                             <th>Name</th>
-                                            <th>Status</th>
+                                            <!-- <th>Status</th> -->
                                             <th>Option</th>
                                         </tr>
                                     </thead>
@@ -64,10 +64,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                                     </td>
 
                                                     <td><?= $row->name ?></td>
-
-                                                    <td class="status-danger">
-                                                        <span>Pending</span>
-                                                    </td>
 
                                                     <td>
                                                         <ul>

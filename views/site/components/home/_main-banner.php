@@ -1,3 +1,11 @@
+<?php
+
+use app\models\MainBanner;
+
+$mainBanner = MainBanner::find()->one();
+$banner1 = \app\models\Banner1::find()->one();
+$banner2 = \app\models\Banner2::find()->one();
+?>
 <section class="home-section pt-2">
     <div class="container-fluid-lg">
         <div class="row g-4">
@@ -17,19 +25,28 @@
                     <!-- Content over video -->
                     <div class="home-detail p-center-left w-75" style="position: relative; ">
                         <div>
-                            <h6>Exclusive offer <span>30% Off</span></h6>
+                            <h6>Exclusive offer <span><?= $mainBanner->offer_percentage ?? '' ?>% Off</span></h6>
                             <h1 class="text-uppercase">
-                                Stay home & delivered your
-                                <span class="daily">Daily Needs</span>
+                                <?php if (!empty($mainBanner->title)): ?>
+                                    <?php
+                                    $words = explode(' ', $mainBanner->title);
+                                    $lastWord = array_pop($words); // Get the last word
+                                    $remainingTitle = implode(' ', $words); // Remaining words
+                                    ?>
+                                    <?= $remainingTitle ?> <span class="daily"><?= $lastWord ?></span>
+                                <?php else: ?>
+                                    <!-- If no title is set -->
+                                    <span> </span>
+                                <?php endif; ?>
                             </h1>
+
                             <p class="w-75 d-none d-sm-block">
-                                Vegetables contain many vitamins and minerals that are good
-                                for your health.
+                                <?= $mainBanner->description ?? '' ?>
                             </p>
-                            <button onclick="location.href = 'shop-left-sidebar.html';"
+                            <!-- <button onclick="location.href = '<?= $mainBanner->product_link ?? '#' ?>';"
                                 class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">
                                 Shop Now <i class="fa-solid fa-right-long icon"></i>
-                            </button>
+                            </button> -->
                         </div>
                     </div>
                 </div>
@@ -40,15 +57,17 @@
                 <div class="row g-4">
                     <div class="col-xl-12 col-md-6 d-none d-md-block"> <!-- Hidden on mobile, shown from medium screens upwards -->
                         <div class="home-contain">
-                            <img src="/web/uploads/banner/2.jpg" class="bg-img blur-up lazyload" alt="" />
+                            <!-- <img src="/web/uploads/banner/2.jpg" class="bg-img blur-up lazyload" alt="" /> -->
+                            <img src="/web/uploads/<?= $banner1->image ?? 'banner/2.jpg' ?>" class="bg-img blur-up lazyload" alt="" />
+
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
                                     <h2 class="mt-0 text-danger">
-                                        45% <span class="discount text-title">OFF</span>
+                                        <?= $banner1->offer_percentage ?? '' ?>% <span class="discount text-title">OFF</span>
                                     </h2>
-                                    <h3 class="theme-color">Nut Collection</h3>
-                                    <p class="w-75">We deliver organic vegetables & fruits</p>
-                                    <a href="shop-left-sidebar.html" class="shop-button">Shop Now <i
+                                    <h3 class="theme-color"><?= $banner1->title ?? '' ?></h3>
+                                    <p class="w-75"><?= $banner1->description ?? '' ?></p>
+                                    <a href="<?= $banner1->product_link ?? '#' ?>" class="shop-button">Shop Now <i
                                             class="fa-solid fa-right-long"></i></a>
                                 </div>
                             </div>
@@ -57,15 +76,17 @@
 
                     <div class="col-xl-12 col-md-6 d-none d-md-block"> <!-- Hidden on mobile, shown from medium screens upwards -->
                         <div class="home-contain">
-                            <img src="/web/uploads/banner/3.jpg" class="bg-img blur-up lazyload" alt="" />
+                            <!-- <img src="/web/uploads/banner/3.jpg" class="bg-img blur-up lazyload" alt="" /> -->
+                            <img src="/web/uploads/<?= $banner2->image ?? 'banner/3.jpg' ?>" class="bg-img blur-up lazyload" alt="" />
+
                             <div class="home-detail p-center-left home-p-sm w-75">
                                 <div>
-                                    <h3 class="mt-0 theme-color fw-bold">Healthy Food</h3>
-                                    <h4 class="text-danger">Organic Market</h4>
-                                    <p class="organic">
-                                        Start your daily shopping with some Organic food
-                                    </p>
-                                    <a href="shop-left-sidebar.html" class="shop-button">Shop Now <i
+                                    <h2 class="mt-0 text-danger">
+                                        <?= $banner2->offer_percentage ?? '' ?>% <span class="discount text-title">OFF</span>
+                                    </h2>
+                                    <h3 class="theme-color"><?= $banner2->title ?? '' ?></h3>
+                                    <p class="w-75"><?= $banner2->description ?? '' ?></p>
+                                    <a href="<?= $banner2->product_link ?? '#' ?>" class="shop-button">Shop Now <i
                                             class="fa-solid fa-right-long"></i></a>
                                 </div>
                             </div>

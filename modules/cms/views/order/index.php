@@ -1,19 +1,18 @@
 <?php
 
-use app\models\Product;
+use app\models\Order;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\ActionColumn;
 use yii\grid\GridView;
 
 /** @var yii\web\View $this */
-/** @var app\modules\cms\models\ProductSearch $searchModel */
+/** @var app\modules\cms\models\OrderSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 
-$this->title = 'Products';
+$this->title = 'Orders List';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
 
 <!-- Container-fluid starts-->
 <div class="page-body">
@@ -23,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="card card-table">
                     <div class="card-body">
                         <div class="title-header option-title d-sm-flex d-block">
-                            <h5>Products List</h5>
+                            <h5>Orders List</h5>
                             <div class="right-options">
                                 <ul>
                                     <li>
@@ -33,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         <a href="javascript:void(0)">Export</a>
                                     </li>
                                     <li>
-                                        <a class="btn btn-solid" href="<?= Url::to(['/cms/product/create']) ?>">Add Product</a>
+                                        <a class="btn btn-solid" href="<?= Url::to(['/cms/order/create']) ?>">Add Product</a>
                                     </li>
                                 </ul>
                             </div>
@@ -43,11 +42,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <table class="table all-package theme-table table-product" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Product Image</th>
-                                            <th>Product Name</th>
-                                            <th>Category</th>
-                                            <th>Current Qty</th>
-                                            <th>Price</th>
+                                            <th>order No</th>
+                                            <th>Payment Method</th>
+                                            <th>Created At</th>
                                             <th>Status</th>
                                             <th>Option</th>
                                         </tr>
@@ -58,41 +55,35 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                             <?php foreach ($dataProvider->getModels() as $index => $row): ?>
                                                 <tr>
-                                                    <td>
-                                                        <div class="table-image">
-                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
-                                                                alt="">
-                                                        </div>
-                                                    </td>
 
-                                                    <td><?= $row->name ?></td>
 
-                                                    <td><?= $row->productSubCategory->productCategory->name ?></td>
+                                                    <td><?= $row->order_no ?? '{not set}' ?></td>
 
-                                                    <td>12</td>
+                                                    <td><?= $row->payment_option ?></td>
 
-                                                    <td class="td-price">Ksh. <?= number_format($row->selling_price) ?></td>
+                                                    <td><?= Yii::$app->formatter->asDatetime($row->created_at) ?></td>
 
-                                                    <td class="<?= $row->status == 'active' ? 'status-close' : 'status-danger' ?>">
-                                                        <span><?= $row->status == 'active' ? 'Active' : 'Inactive' ?></span>
+
+                                                    <td class="<?= $row->status == 'complete' ? 'status-close' : 'status-danger' ?>">
+                                                        <span><?= $row->status ?? '{not set}' ?></span>
                                                     </td>
 
                                                     <td>
                                                         <ul>
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product/view', 'id' => $row->id]) ?>">
+                                                                <a href="<?= Url::to(['/cms/order/view', 'id' => $row->id]) ?>">
                                                                     <i class="ri-eye-line"></i>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product/update', 'id' => $row->id]) ?>">
+                                                                <a href="<?= Url::to(['/cms/order/update', 'id' => $row->id]) ?>">
                                                                     <i class="ri-pencil-line"></i>
                                                                 </a>
                                                             </li>
 
                                                             <li>
-                                                                <a href="<?= Url::to(['/cms/product/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
+                                                                <a href="<?= Url::to(['/cms/order/delete', 'id' => $row->id]) ?>" data-bs-toggle="modal"
                                                                     data-bs-target="#exampleModalToggle">
                                                                     <i class="ri-delete-bin-line"></i>
                                                                 </a>
@@ -103,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             <?php endforeach; ?>
                                         <?php else: ?>
                                             <tr>
-                                                <td colspan="10" class="text-center">No data found</td>
+                                                <td colspan="10" class="text-center">No data found </td>
                                             </tr>
                                         <?php endif; ?>
 

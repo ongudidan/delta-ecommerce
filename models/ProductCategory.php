@@ -99,4 +99,11 @@ class ProductCategory extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProductSubCategory::class, ['product_category_id' => 'id']);
     }
+
+
+    public function getImage_url()
+    {
+        return '/web/cms/assets/svg/' . $this->name . '.svg';
+    }
+
 }

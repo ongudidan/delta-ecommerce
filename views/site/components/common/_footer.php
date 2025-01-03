@@ -1,6 +1,9 @@
 <?php
 
+use app\models\ContactInfo;
 use yii\helpers\Url;
+
+$contactInfo = ContactInfo::find()->one();
 
 ?>
 
@@ -18,15 +21,14 @@ $helpLinks = [
 ];
 
 $contacts = [
-    ['icon' => 'phone', 'title' => 'Hotline 24/7 :', 'detail' => '+91 888 104 2340'],
-    ['icon' => 'mail', 'title' => 'Email Address :', 'detail' => 'fastkart@hotmail.com']
+    ['icon' => 'phone', 'title' => 'Hotline 24/7 :', 'detail' => $contactInfo->phone ?? ''],
+    ['icon' => 'mail', 'title' => 'Email Address :', 'detail' => $contactInfo->email ?? ''],
 ];
 
 $socialLinks = [
-    ['url' => 'https://www.facebook.com/', 'icon' => 'fa-facebook-f'],
-    ['url' => 'https://twitter.com/', 'icon' => 'fa-twitter'],
-    ['url' => 'https://www.instagram.com/', 'icon' => 'fa-instagram'],
-    ['url' => 'https://in.pinterest.com/', 'icon' => 'fa-pinterest-p']
+    ['url' => 'https://www.facebook.com/'.$contactInfo->facebook, 'icon' => 'fa-facebook-f'],
+    ['url' => 'https://twitter.com/'.$contactInfo->twitter, 'icon' => 'fa-twitter'],
+    ['url' => 'https://www.instagram.com/'.$contactInfo->instagram, 'icon' => 'fa-instagram'],
 ];
 
 ?>
@@ -47,18 +49,17 @@ $socialLinks = [
 
                         <div class="footer-logo-contain">
                             <p>
-                                We are a friendly bar serving a variety of cocktails, wines
-                                and beers. Our bar is a perfect place for a couple.
+                                <?= $contactInfo->description ?? '' ?>
                             </p>
 
                             <ul class="address">
                                 <li>
                                     <i data-feather="home"></i>
-                                    <a href="javascript:void(0)">1418 Riverwood Drive, CA 96052, US</a>
+                                    <a href="javascript:void(0)"><?= $contactInfo->address ?? '' ?></a>
                                 </li>
                                 <li>
                                     <i data-feather="mail"></i>
-                                    <a href="javascript:void(0)">support@fastkart.com</a>
+                                    <a href="javascript:void(0)"><?= $contactInfo->email ?? '' ?></a>
                                 </li>
                             </ul>
                         </div>
@@ -132,7 +133,7 @@ $socialLinks = [
                 <ul>
                     <?php foreach ($socialLinks as $link) { ?>
                         <li>
-                            <a href="<?= Url::to([$link['url']]) ?>" target="_blank">
+                            <a href="<?= $link['url'] ?>" target="_blank">
                                 <i class="fa-brands <?= $link['icon'] ?>"></i>
                             </a>
                         </li>

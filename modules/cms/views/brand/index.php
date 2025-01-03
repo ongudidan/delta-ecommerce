@@ -64,8 +64,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                                     <td><?= $row->name ?></td>
 
-                                                    <td class="status-danger">
-                                                        <span>Pending</span>
+                                                    <td class="<?= $row->status == 'active' ? 'status-close' : 'status-danger' ?>">
+                                                        <span><?= $row->status == 'active' ? 'Active' : 'Inactive' ?></span>
                                                     </td>
 
                                                     <td>

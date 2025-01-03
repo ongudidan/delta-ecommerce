@@ -63,8 +63,8 @@ use yii\bootstrap5\ActiveForm;
                                     <div class="col-sm-9">
                                         <?= $form->field($model, 'status', ['template' => '{input}{error}'])->dropDownList(
                                             [
-                                                10 => 'Active', // Value 10 for active status
-                                                9 => 'Inactive', // Value 0 for inactive status
+                                                'active' => 'Active', // Value 10 for active status
+                                                'inactive' => 'Inactive', // Value 0 for inactive status
                                             ],
                                             ['prompt' => 'Select Status'] // Optional: Add a prompt
                                         ) ?>

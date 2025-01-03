@@ -13,6 +13,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\ContactInfo;
 use app\models\Order;
 use app\models\OrderItem;
 use app\models\Payment;
@@ -265,6 +266,7 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
+        $contactInfo = ContactInfo::findOne(1);
         $model = new ContactForm();
         if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
             Yii::$app->session->setFlash('contactFormSubmitted');
@@ -273,6 +275,7 @@ class SiteController extends Controller
         }
         return $this->render('contact', [
             'model' => $model,
+            'contactInfo' => $contactInfo,
         ]);
     }
 
@@ -505,18 +508,6 @@ class SiteController extends Controller
         return Payment::initiateStkPush($amount, $phone_number, $callbackUrl, $order_id);
     }
 
-    // public function actionCallback()
-    // {
-    //     Yii::$app->response->format = Response::FORMAT_JSON;
-    //     $callbackData = file_get_contents('php://input');
-    //     $callbackData = json_decode($callbackData, true);
-
-    //     if (json_last_error() !== JSON_ERROR_NONE) {
-    //         return ['success' => false, 'message' => 'Invalid JSON format'];
-    //     }
-
-    //     return Payment::handleCallback($callbackData);
-    // }
 
     public function actionCallback()
     {

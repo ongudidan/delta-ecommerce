@@ -11,6 +11,15 @@ $sidebarItems = [
         'children' => [],
     ],
     [
+        'title' => 'Orders',
+        'icon' => 'ri-store-3-line',
+        'url' => 'javascript:void(0)',
+        'children' => [
+            ['title' => 'Orders', 'url' => ['/cms/order/index']],
+            ['title' => 'Add New order', 'url' => ['/cms/order/create']],
+        ],
+    ],
+    [
         'title' => 'Product',
         'icon' => 'ri-store-3-line',
         'url' => 'javascript:void(0)',
@@ -53,6 +62,15 @@ $sidebarItems = [
         'children' => [
             ['title' => 'unit List', 'url' => ['/cms/unit/index']],
             ['title' => 'Add New unit', 'url' => ['/cms/unit/create']],
+        ],
+    ],
+    [
+        'title' => 'Settings',
+        'icon' => 'ri-list-check-2',
+        'url' => 'javascript:void(0)',
+        'children' => [
+            ['title' => 'Contact Info', 'url' => ['/cms/setting/index']],
+            // ['title' => 'Add New unit', 'url' => ['/cms/unit/create']],
         ],
     ],
 ];

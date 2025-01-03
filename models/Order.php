@@ -142,4 +142,16 @@ class Order extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
     }
+
+    public function getCustomer()
+    {
+        return $this->hasOne(Customer::class, ['id' => 'customer_id']);
+    }
+
+    public function getPayment()
+    {
+        return $this->hasOne(Payment::class, ['external_reference' => 'id']);
+    }
+
+
 }

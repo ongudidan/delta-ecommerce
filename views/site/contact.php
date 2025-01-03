@@ -89,7 +89,7 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <!-- Breadcrumb Section End -->
- 
+
 
 
 <!-- Contact Box Section Start -->
@@ -122,7 +122,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </div>
 
                                             <div class="contact-detail-contain">
-                                                <p>(+1) 618 190 496</p>
+                                                <p><?= $contactInfo->phone ?? '' ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -137,7 +137,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                             </div>
 
                                             <div class="contact-detail-contain">
-                                                <p>geweto9420@chokxus.com</p>
+                                                <p><?= $contactInfo->email ?? '' ?></p>
                                             </div>
                                         </div>
                                     </div>
@@ -148,26 +148,11 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <i class="fa-solid fa-location-dot"></i>
                                             </div>
                                             <div class="contact-detail-title">
-                                                <h4>London Office</h4>
+                                                <h4>Physical Location</h4>
                                             </div>
 
                                             <div class="contact-detail-contain">
-                                                <p>Cruce Casa de Postas 29</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-xxl-6 col-lg-12 col-sm-6">
-                                        <div class="contact-detail-box">
-                                            <div class="contact-icon">
-                                                <i class="fa-solid fa-building"></i>
-                                            </div>
-                                            <div class="contact-detail-title">
-                                                <h4>Bournemouth Office</h4>
-                                            </div>
-
-                                            <div class="contact-detail-contain">
-                                                <p>Visitación de la Encina 22</p>
+                                                <p><?= $contactInfo->address ?? '' ?></p>
                                             </div>
                                         </div>
                                     </div>

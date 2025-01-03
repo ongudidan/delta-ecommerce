@@ -118,7 +118,9 @@ class OrderPaymentController extends Controller
                 $Password = base64_encode($BusinessShortCode . $Passkey . $Timestamp);
 
                 // Callback URL
-                // $CallBackURL = 'https://4f1d-41-90-177-23.ngrok-free.app/order-payment/callback';
+                $CallBackURL = 'https://91cd-41-90-179-109.ngrok-free.app/order-payment/callback';
+                // $host = $_SERVER['HTTP_HOST'];
+                // $CallBackURL = 'https://' . $host . '/daraja-payment/callback';
 
                 $host =  $_SERVER['HTTP_HOST']; // Get the current host
 

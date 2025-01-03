@@ -1,6 +1,7 @@
 <?php
 
 use app\models\CartProduct;
+use app\models\ContactInfo;
 use app\models\ProductSearch;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -29,7 +30,7 @@ if ($totalQuantity <= 0) {
                 <div class="col-xxl-3 d-xxl-block d-none">
                     <div class="top-left-header">
                         <i class="iconly-Location icli text-white"></i>
-                        <span class="text-white">1418 Riverwood Drive, CA 96052, US</span>
+                        <span class="text-white"><?= ContactInfo::find()->one()->address ?? '' ?></span>
                     </div>
                 </div>
 
@@ -57,60 +58,6 @@ if ($totalQuantity <= 0) {
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-lg-3">
-                    <ul class="about-list right-nav-about">
-                        <li class="right-nav-list">
-                            <div class="dropdown theme-form-select">
-                                <button class="btn dropdown-toggle" type="button" id="select-language" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <img src="/web/frontend/assets/images/country/united-states.png" class="img-fluid blur-up lazyload" alt="" />
-                                    <span>English</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="select-language">
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="english">
-                                            <img src="/web/frontend/assets/images/country/united-kingdom.png" class="img-fluid blur-up lazyload"
-                                                alt="" />
-                                            <span>English</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="france">
-                                            <img src="/web/frontend/assets/images/country/germany.png" class="img-fluid blur-up lazyload" alt="" />
-                                            <span>Germany</span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="javascript:void(0)" id="chinese">
-                                            <img src="/web/frontend/assets/images/country/turkish.png" class="img-fluid blur-up lazyload" alt="" />
-                                            <span>Turki</span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="right-nav-list">
-                            <div class="dropdown theme-form-select">
-                                <button class="btn dropdown-toggle" type="button" id="select-dollar" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <span>USD</span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end sm-dropdown-menu" aria-labelledby="select-dollar">
-                                    <li>
-                                        <a class="dropdown-item" id="aud" href="javascript:void(0)">AUD</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" id="eur" href="javascript:void(0)">EUR</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" id="cny" href="javascript:void(0)">CNY</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
         </div>
     </div>
@@ -180,13 +127,13 @@ if ($totalQuantity <= 0) {
                                     </div>
                                 </li>
                                 <li class="right-side">
-                                    <a href="contact-us.html" class="delivery-login-box">
+                                    <a href="<?= Url::to('/site/contact')  ?>" class="delivery-login-box">
                                         <div class="delivery-icon">
                                             <i data-feather="phone-call"></i>
                                         </div>
                                         <div class="delivery-detail">
                                             <h6>24/7 Delivery</h6>
-                                            <h5>+91 888 104 2340</h5>
+                                            <h5><?= ContactInfo::find()->one()->phone ?? '' ?></h5>
                                         </div>
                                     </a>
                                 </li>

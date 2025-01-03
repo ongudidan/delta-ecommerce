@@ -32,6 +32,10 @@ use yii\behaviors\TimestampBehavior;
 class Product extends \yii\db\ActiveRecord
 {
     public $file;
+    public $order_count;
+    public $total_amount;
+    public $stock;
+
 
 
     public function behaviors()
@@ -163,4 +167,16 @@ class Product extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProductImage::class, ['product_id' => 'id']);
     }
+
+    public function getImage_url()
+    {
+        return '/web/cms/assets/svg/' . $this->name . '.svg';
+    }
+
+    public function getImageUrl()
+    {
+        return $this->image_path ? '/uploads/products/' . $this->image_path : '/web/cms/assets/images/product/1.png';
+    }
+
+
 }
