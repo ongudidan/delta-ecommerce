@@ -18,7 +18,7 @@ $banner2 = \app\models\Banner2::find()->one();
                         loop
                         playsinline
                         style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;  object-fit: cover; pointer-events: none;">
-                        <source src="/web/uploads/videos/videoplayback.mp4" type="video/mp4">
+                        <source src="/web/uploads/<?= $mainBanner->video ?? 'videos/videoplayback.mp4' ?>" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
 
