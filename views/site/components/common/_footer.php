@@ -121,12 +121,12 @@ $socialLinks = [
 
         <div class="sub-footer section-small-space">
             <div class="reserve">
-                <h6 class="text-content">©2022 Fastkart All rights reserved</h6>
+                <h6 class="text-content">©<?= $contactInfo->footer_title ?? '' ?></h6>
             </div>
-
+<!-- 
             <div class="payment">
                 <img src="/web/frontend/assets/images/payment/1.png" class="blur-up lazyload" alt="" />
-            </div>
+            </div> -->
 
             <div class="social-link">
                 <h6 class="text-content">Stay connected :</h6>
