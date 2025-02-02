@@ -1,9 +1,11 @@
 <?php
 
 use app\models\ContactInfo;
+use app\models\SiteInfo;
 use yii\helpers\Url;
 
-$contactInfo = ContactInfo::find()->one();
+$contactInfo = ContactInfo::find()->one() ?? '';
+$logo = SiteInfo::find()->one()->logo ?? '';
 
 ?>
 
@@ -26,10 +28,11 @@ $contacts = [
 ];
 
 $socialLinks = [
-    ['url' => 'https://www.facebook.com/'.$contactInfo->facebook, 'icon' => 'fa-facebook-f'],
-    ['url' => 'https://twitter.com/'.$contactInfo->twitter, 'icon' => 'fa-twitter'],
-    ['url' => 'https://www.instagram.com/'.$contactInfo->instagram, 'icon' => 'fa-instagram'],
+    ['url' => isset($contactInfo->facebook) ? 'https://www.facebook.com/' . $contactInfo->facebook : '', 'icon' => 'fa-facebook-f'],
+    ['url' => isset($contactInfo->twitter) ? 'https://twitter.com/' . $contactInfo->twitter : '', 'icon' => 'fa-twitter'],
+    ['url' => isset($contactInfo->instagram) ? 'https://www.instagram.com/' . $contactInfo->instagram : '', 'icon' => 'fa-instagram'],
 ];
+
 
 ?>
 
@@ -43,7 +46,7 @@ $socialLinks = [
                     <div class="footer-logo">
                         <div class="theme-logo">
                             <a href="index.html">
-                                <img src="/web/frontend/assets/images/logo/1.png" class="blur-up lazyload" alt="" />
+                                <img src="/web/uploads/<?= $logo ?? '' ?>" class="blur-up lazyload" alt="" />
                             </a>
                         </div>
 
@@ -123,7 +126,7 @@ $socialLinks = [
             <div class="reserve">
                 <h6 class="text-content">©<?= $contactInfo->footer_title ?? '' ?></h6>
             </div>
-<!-- 
+            <!-- 
             <div class="payment">
                 <img src="/web/frontend/assets/images/payment/1.png" class="blur-up lazyload" alt="" />
             </div> -->

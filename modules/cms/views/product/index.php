@@ -27,12 +27,6 @@ $this->params['breadcrumbs'][] = $this->title;
                             <div class="right-options">
                                 <ul>
                                     <li>
-                                        <a href="javascript:void(0)">import</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Export</a>
-                                    </li>
-                                    <li>
                                         <a class="btn btn-solid" href="<?= Url::to(['/cms/product/create']) ?>">Add Product</a>
                                     </li>
                                 </ul>
@@ -43,10 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <table class="table all-package theme-table table-product" id="table_id">
                                     <thead>
                                         <tr>
-                                            <th>Product Image</th>
+                                            <th>Image</th>
                                             <th>Product Name</th>
                                             <th>Category</th>
-                                            <th>Current Qty</th>
+                                            <!-- <th>Current Qty</th> -->
                                             <th>Price</th>
                                             <th>Status</th>
                                             <th>Option</th>
@@ -60,16 +54,16 @@ $this->params['breadcrumbs'][] = $this->title;
                                                 <tr>
                                                     <td>
                                                         <div class="table-image">
-                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
+                                                            <img src="/web/uploads/<?= $row->thumbnail ?? '' ?>" class="img-fluid"
                                                                 alt="">
                                                         </div>
                                                     </td>
 
-                                                    <td><?= $row->name ?></td>
+                                                    <td><?= $row->name ?? '' ?></td>
 
-                                                    <td><?= $row->productSubCategory->productCategory->name ?></td>
+                                                    <td><?= $row->productCategory->name ?? '' ?></td>
 
-                                                    <td>12</td>
+                                                    <!-- <td>12</td> -->
 
                                                     <td class="td-price">Ksh. <?= number_format($row->selling_price) ?></td>
 

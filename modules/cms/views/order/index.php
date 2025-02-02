@@ -25,15 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h5>Orders List</h5>
                             <div class="right-options">
                                 <ul>
-                                    <li>
-                                        <a href="javascript:void(0)">import</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Export</a>
-                                    </li>
-                                    <li>
+                                    <!-- <li>
                                         <a class="btn btn-solid" href="<?= Url::to(['/cms/order/create']) ?>">Add Product</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>

@@ -33,7 +33,7 @@ class Banner2 extends \yii\db\ActiveRecord
         return [
             [['offer_percentage'], 'integer'],
             [['description'], 'string'],
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, webp'],
             [['title', 'image', 'product_link'], 'string', 'max' => 255],
         ];
     }

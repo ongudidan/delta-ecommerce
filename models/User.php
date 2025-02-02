@@ -25,10 +25,14 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    // public $oldPassword;
+    // public $newPassword;
+    // public $newPasswordConfirm;
+    // public $role;
+
     public $oldPassword;
     public $newPassword;
-    public $newPasswordConfirm;
-    public $role;
+    public $confirmNewPassword;
 
     const STATUS_DELETED = 0;
     const STATUS_INACTIVE = 9;
@@ -68,10 +72,20 @@ class User extends ActiveRecord implements IdentityInterface
             [['email', 'phone_no'], 'unique'],
 
             // Rules specific to change password scenario
-            [['oldPassword', 'newPassword', 'newPasswordConfirm'], 'required', 'on' => 'changePassword'],
-            ['oldPassword', 'validateOldPassword', 'on' => 'changePassword'],
-            ['newPasswordConfirm', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Passwords do not match.', 'on' => 'changePassword'],
-            ['newPassword', 'string', 'min' => 8, 'on' => 'changePassword'], // Example for password length
+            [['oldPassword', 'newPassword', 'confirmNewPassword'], 'required', 'on' => 'changePassword'],
+            ['newPassword', 'string', 'min' => 8, 'on' => 'changePassword'],
+            ['confirmNewPassword', 'compare', 'compareAttribute' => 'newPassword', 'message' => 'Passwords do not match.', 'on' => 'changePassword'],
+
+            // Rules specific to change phone_no scenario
+            ['phone_no', 'required', 'on' => 'updatePhone'],
+            ['phone_no', 'string', 'max' => 15, 'on' => 'updatePhone'], // Adjust max length as needed
+            ['phone_no', 'match', 'pattern' => '/^\+?[0-9]{10,15}$/', 'message' => 'Enter a valid phone number.', 'on' => 'updatePhone'],
+
+            // Rules specific to change email scenario
+            ['email', 'required', 'on' => 'updateEmail'],
+            ['email', 'email', 'on' => 'updateEmail'], // Validate email format
+            ['email', 'unique', 'on' => 'updateEmail', 'message' => 'This email is already in use.'],
+     
         ];
     }
 

@@ -41,6 +41,8 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/css/vendors/bootstrap-tagsinput.css",
 
 
+        "/web/frontend/assets/css/dan.css",
+
         "/web/custom/css/toastr.min.css",
         "/web/custom/css/toatr.css",
 
@@ -65,7 +67,7 @@ class CmsAsset extends AssetBundle
         "/web/cms/assets/js/chart/apex-chart/chart-custom1.js",
         "/web/cms/assets/js/slick.min.js",
         "/web/cms/assets/js/custom-slick.js",
-        "/web/cms/assets/js/customizer.js",
+        // "/web/cms/assets/js/customizer.js",
         "/web/cms/assets/js/ratio.js",
         "/web/cms/assets/js/sidebareffect.js",
         "/web/cms/assets/js/script.js",

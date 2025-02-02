@@ -90,28 +90,31 @@ class ProductController extends Controller
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
 
-                $model->file = UploadedFile::getInstance($model, 'file');
-                // Set up the uploads directory
-                $uploadsDir = Yii::getAlias('@webroot/web/uploads');
-                if (!is_dir($uploadsDir)) {
-                    if (!mkdir($uploadsDir, 0777, true) && !is_dir($uploadsDir)) {
-                        Yii::$app->session->setFlash('error', 'Failed to create uploads directory.');
-                        return $this->render('create', ['model' => $model]);
-                    }
-                }
+                $model = $this->uploadFile($model, 'file', 'thumbnail');
 
-                // Handle thumbnail file upload
-                if ($model->file) {
-                    $thumbnailName = uniqid('thumbnail_') . '.' . $model->file->extension;
-                    $thumbnailPath = $uploadsDir . '/' . $thumbnailName;
 
-                    if ($model->file->saveAs($thumbnailPath)) {
-                        $model->thumbnail = $thumbnailName; // Save relative path
-                    } else {
-                        Yii::$app->session->setFlash('error', 'Failed to upload thumbnail file.');
-                        Yii::error('thumbnail file upload failed for path: ' . $thumbnailPath);
-                    }
-                }
+                // $model->file = UploadedFile::getInstance($model, 'file');
+                // // Set up the uploads directory
+                // $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+                // if (!is_dir($uploadsDir)) {
+                //     if (!mkdir($uploadsDir, 0777, true) && !is_dir($uploadsDir)) {
+                //         Yii::$app->session->setFlash('error', 'Failed to create uploads directory.');
+                //         return $this->render('create', ['model' => $model]);
+                //     }
+                // }
+
+                // // Handle thumbnail file upload
+                // if ($model->file) {
+                //     $thumbnailName = uniqid('thumbnail_') . '.' . $model->file->extension;
+                //     $thumbnailPath = $uploadsDir . '/' . $thumbnailName;
+
+                //     if ($model->file->saveAs($thumbnailPath)) {
+                //         $model->thumbnail = $thumbnailName; // Save relative path
+                //     } else {
+                //         Yii::$app->session->setFlash('error', 'Failed to upload thumbnail file.');
+                //         Yii::error('thumbnail file upload failed for path: ' . $thumbnailPath);
+                //     }
+                // }
 
                 $model->id = IdGenerator::generateUniqueId();
                 $model->company_id = Yii::$app->user->identity->company_id;
@@ -212,6 +215,7 @@ class ProductController extends Controller
         }
 
         $model->delete();
+        Yii::$app->session->setFlash('success', 'Product deleted successfully.');
 
         return $this->redirect(['index']);
     }
@@ -231,5 +235,30 @@ class ProductController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+
+
+    /////////////////////////////////////////////////
+    public function uploadFile($model, $formAtribute, $attribute)
+    {
+        $uploadedFile = UploadedFile::getInstance($model, $formAtribute);
+        $uploadsDir = Yii::getAlias('@webroot/web/uploads');
+
+
+        if ($uploadedFile) {
+            $oldFilePath = $uploadsDir . '/' . $model->$attribute;
+            $newFileName = uniqid() . '.' . $uploadedFile->extension;
+            $newFilePath = $uploadsDir . '/' . $newFileName;
+
+            // Delete old file if it exists
+            if (file_exists($oldFilePath)) {
+                @unlink($oldFilePath);
+            }
+
+            if ($uploadedFile->saveAs($newFilePath)) {
+                $model->$attribute = $newFileName;
+            }
+        }
+        return $model;
     }
 }

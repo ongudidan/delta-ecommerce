@@ -1,3 +1,22 @@
     .small-pagination .page-link {
         font-size: 0.70rem; /* Adjust to desired size */
     }
+
+    /* Custom CSS to override Bootstrap font sizes */
+body {
+    font-size: 0.85rem; /* Adjust this value as needed */
+    line-height: 1.2;  /* Optional: Adjust line-height for better readability */
+}
+
+/* Optional: Override specific elements if necessary */
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+}
+
+.btn {
+    font-size: 0.8rem; /* Smaller font size for buttons */
+}
+
+.nav-link, .breadcrumb-item {
+    font-size: 0.8rem; /* Adjust font sizes for navigation and breadcrumbs */
+}

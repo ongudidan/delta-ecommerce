@@ -3,13 +3,14 @@
 use app\models\CartProduct;
 use app\models\ContactInfo;
 use app\models\ProductSearch;
+use app\models\SiteInfo;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\web\User;
 use yii\widgets\ActiveForm;
 
 
-
+$logo = SiteInfo::find()->one()->logo ?? '';
 $searchModel = new ProductSearch();
 
 // Assuming you're using Yii's ActiveRecord for CartProduct model
@@ -74,7 +75,9 @@ if ($totalQuantity <= 0) {
                             </span>
                         </button>
                         <a href="<?= Url::to(['/site/index']) ?>" class="web-logo nav-logo">
-                            <img src="/web/frontend/assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="" />
+                            <!-- <img src="/web/frontend/assets/images/logo/1.png" class="img-fluid blur-up lazyload" alt="" /> -->
+                            <img src="/web/uploads/<?= $logo ?? '' ?>" class="img-fluid blur-up lazyload" alt="" />
+
                         </a>
 
                         <?php

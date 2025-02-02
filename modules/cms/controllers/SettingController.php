@@ -6,6 +6,7 @@ use app\models\Banner1;
 use app\models\Banner2;
 use app\models\ContactInfo;
 use app\models\MainBanner;
+use app\models\SiteInfo;
 use Yii;
 use yii\web\UploadedFile;
 
@@ -172,6 +173,7 @@ class SettingController extends \yii\web\Controller
         $mainBanner = MainBanner::find()->one() ?? new MainBanner();
         $banner1 = Banner1::find()->one() ?? new Banner1();
         $banner2 = Banner2::find()->one() ?? new Banner2();
+        $siteInfo = SiteInfo::find()->one() ?? new SiteInfo();
 
         // Handle main banner upload
         if ($mainBanner->load(Yii::$app->request->post())) {
@@ -201,6 +203,17 @@ class SettingController extends \yii\web\Controller
             }
         }
 
+        // Handle siteInfo upload
+        if ($siteInfo->load(Yii::$app->request->post())) {
+            $siteInfo = $this->uploadFile($siteInfo, 'logoFile', 'logo');
+            $siteInfo = $this->uploadFile($siteInfo, 'faviconFile', 'favicon');
+
+            if ($siteInfo->save()) {
+                Yii::$app->session->setFlash('success', 'Site Infosaved successfully.');
+                return $this->refresh();
+            }
+        }
+
         // Fetch or create ContactInfo model
         $model = ContactInfo::find()->one() ?? new ContactInfo();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -213,6 +226,7 @@ class SettingController extends \yii\web\Controller
             'mainBanner' => $mainBanner,
             'banner1' => $banner1,
             'banner2' => $banner2,
+            'siteInfo' => $siteInfo,
         ]);
     }
 

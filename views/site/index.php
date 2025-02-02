@@ -80,7 +80,7 @@ $this->title = 'Home';
                                     </div>
                                     <div class="product-footer">
                                         <div class="product-detail">
-                                            <span class="span-name"><?= $row->productSubCategory->name ?></span>
+                                            <span class="span-name"><?= $row->productCategory->name ?? '' ?></span>
                                             <a href="<?= Url::to(['/site/product-view', 'id' => $row->id]) ?>">
                                                 <h5 class="name"><?= $row->name ?></h5>
                                             </a>

@@ -43,10 +43,10 @@ $banner2 = \app\models\Banner2::find()->one();
                             <p class="w-75 d-none d-sm-block">
                                 <?= $mainBanner->description ?? '' ?>
                             </p>
-                            <!-- <button onclick="location.href = '<?= $mainBanner->product_link ?? '#' ?>';"
+                            <button onclick="location.href = '<?= $mainBanner->product_link ?? '#' ?>';"
                                 class="btn btn-animation mt-xxl-4 mt-2 home-button mend-auto">
                                 Shop Now <i class="fa-solid fa-right-long icon"></i>
-                            </button> -->
+                            </button>
                         </div>
                     </div>
                 </div>

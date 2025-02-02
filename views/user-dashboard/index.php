@@ -47,7 +47,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="tab-content" id="pills-tabContent">
 
                         <?php if ($controller == 'user-dashboard' && $action == 'index') { ?>
-                            <?= $this->render('components/_dashboard',[
+                            <?= $this->render('components/_dashboard', [
                                 'totalOrdersCount' => $totalOrdersCount,
                                 'completedCount' => $completedCount,
                                 'pendingCount' => $pendingCount,
@@ -56,7 +56,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         <?php } ?>
 
                         <?php if ($controller == 'user-dashboard' && $action == 'orders') { ?>
-                            <?= $this->render('components/_orders', ['orderItems'=> $orderItems]) ?>
+                            <?= $this->render('components/_orders', ['orderItems' => $orderItems]) ?>
                         <?php } ?>
 
                         <?php if ($controller == 'user-dashboard' && $action == 'address') { ?>
@@ -71,6 +71,17 @@ $this->params['breadcrumbs'][] = $this->title;
                             <?= $this->render('components/_security') ?>
                         <?php } ?>
 
+                        <?php if ($controller == 'user-dashboard' && $action == 'password') { ?>
+                            <?= $this->render('components/_password', ['model'=> $model]) ?>
+                        <?php } ?>
+
+                        <?php if ($controller == 'user-dashboard' && $action == 'phone') { ?>
+                            <?= $this->render('components/_phone', ['model' => $model]) ?>
+                        <?php } ?>
+
+                        <?php if ($controller == 'user-dashboard' && $action == 'email') { ?>
+                            <?= $this->render('components/_email',['model' => $model]) ?>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

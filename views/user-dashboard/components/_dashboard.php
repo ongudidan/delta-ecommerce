@@ -59,7 +59,7 @@
                  </div>
              </div>
          </div>
-
+<!-- 
          <div class="dashboard-title">
              <h3>Account Information</h3>
          </div>
@@ -78,7 +78,7 @@
                  </div>
              </div>
 
-             <!-- <div class="col-12">
+             <div class="col-12">
                  <div class="dashboard-contant-title">
                      <h4>Address Book <a href="javascript:void(0)" data-bs-toggle="modal"
                              data-bs-target="#editProfile">Edit</a></h4>
@@ -105,7 +105,7 @@
                          </div>
                      </div>
                  </div>
-             </div> -->
-         </div>
+             </div>
+         </div> -->
      </div>
  </div>

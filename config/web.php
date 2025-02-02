@@ -23,6 +23,12 @@ $config = [
         ],
     ],
     'components' => [
+        'redis' => [
+            'class' => 'yii\redis\Connection',
+            'hostname' => 'redis',  // Redis server hostname (replace with container name if using Docker)
+            'port' => 6379,         // Default Redis port
+            'database' => 0,        // Database number (default is 0)
+        ],
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'rtPgQRDW2IBADuJwYQ9OPAHjg-gHbITP',

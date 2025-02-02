@@ -25,12 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             <h5>Product-Category List</h5>
                             <div class="right-options">
                                 <ul>
-                                    <li>
-                                        <a href="javascript:void(0)">import</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Export</a>
-                                    </li>
+                                  
                                     <li>
                                         <a class="btn btn-solid" href="<?= Url::to(['/cms/product-category/create']) ?>">Add Product-Category</a>
                                     </li>
@@ -42,6 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <table class="table all-package theme-table table-product-category" id="table_id">
                                     <thead>
                                         <tr>
+                                            <th>#</th>
                                             <th>Thumbnail</th>
                                             <th>Name</th>
                                             <!-- <th>Status</th> -->
@@ -51,13 +47,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
                                     <tbody>
                                         <?php if ($dataProvider->getCount() > 0): ?>
-
                                             <?php foreach ($dataProvider->getModels() as $index => $row): ?>
                                                 <tr>
+                                                    <td><?= $index + 1 ?></td> <!-- Add the numbering column -->
                                                     <td>
                                                         <div class="table-image">
-                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid"
-                                                                alt="">
+                                                            <img src="/web/uploads/<?= $row->thumbnail ?>" class="img-fluid" alt="">
                                                         </div>
                                                     </td>
 
@@ -95,6 +90,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>

@@ -117,9 +117,9 @@ class ProductCategoryController extends Controller
                 $model->company_id = Yii::$app->user->identity->company_id;
 
                 if ($model->save()) {
-                    Yii::$app->session->setFlash('success', 'Brand created successfully.');
+                    Yii::$app->session->setFlash('success', 'Product-Category created successfully.');
 
-                    return $this->redirect(['view', 'id' => $model->id]);
+                    return $this->redirect(['index', 'id' => $model->id]);
                 } else {
                     // Capture model errors and set a flash message
                     $errors = implode('<br>', \yii\helpers\ArrayHelper::getColumn($model->getErrors(), 0));
@@ -209,6 +209,8 @@ class ProductCategoryController extends Controller
         }
 
         $model->delete();
+
+        Yii::$app->session->setFlash('success', 'Product-Category deleted successfully.');
 
         return $this->redirect(['index']);
     }

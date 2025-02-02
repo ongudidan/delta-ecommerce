@@ -11,7 +11,11 @@
          </div>
 
          <div class="order-contain">
-             <?php foreach ($orderItems as $row) { ?>
+             <?php
+
+                use yii\helpers\Url;
+
+                foreach ($orderItems as $row) { ?>
                  <div class="order-box dashboard-bg-box w-100 mb-3">
                      <div class="order-container d-flex justify-content-between align-items-center">
 
@@ -40,14 +44,14 @@
                                  <tr class="d-flex justify-content-between align-items-center">
                                      <!-- Product Image -->
                                      <td class="align-middle" style="width: 120px;">
-                                         <a href="product-left-thumbnail.html" class="order-image">
+                                         <a href="<?= Url::to(['/site/product-view', 'id' => $row->product_id]) ?>" class="order-image">
                                              <img src="/web/uploads/<?= $row->product->thumbnail ?>" class="img-fluid blur-up lazyload" alt="Product Image">
                                          </a>
                                      </td>
 
                                      <!-- Product Details -->
                                      <td class="align-middle d-flex flex-column flex-md-row justify-content-between">
-                                         <a href="product-left-thumbnail.html">
+                                         <a href="<?= Url::to(['/site/product-view', 'id' => $row->product_id]) ?>">
                                              <h3 class="mb-0"><?= $row->product->name ?></h3>
                                          </a>
                                      </td>

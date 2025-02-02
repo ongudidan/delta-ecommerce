@@ -32,20 +32,20 @@ if ($host === 'localhost:97' || strpos($host, 'ngrok-free') !== false) {
     ];
 } else {
     // Default fallback or other environments
-    // return [
-    //     'class' => 'yii\db\Connection',
-    //     'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
-    //     'username' => 'root',
-    //     'password' => 'root',
-    //     'charset' => 'utf8',
-    // ];
-
     return [
         'class' => 'yii\db\Connection',
-        'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
-        'username' => 'deltolxj_deltakosmetics',
-        'password' => 'M70()J%O_8Kk',
+        'dsn' => 'mysql:host=mariadb;dbname=delta-ecommerce',
+        'username' => 'root',
+        'password' => 'root',
         'charset' => 'utf8',
     ];
+
+    // return [
+    //     'class' => 'yii\db\Connection',
+    //     'dsn' => 'mysql:host=localhost;dbname=deltolxj_ecommerce',
+    //     'username' => 'deltolxj_deltakosmetics',
+    //     'password' => 'M70()J%O_8Kk',
+    //     'charset' => 'utf8',
+    // ];
 }
 

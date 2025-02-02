@@ -5,10 +5,12 @@ namespace app\controllers;
 use app\components\IdGenerator;
 use app\models\Order;
 use app\models\OrderItem;
+use app\models\User;
 use app\models\UserAddress;
 use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\web\NotFoundHttpException;
 
 class UserDashboardController extends \yii\web\Controller
 {
@@ -19,10 +21,10 @@ class UserDashboardController extends \yii\web\Controller
             [
                 'access' => [
                     'class' => AccessControl::class,
-                    'only' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address'],
+                    'only' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address', 'password', 'email', 'phone'],
                     'rules' => [
                         [
-                            'actions' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address'],
+                            'actions' => ['index', 'orders', 'profile', 'security', 'address', 'privacy', 'create-address', 'delete-address', 'password', 'email', 'phone'],
                             'allow' => true,
                             'roles' => ['@'],
                         ],
@@ -79,14 +81,107 @@ class UserDashboardController extends \yii\web\Controller
         ]);
     }
 
-    public function actionProfile()
+    // public function actionPassword()
+    // {
+    //     return $this->render('index');
+    // }
+
+    public function actionPassword()
     {
-        return $this->render('index');
+        $user = User::findOne(Yii::$app->user->id); // Fetch the currently logged-in user
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        $model = $user; // Reuse the User model for the form
+
+        // Define custom attributes for password fields
+        $model->scenario = 'changePassword';
+        $model->oldPassword = '';
+        $model->newPassword = '';
+        $model->confirmNewPassword = '';
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            // Verify the old password
+            if (!Yii::$app->security->validatePassword($model->oldPassword, $user->password_hash)) {
+                $model->addError('oldPassword', 'The old password is incorrect.');
+            } else {
+                // Update the password
+                $user->password_hash = Yii::$app->security->generatePasswordHash($model->newPassword);
+
+                if ($user->save()) {
+                    Yii::$app->session->setFlash('success', 'Password changed successfully.');
+                    return $this->refresh();
+                } else {
+                    Yii::$app->session->setFlash('error', 'Failed to change password. Please try again.');
+                }
+            }
+        }
+
+        return $this->render('index', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionSecurity()
+    // public function actionEmail()
+    // {
+    //     return $this->render('index');
+    // }
+
+    public function actionEmail()
     {
-        return $this->render('index');
+        $user = User::findOne(Yii::$app->user->id); // Fetch the currently logged-in user
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        // Set the scenario for updating the email
+        $user->scenario = 'updateEmail';
+
+        if ($user->load(Yii::$app->request->post()) && $user->validate()) {
+            if ($user->save()) {
+                Yii::$app->session->setFlash('success', 'Email address updated successfully.');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Failed to update email address. Please try again.');
+            }
+        }
+
+        return $this->render('index', [
+            'model' => $user,
+        ]);
+    }
+
+    // public function actionPhone()
+    // {
+    //     return $this->render('index');
+    // }
+
+    public function actionPhone()
+    {
+        $user = User::findOne(Yii::$app->user->id); // Fetch the currently logged-in user
+
+        if (!$user) {
+            throw new NotFoundHttpException('User not found.');
+        }
+
+        // Set the phone number as a required field for this operation
+        $user->scenario = 'updatePhone';
+
+        if ($user->load(Yii::$app->request->post()) && $user->validate()) {
+            if ($user->save()) {
+                Yii::$app->session->setFlash('success', 'Phone number updated successfully.');
+                return $this->refresh();
+            } else {
+                Yii::$app->session->setFlash('error', 'Failed to update phone number. Please try again.');
+            }
+        }
+
+        return $this->render('index', [
+            'model' => $user,
+        ]);
     }
 
     public function actionAddress()

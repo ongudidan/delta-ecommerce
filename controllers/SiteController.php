@@ -289,6 +289,33 @@ class SiteController extends Controller
         return $this->render('about');
     }
 
+    public function actionRedis()
+    {
+        // Check if the data exists in Redis
+        $productCategoriesData = Yii::$app->redis->get('key');
+
+        if ($productCategoriesData) {
+            // If data is found in Redis, decode it and convert to objects
+            $productCategoryObjects = array_map(fn($data) => new ProductCategory($data), json_decode($productCategoriesData, true));
+        } else {
+            // If data is not in Redis, fetch from the database
+            $productCategoriesData = ProductCategory::find()->asArray()->all();
+
+            // Set the data in Redis (serialize it)
+            Yii::$app->redis->set('key', json_encode($productCategoriesData));
+
+            // Convert the fetched data from the database to objects
+            $productCategoryObjects = array_map(fn($data) => new ProductCategory($data), $productCategoriesData);
+        }
+
+        // Return the objects as a JSON response
+        return $this->asJson(['value' => $productCategoryObjects]);
+    }
+
+
+
+
+
     /**
      * add product to cart.
      *

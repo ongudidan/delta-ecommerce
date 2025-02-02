@@ -50,7 +50,7 @@
                         ]) ?>
                  </div>
              </div>
-
+<!-- 
 
              <div class="mb-4 row align-items-center">
                  <label
@@ -106,7 +106,7 @@
                             ],
                         ]) ?>
                  </div>
-             </div>
+             </div> -->
 
          </form>
      </div>
